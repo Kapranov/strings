@@ -7,7 +7,7 @@ Strings - The String Theory Web Site
   * README.md
 
 1. [Backend][1]  - ``Ruby on Rails``, **v5.0.1**
-2. [Frontend][2] - ``Ember.js``, **v2.10.0**
+2. [Frontend][2] - ``Ember.js``, **v2.10.2**
 3. [Database][3] - ``Rethinkdb``, **v2.3**
 4. [Cache][4]    - ``Redis``, **v3.2.6**
 
