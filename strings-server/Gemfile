@@ -1,17 +1,11 @@
-source 'https://rubygems.org'
+rails_version = ENV["RAILS_VERSION"] || "default"
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
+rails = case rails_version
+        when "default"
+          "~> 5.0"
+        else
+          "~> #{rails_version}"
+        end
 
-gem 'rails', '~> 5.0.1'
-
-group :development do
-end
-
-group :development, :test do
-  gem 'byebug', platform: :mri
-end
-
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+version = ENV["RAILS_VERSION"] || '5.0'
+eval_gemfile File.expand_path("../gemfiles/#{version}.gemfile", __FILE__)
