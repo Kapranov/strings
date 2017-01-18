@@ -11,6 +11,7 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  config.action_dispatch.tld_length = 1
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.perform_caching = false
   config.active_support.deprecation = :log

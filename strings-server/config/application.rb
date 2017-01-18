@@ -16,5 +16,6 @@ Bundler.require(*Rails.groups)
 module StringsServer
   class Application < Rails::Application
     config.api_only = true
+    config.middleware.use Rack::Attack
   end
 end
