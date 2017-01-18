@@ -7,9 +7,9 @@ RUBYSERVICE := $(shell pgrep ruby)
 NGINXSERVICE := $(shell pgrep nginx)
 UNICORNSERVICE := $(shell pgrep unicorn)
 THINSERVICE := $(shell pgrep thin)
-ENV_DEVELOPMENT := 'development'
-ENV_PRODUCTION := 'production'
-ENV_TEST := 'test'
+DEVELOPMENT := 'development'
+PRODUCTION := 'production'
+TEST := 'test'
 
 default:
 	$(V)echo Please use \'make help\' or \'make ..any_parameters..\'
@@ -41,5 +41,5 @@ clean:
 	$(V)rm -rf Gemfile.lock
 
 start: kill_ruby nginx clean bundle
-	$(V)echo "\n\n\t  Start App $(ENV_DEVELOPMENT) Enviroment\n\n\t     $(LOCALSERVER)\n\n"
+	$(V)echo "\n\n\t  Start App $(DEVELOPMENT) Enviroment\n\n\t     $(LOCALSERVER)\n\n"
 	$(V)foreman start web
