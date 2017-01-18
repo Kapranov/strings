@@ -2,6 +2,7 @@ general: &general
   ACCESS_TOKEN:       'fdd110671210f2be353995806414f9d8'
   LOCALHOST:          'api.dev.local'
   RACK_CORS_ORIGINS:  'localhost:4200'
+  REDIS_URL:          'redis://localhost:6379/1/cache'
 
 development:
   <<: *general

@@ -7,9 +7,12 @@ end
 
 gem 'rails',                    '~> 5.0'
 gem 'active_model_serializers', '0.10.4'
+gem 'redis'
+gem 'redis-namespace'
+gem 'redis-rails'
+gem 'redis-rack-cache'
 gem 'rack-cors'
 gem 'rack-attack'
-gem 'redis-rails'
 gem 'sidekiq'
 gem 'figaro'
 
