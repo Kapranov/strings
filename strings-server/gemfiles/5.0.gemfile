@@ -16,8 +16,10 @@ gem 'redis-rack-cache'
 gem 'sidekiq'
 gem 'figaro'
 gem 'nobrainer'
+gem 'foreman'
 
 group :development do
+  gem 'subcontractor'
   gem 'faker'
   gem 'ffaker'
   gem 'letter_opener'
