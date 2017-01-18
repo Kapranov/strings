@@ -1,4 +1,6 @@
 class Rack::Attack
+  Rack::Attack.cache.store = ActiveSupport::Cache::RedisStore.new(Rails.application.secrets.redis_url, { expires_in: 480.minutes })
+
   safelist('allow-localhost') do |req|
     '127.0.0.1' == req.ip || '::1' == req.ip
   end
