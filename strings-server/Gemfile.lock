@@ -107,6 +107,10 @@ GEM
     jsonapi-renderer (0.1.1.beta1)
     jsonpath (0.5.8)
       multi_json
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -261,6 +265,7 @@ DEPENDENCIES
   faker
   ffaker
   figaro
+  letter_opener
   nobrainer
   pry-byebug
   pry-rails
