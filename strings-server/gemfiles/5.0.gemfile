@@ -15,6 +15,7 @@ gem 'redis-rails'
 gem 'redis-rack-cache'
 gem 'sidekiq'
 gem 'figaro'
+gem 'nobrainer'
 
 group :development do
   gem 'faker'

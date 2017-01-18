@@ -112,6 +112,7 @@ GEM
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
+    middleware (0.1.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
@@ -120,6 +121,12 @@ GEM
     multi_json (1.12.1)
     multi_test (0.1.2)
     nio4r (1.2.1)
+    nobrainer (0.33.0)
+      activemodel (>= 4.1.0)
+      activesupport (>= 4.1.0)
+      middleware (~> 0.1.0)
+      rethinkdb (>= 2.3.0)
+      symbol_decoration (~> 1.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     pry (0.10.4)
@@ -191,6 +198,7 @@ GEM
       redis-store (~> 1.2.0)
     redis-store (1.2.0)
       redis (>= 2.2)
+    rethinkdb (2.3.0.2)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -225,6 +233,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    symbol_decoration (1.1.0)
     thor (0.19.4)
     thread_safe (0.3.5)
     tzinfo (1.2.2)
@@ -252,6 +261,7 @@ DEPENDENCIES
   faker
   ffaker
   figaro
+  nobrainer
   pry-byebug
   pry-rails
   pry-stack_explorer
