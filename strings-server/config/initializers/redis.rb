@@ -1,1 +1,1 @@
-$redis = Redis::Namespace.new("strings_server", :redis => Redis.new)
+$redis = Redis::Namespace.new("strings_server", :redis => Redis.new, :driver => :synchrony)

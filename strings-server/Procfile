@@ -1,2 +1,1 @@
-# web: bundle exec rackup config.ru -p $PORT
 web: subcontract --rbenv . --chdir ../strings-server --signal INT -- bundle exec rackup config.ru -p $PORT &
