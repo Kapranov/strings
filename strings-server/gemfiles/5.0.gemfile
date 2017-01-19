@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails',                    '~> 5.0'
-# gem 'active_model_serializers', '0.10.4'
+gem 'active_model_serializers', '0.10.4'
 gem 'rack-cors'
 gem 'rack-attack'
 gem 'redis'
@@ -23,7 +23,6 @@ group :development do
   gem 'faker'
   gem 'ffaker'
   gem 'letter_opener'
-  gem 'web-console'
 end
 
 group :development, :test do

@@ -16,6 +16,7 @@ Bundler.require(*Rails.groups)
 module StringsServer
   class Application < Rails::Application
     config.api_only = true
-    config.middleware.use Rack::Attack
+    config.middleware.use Rack::Deflater
+    config.middleware.delete ActionDispatch::RequestId
   end
 end

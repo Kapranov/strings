@@ -20,6 +20,7 @@ development:
   DOMAIN_NAME:          'api.dev.local'
   LOCALHOST:            'api.dev.local:3000'
   HOST_IP:              '127.0.0.1'
+  PORT:                 '3000'
 
 test:
   <<: *general
@@ -28,6 +29,7 @@ test:
   DOMAIN_NAME:          'api.dev.local'
   LOCALHOST:            'api.dev.local:3000'
   HOST_IP:              '127.0.0.1'
+  PORT:                 '3000'
 
 production:
   <<: *general
@@ -36,3 +38,4 @@ production:
   DOMAIN_NAME:          'api.dev.local'
   LOCALHOST:            'api.dev.local'
   HOST_IP:              '127.0.0.1'
+  PORT:                 '80'

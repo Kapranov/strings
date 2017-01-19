@@ -8,11 +8,21 @@ Rails.application.configure do
     config.action_controller.perform_caching = false
     config.cache_store = :null_store
   end
+  config.action_dispatch.tld_length = 1
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
   config.action_dispatch.show_exceptions = false
   config.action_controller.allow_forgery_protection = false
+  config.action_mailer.default_url_options = {
+    host: Rails.application.secrets.domain_name,
+    port: Rails.application.secrets.port
+  }
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :test
   config.active_support.deprecation = :stderr
+
+  config.after_initialize do
+    Rails.application.default_url_options[:host] = Rails.application.secrets.localhost
+    Rails.application.routes.default_url_options[:host] = Rails.application.secrets.localhost
+  end
 end
