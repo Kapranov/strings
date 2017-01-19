@@ -1,4 +1,7 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web, at: '/sidekiq'
   get 'upgrade/index'
   get 'snippets/index'
   root to: 'snippets#index'
