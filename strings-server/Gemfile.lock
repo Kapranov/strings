@@ -48,6 +48,7 @@ GEM
     arel (7.1.4)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    browser (2.3.0)
     builder (3.2.3)
     byebug (9.0.6)
     capybara (2.11.0)
@@ -266,6 +267,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (= 0.10.4)
+  browser
   byebug
   cucumber-api-steps
   cucumber-rails

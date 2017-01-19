@@ -18,6 +18,7 @@ gem 'figaro'
 gem 'nobrainer'
 gem 'nobrainer_streams'
 gem 'foreman'
+gem 'browser'
 
 group :development do
   gem 'subcontractor'

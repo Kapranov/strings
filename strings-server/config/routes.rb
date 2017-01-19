@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'upgrade/index'
   get 'snippets/index'
   root to: 'snippets#index'
   constraints subdomain: 'api' do
