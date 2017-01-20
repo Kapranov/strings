@@ -1,4 +1,6 @@
 class SnippetsController < ApplicationController
+  # after_action :fetch_snippets
+
   def index
     # fetch_snippets
     render plain: "Everyone can see me!"

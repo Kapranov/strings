@@ -4,9 +4,8 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   if ENV['REDIS_URL']
+    config.cache_store = :redis_store, Rails.application.secrets.redis_url, { expires_in: 90.minutes }
     config.action_controller.perform_caching = true
-    # config.cache_store = :redis_store, Rails.application.secrets.redis_url, { expires_in: 90.minutes }
-    config.cache_store = :redis_store, ENV['REDIS_URL']
   else
     config.action_controller.perform_caching = false
     config.cache_store = :null_store
