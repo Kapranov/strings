@@ -1,2 +1,4 @@
 # web: bundle exec puma -C config/puma.rb
+# web: bundle exec puma -p $PORT -e $RACK_ENV
+# worker: bundle exec sidekiq
 web: subcontract --rbenv . --chdir ../strings-server --signal INT -- bundle exec rackup config.ru -p $PORT &

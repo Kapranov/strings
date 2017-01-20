@@ -54,7 +54,7 @@ kill_redis_browser:
 	$(V)if [ "$(REDISBROWSERSERVICE)" ]; then killall redis_browser && echo "Running Redis Browser Killed"; else echo "No Running Redis Browser!"; fi
 
 start_sidekiq: kill_sidekiq
-	$(V)bundle exec sidekiq
+	$(V)bundle exec sidekiq -C config/sidekiq.yml
 
 kill_sidekiq:
 	$(V)echo "\nChecking to see if SIDEKIQ process exists:\n"
