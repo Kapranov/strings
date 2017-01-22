@@ -109,6 +109,9 @@ GEM
     hashie (3.4.6)
     hiredis (0.6.1)
     i18n (0.7.0)
+    jbuilder (2.6.1)
+      activesupport (>= 3.0.0, < 5.1)
+      multi_json (~> 1.2)
     jsonapi (0.1.1.beta6)
       jsonapi-parser (= 0.1.1.beta3)
       jsonapi-renderer (= 0.1.1.beta1)
@@ -297,6 +300,7 @@ DEPENDENCIES
   figaro
   foreman
   hiredis
+  jbuilder
   letter_opener
   listen (~> 3.1)
   nobrainer

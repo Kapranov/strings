@@ -23,6 +23,7 @@ gem 'nobrainer'
 gem 'nobrainer_streams'
 gem 'foreman'
 gem 'browser'
+gem 'jbuilder'
 
 group :development do
   gem 'subcontractor'
