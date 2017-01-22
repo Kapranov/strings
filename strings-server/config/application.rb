@@ -18,5 +18,6 @@ module StringsServer
     config.api_only = true
     config.middleware.use Rack::Deflater
     config.middleware.delete ActionDispatch::RequestId
+    config.active_job.queue_adapter = :sidekiq
   end
 end
