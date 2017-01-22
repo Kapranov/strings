@@ -3,8 +3,7 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
   get 'upgrade/index'
-  get 'snippets/index'
-  root to: 'snippets#index'
+  root to: 'upgrade#index'
   constraints subdomain: 'api' do
     scope module: 'api' do
       namespace :v1 do

@@ -4,7 +4,7 @@ connections:
   development:
     url: redis://127.0.0.1:6379/1
   production:
-    host: mydomain.com
+    host: api.dev.local
     port: 6666
     db: 1
     auth: password

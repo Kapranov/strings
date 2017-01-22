@@ -165,6 +165,8 @@ GEM
     rack (2.0.1)
     rack-attack (5.0.1)
       rack
+    rack-cache (1.6.1)
+      rack (>= 0.4)
     rack-cors (0.4.0)
     rack-protection (1.5.3)
       rack
@@ -210,6 +212,9 @@ GEM
     redis-rack (2.0.0)
       rack (~> 2.0)
       redis-store (~> 1.2.0)
+    redis-rack-cache (2.0.0)
+      rack-cache (~> 1.6.0)
+      redis-store (~> 1.2.0.pre)
     redis-rails (5.0.1)
       redis-actionpack (~> 5.0.0)
       redis-activesupport (~> 5.0.0)
@@ -303,7 +308,9 @@ DEPENDENCIES
   rack-attack
   rack-cors
   rails (~> 5.0)
+  redis
   redis-namespace
+  redis-rack-cache
   redis-rails
   rspec-rails
   seed-fu
