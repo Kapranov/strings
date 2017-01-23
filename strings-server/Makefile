@@ -68,6 +68,9 @@ kill_servers:
 	$(V)sudo service redis_6379 stop
 	$(V)sudo service rethinkdb stop
 
+create_index:
+	$(V)rake nobrainer:sync_indexes
+
 start: kill_ruby nginx clean bundle start_sidekiq start_redis_browser
 	$(V)echo "\n\n\t  Start App $(DEVELOPMENT) Enviroment\n\n\t     $(LOCALSERVER)\n\n"
 	$(V)foreman start web

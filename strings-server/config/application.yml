@@ -6,7 +6,7 @@ general: &general
 
 rethinkdb: &rethinkdb
   RETHINKDB_DB:         'strings'
-  RETHINKDB_URL:        'rethinkdb://127.0.0.1/strings'
+  RETHINKDB_URL:        'rethinkdb://localhost:28015/strings'
   RETHINKDB_HOST:       '127.0.0.1'
   RETHINKDB_PORT:       '28015'
   RETHINKDB_AUTH:       'rethinkdb://kapranov:9c838683-fa89-51fc-862c-9b423eb0c291@127.0.0.1:28015/strings'

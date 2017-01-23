@@ -1,5 +1,5 @@
 class ApplicationJob < ActiveJob::Base
-  self.queue_adapter = :resque
+  self.queue_adapter = :sidekiq
   queue_as :default
 
   before_enqueue do |job|

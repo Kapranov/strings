@@ -16,4 +16,4 @@ class HardWorker
   end
 end
 
-HardWorker.perform_async(hard)
+HardWorker.perform_async(@complexity)
