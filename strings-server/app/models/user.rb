@@ -26,7 +26,7 @@ class User
   validates :email,           presence: true
   validates :description,     presence: true
 
-  before_validation :access_token, on: [:create]
+  before_validation :access_token, on: [:create], unless: :token
 
   def access_token
     if token.blank?
@@ -48,7 +48,8 @@ class User
   end
 
   def token_generator
-    SecureRandom.hex(25)
+    # SecureRandom.hex(25)
+    SecureRandom.base64(25).tr('+/=', 'Qrt')
   end
 
   def generate_token
