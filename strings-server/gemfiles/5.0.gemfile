@@ -26,6 +26,10 @@ gem 'foreman'
 gem 'browser'
 gem 'jbuilder'
 
+# gem "refile", require: "refile/rails"
+# gem "refile-mini_magick"
+# gem "refile-nobrainer"
+
 group :development do
   gem 'subcontractor'
   gem 'faker'

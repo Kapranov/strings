@@ -16,6 +16,7 @@ module StringsServer
     config.api_only = true
     config.middleware.use Rack::Deflater
     config.middleware.delete ActionDispatch::RequestId
+    config.middleware.delete Rack::Lock
     config.active_job.queue_adapter = :sidekiq
     config.time_zone = 'Eastern Time (US & Canada)'
     config.exceptions_app = self.routes
