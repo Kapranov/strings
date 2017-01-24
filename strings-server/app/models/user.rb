@@ -31,6 +31,7 @@ class User
   def access_token
     if token.blank?
       self.token = generate_authentication_token(token_generator)
+      Rails.logger.info("Set new token for user #{ id }")
     end
   end
 
