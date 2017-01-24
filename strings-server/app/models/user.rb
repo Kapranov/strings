@@ -29,10 +29,9 @@ class User
   before_validation :access_token, on: [:create], unless: :token
 
   def access_token
-    if token.blank?
-      self.token = generate_authentication_token(token_generator)
-      Rails.logger.info("Set new token for user #{ id }")
-    end
+    return if token.present?
+    self.token = generate_authentication_token(token_generator)
+    Rails.logger.info("Set new token for user #{ id }")
   end
 
   private
