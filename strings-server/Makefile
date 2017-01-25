@@ -71,6 +71,9 @@ kill_servers:
 create_index:
 	$(V)rake nobrainer:sync_indexes
 
-start: kill_ruby nginx clean bundle start_sidekiq start_redis_browser
+reset_db:
+	$(V)rake nobrainer:reset
+
+start: kill_ruby nginx clean bundle reset_db
 	$(V)echo "\n\n\t  Start App $(DEVELOPMENT) Enviroment\n\n\t     $(LOCALSERVER)\n\n"
 	$(V)foreman start web

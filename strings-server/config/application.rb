@@ -20,5 +20,6 @@ module StringsServer
     config.active_job.queue_adapter = :sidekiq
     config.time_zone = 'Eastern Time (US & Canada)'
     config.exceptions_app = self.routes
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

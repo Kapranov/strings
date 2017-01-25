@@ -11,22 +11,40 @@ class User
   field :middle_name,     type: String,             required: true, min_length: 2
   field :password_digest, type: String,             required: true, min_length: 8
   field :token,           type: String, uniq: true, required: true, min_length: 25
-  field :email,           type: String,             required: true
+  field :email,           type: String,             required: true, min_length: 5
   field :description,     type: Text,               required: true, min_length: 5
 
   index :token
 
   has_secure_password
 
-  validates :first_name,      presence: true
-  validates :last_name,       presence: true
-  validates :middle_name,     presence: true
-  validates :password_digest, presence: true
-  validates :token,           presence: true
-  validates :email,           presence: true
-  validates :description,     presence: true
+  validates :first_name,      presence: true, length: { minimum: 4, allow_blank: false }
+  validates :last_name,       presence: true, length: { minimum: 4, allow_blank: false }
+  validates :middle_name,     presence: true, length: { minimum: 2, allow_blank: false }
+  validates :password_digest, presence: { on: :create }, length: { minimum: 8, allow_blank: false }
+  validates :token,           presence: true, length: { minimum: 25, allow_blank: false }
+  validates :email,           presence: true, length: { minimum: 5,  allow_blank: false }
+  validates :description,     presence: true, length: { minimum: 5,  allow_blank: false }
 
   before_validation :access_token, on: [:create], unless: :token
+
+  ROLES = {
+    REGULAR: 1,
+    ADMIN: 2,
+    MANAGER: 3
+  }
+
+  def is_regular
+    self.id_role == ROLES[:REGULAR]
+  end
+
+  def is_admin
+    self.id_role == ROLES[:ADMIN]
+  end
+
+  def is_manager
+    self.id_role == ROLES[:MANAGER]
+  end
 
   def access_token
     return if token.present?

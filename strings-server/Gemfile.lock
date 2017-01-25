@@ -120,6 +120,7 @@ GEM
     jsonapi-renderer (0.1.1.beta1)
     jsonpath (0.5.8)
       multi_json
+    jwt (1.5.6)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.4.1)
@@ -253,6 +254,8 @@ GEM
     seed-fu (2.3.6)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
+    shoulda-matchers (3.1.1)
+      activesupport (>= 4.0.0)
     sidekiq (4.2.9)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -303,8 +306,9 @@ DEPENDENCIES
   foreman
   hiredis
   jbuilder
+  jwt
   letter_opener
-  listen (~> 3.1)
+  listen
   nobrainer
   nobrainer_streams
   pry-byebug
@@ -320,10 +324,13 @@ DEPENDENCIES
   redis-rails
   rspec-rails
   seed-fu
+  shoulda-matchers
   sidekiq
   sidekiq-scheduler
   subcontractor
-  tzinfo-data
+
+RUBY VERSION
+   ruby 2.3.3p222
 
 BUNDLED WITH
-   1.13.7
+   1.14.3

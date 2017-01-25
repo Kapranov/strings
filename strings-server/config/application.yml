@@ -4,6 +4,18 @@ general: &general
   REDIS_URL:            'redis://localhost:6379/1/cache'
   DEFAULT_EMAIL_REPLY:  'do-not-reply@example.com'
 
+admin: &admin
+ ADMIN_FIRST_NAME:      'Oleg'
+ ADMIN_LAST_NAME:       'Kapranov'
+ ADMIN_MIDDLE_NAME:     'G.'
+ ADMIN_EMAIL:           'lugatex@yahoo.com'
+ ADMIN_PASSWORD:        '12345678'
+ ADMIN_DESCRIPTION:     'Hello World!'
+
+mail: &mail
+ EMAIL_USERNAME:        'kapranov.lugatex'
+ EMAIL_PASSWORD:        '12345678'
+
 rethinkdb: &rethinkdb
   RETHINKDB_DB:         'strings'
   RETHINKDB_URL:        'rethinkdb://localhost:28015/strings'
@@ -16,6 +28,8 @@ rethinkdb: &rethinkdb
 development:
   <<: *general
   <<: *rethinkdb
+  <<: *mail
+  <<: *admin
   SECRET_KEY_BASE:      '4186a496111d2676c1af219b821fd509af0fb3135c9f08b02239f7a273720557765c494bd9559e6a2158b0de34caef144443b9793275284fdb683028e56695a8'
   DOMAIN_NAME:          'api.dev.local'
   LOCALHOST:            'api.dev.local:3000'
@@ -25,6 +39,8 @@ development:
 test:
   <<: *general
   <<: *rethinkdb
+  <<: *mail
+  <<: *admin
   SECRET_KEY_BASE:      'feb661ead03e176042f05d93f98312d3d5abe63002201cd00fe0145b86280883eea94a03081874032f7bd45cf9dbb69fc393d60626dcc222e0a122d30d64c475'
   DOMAIN_NAME:          'api.dev.local'
   LOCALHOST:            'api.dev.local:3000'
@@ -34,6 +50,8 @@ test:
 production:
   <<: *general
   <<: *rethinkdb
+  <<: *mail
+  <<: *admin
   SECRET_KEY_BASE:      '83572744e11a3ad35192159a2a8a7e39ce6fc423a2c20f3f8d3f80d34224b8fd0ec80bdd0d0be539aea5699d6c8a70596b1c075739e2e5e5b2a84d2a61c038db'
   DOMAIN_NAME:          'api.dev.local'
   LOCALHOST:            'api.dev.local'

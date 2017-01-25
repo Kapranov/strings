@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby File.read('.ruby-version').strip
+
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -25,6 +27,7 @@ gem 'nobrainer_streams'
 gem 'foreman'
 gem 'browser'
 gem 'jbuilder'
+gem 'jwt'
 
 # gem "refile", require: "refile/rails"
 # gem "refile-mini_magick"
@@ -36,18 +39,17 @@ group :development do
   gem 'ffaker'
   gem 'seed-fu'
   gem 'letter_opener'
-  gem 'listen',                 '~> 3.1'
+  gem 'listen'
 end
 
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails'
+  gem 'shoulda-matchers',   require: false
   gem 'factory_girl_rails'
-  gem 'cucumber-rails',     :require => false
-  gem 'cucumber-api-steps', :require => false
+  gem 'cucumber-rails',     require: false
+  gem 'cucumber-api-steps', require: false
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
 end
-
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
