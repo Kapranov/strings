@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="User" skipped="0" failures="0" errors="0" tests="1" assertions="1" time="0.08800357199970676">
-  <testcase name="test_0001_no debe ser válido" classname="User" assertions="1" time="0.08800357199970676">
+<testsuite name="User" skipped="0" failures="0" errors="0" tests="1" assertions="1" time="0.09751474399990911">
+  <testcase name="test_0001_no debe ser válido" classname="User" assertions="1" time="0.09751474399990911">
   </testcase>
 </testsuite>

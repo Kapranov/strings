@@ -25,6 +25,7 @@ module StringsServer
 
     config.generators do |g|
       g.test_framework :minitest, spec: true, fixture: true, fixture_replacement: :factory_girl
+      g.fixture_replacement :factory_girl, dir: 'test/fixtures'
     end
   end
 end
