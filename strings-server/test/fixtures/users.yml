@@ -1,0 +1,26 @@
+one:
+  first_name: MyString
+  last_name: MyString
+  middle_name: MyString
+  password_digest: MyString
+  email: MyString
+  token: MyString
+  description: MyText
+
+two:
+  first_name: MyString
+  last_name: MyString
+  middle_name: MyString
+  password_digest: MyString
+  email: MyString
+  token: MyString
+  description: MyText
+
+three:
+  first_name: MyString
+  last_name: MyString
+  middle_name: MyString
+  password_digest: MyString
+  email: MyString
+  token: MyString
+  description: MyText

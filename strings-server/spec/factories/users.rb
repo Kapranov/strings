@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :user do
-    first_name "MyString"
-    last_name "MyString"
-    middle_name "MyString"
-    password_digest "MyString"
-    email "MyString"
-    token "MyString"
-    description "MyText"
+    first_name {"#{FFaker::Name.first_name}"}
+    last_name {"#{FFaker::Name.last_name}"}
+    middle_name {"#{FFaker::Name.other_prefix}"}
+    password_digest {"#{FFaker::Internet.password}"}
+    email {"#{FFaker::Internet.email}"}
+    token {"#{SecureRandom.base64(25).tr('+/=', 'Qrt')}"}
+    description {"#{FFaker::Lorem.phrase}"}
   end
 end

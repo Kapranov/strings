@@ -1,7 +1,5 @@
-module Api::V1
-  class UsersController < ApplicationController
-    def index
-      render json: {}
-    end
+class API::V1::UsersController < ApplicationController
+  def index
+    render json: {}
   end
 end

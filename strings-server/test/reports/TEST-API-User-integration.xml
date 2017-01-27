@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="API User integration" skipped="0" failures="0" errors="0" tests="1" assertions="0" time="0.0001308330001847935">
+  <testcase name="test_0001_should list users index" classname="API User integration" assertions="0" time="0.0001308330001847935">
+  </testcase>
+</testsuite>
