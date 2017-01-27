@@ -50,6 +50,7 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    brakeman (3.4.1)
     browser (2.3.0)
     builder (3.2.3)
     byebug (9.0.6)
@@ -111,9 +112,6 @@ GEM
     hashie (3.4.6)
     hiredis (0.6.1)
     i18n (0.7.0)
-    jbuilder (2.6.1)
-      activesupport (>= 3.0.0, < 5.1)
-      multi_json (~> 1.2)
     jsonapi (0.1.1.beta6)
       jsonapi-parser (= 0.1.1.beta3)
       jsonapi-renderer (= 0.1.1.beta1)
@@ -162,6 +160,7 @@ GEM
       rethinkdb (~> 2.3)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
+    oj (2.18.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -305,6 +304,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (= 0.10.4)
   bcrypt
+  brakeman
   browser
   byebug
   cucumber-api-steps
@@ -316,14 +316,15 @@ DEPENDENCIES
   figaro
   foreman
   hiredis
-  jbuilder
   jwt
   letter_opener
   listen
   minitest-rails
   minitest-reporters
+  multi_json
   nobrainer
   nobrainer_streams
+  oj
   pry-byebug
   pry-rails
   pry-stack_explorer

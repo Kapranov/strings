@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="API::UsersController" skipped="0" failures="0" errors="0" tests="1" assertions="1" time="0.004693043999395741">
-  <testcase name="test_0001_#index go to the page" classname="API::UsersController" assertions="1" time="0.004693043999395741">
+<testsuite name="API::UsersController" skipped="0" failures="0" errors="0" tests="1" assertions="1" time="0.1284760889975587">
+  <testcase name="test_0001_#index go to the page" classname="API::UsersController" assertions="1" time="0.1284760889975587">
   </testcase>
 </testsuite>

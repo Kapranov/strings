@@ -8,7 +8,9 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails',                    '~> 5.0'
-gem 'bcrypt'
+gem 'multi_json'
+gem 'oj'
+# gem 'yajl-ruby', require: 'yajl'
 gem 'active_model_serializers', '0.10.4'
 gem 'puma'
 gem 'rack-cors'
@@ -26,7 +28,7 @@ gem 'nobrainer'
 gem 'nobrainer_streams'
 gem 'foreman'
 gem 'browser'
-gem 'jbuilder'
+gem 'bcrypt'
 gem 'jwt'
 
 # gem "refile"
@@ -40,6 +42,7 @@ group :development do
   gem 'seed-fu',                '~> 2.3'
   # gem 'rails_real_favicon'
   gem 'letter_opener'
+  gem "brakeman", :require => false
   gem 'listen'
 end
 

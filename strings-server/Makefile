@@ -74,6 +74,9 @@ create_index:
 reset_db:
 	$(V)rake nobrainer:reset
 
+brakeman:
+	$(V)brakeman
+
 start_test: clean
 	$(V)rake test
 
