@@ -1,20 +1,28 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  get 'upgrade/index'
-  root to: 'upgrade#index'
   mount Sidekiq::Web, at: '/sidekiq'
+
+  get 'upgrade/index'
+
+  root to: 'upgrade#index'
+
+  namespace :api do
+    resources :users
+  end
+
   constraints subdomain: 'api' do
     scope module: 'api' do
       namespace :v1 do
-        # Version #1
+        # resources :users
       end
       namespace :v2 do
-        # Version #2
+        # resources :users
       end
       namespace :v3 do
-        # Version #3
       end
+        # resources :users
     end
   end
+
 end

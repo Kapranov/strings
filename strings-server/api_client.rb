@@ -6,7 +6,7 @@ client = Faraday.new(url: 'http://localhost:3000') do |config|
 end
 
 response = client.post do |req|
-  req.url '/api/v1/users'
+  req.url '/api/users'
   req.headers['Content-Type'] = 'application/json'
   req.body = '{ "user": {"first_name": "test user"} }'
 end

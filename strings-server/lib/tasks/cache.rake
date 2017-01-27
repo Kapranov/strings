@@ -1,7 +1,7 @@
 namespace :cache do
   namespace :clear do
-    REDIS_CLEAR_BATCH_SIZE = 1000 # There seems to be no speedup when pushing beyond 1,000
-    REDIS_SCAN_START_STOP = '0'   # Magic value, see http://redis.io/commands/scan
+    REDIS_CLEAR_BATCH_SIZE = 1000
+    REDIS_SCAN_START_STOP = '0'
 
     desc "Strings | Clear redis cache"
     task redis: :environment do

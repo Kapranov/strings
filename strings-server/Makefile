@@ -45,7 +45,7 @@ clean:
 	$(V)clear
 	$(V)bundle exec rake tmp:clear
 	$(V)bundle exec rake log:clear
-	$(V)rm -rf Gemfile.lock
+	$(V)rake nobrainer:reset
 
 start_redis_browser: kill_redis_browser
 	$(V)redis-browser --config config/redis_browser.yml
@@ -73,6 +73,9 @@ create_index:
 
 reset_db:
 	$(V)rake nobrainer:reset
+
+start_test: clean
+	$(V)rake test
 
 start: kill_ruby nginx clean bundle reset_db
 	$(V)echo "\n\n\t  Start App $(DEVELOPMENT) Enviroment\n\n\t     $(LOCALSERVER)\n\n"

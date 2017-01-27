@@ -1,7 +1,4 @@
-# Find a comment from a user with 'bob' in its name sorted by the name.
-# Note: NoBrainer will use the :name index from User by default
 # User.where(:name => /bob/).order_by(:name => :desc).to_a
-
 # User.find "4M39V517kzBSpG"
 # User.where(:first_name => /Oleg/).order_by(:first_name => :desc).to_a
 # User.where(:isActive => false).sample(2)
@@ -13,16 +10,20 @@
 # sample(n)
 # merge() merge!()
 
-# rake nobrainer:sync_schema
-# rake nobrainer:sync_indexes
-# rake db:update_indexes
+# bash> rake nobrainer:sync_indexes
+# bash> rake nobrainer:sync_schema
+# bash> rake db:update_indexes
 # console> NoBrainer.update_indexes
 # console> Model.perform_update_indexes
 
 # r.table('users').filter(lambda user: r.expr([1,2,3]).contains(user['id']) & (user['active'] == 1))
 # r.table('users').filter(lambda user: r.all(r.expr([1,2,3]).contains(user['id']), user['active'] == 1))
 
-# rake nobrainer:sync_indexes
+# def index @users = User.where(:ranking.ne => 0).order_by(:ranking => :asc).limit(300).all; end
+# token='BW4wU7g52VMyGEGtQn83VOIEy0IFG8dpKAtt'
+# User.where(token: token.to_s).limit(1).to_a.first
+
+# bash> rake nobrainer:sync_indexes
 # User.create(first_name: 'Oleg', last_name: 'Kapranov', middle_name: 'G.', password: '12345678', email: 'lugatex@yahoo.com', description: 'Hello Wolrd!')
 
 if Rails.env.development?

@@ -2,7 +2,6 @@ class User
   include NoBrainer::Document
   include NoBrainer::Document::Timestamps
   include ActiveModel::SecurePassword
-  # include ActiveModel::Serializers::Xml
 
   self.include_root_in_json = true
 
@@ -28,24 +27,6 @@ class User
 
   before_validation :access_token, on: [:create], unless: :token
 
-  ROLES = {
-    REGULAR: 1,
-    ADMIN: 2,
-    MANAGER: 3
-  }
-
-  def is_regular
-    self.id_role == ROLES[:REGULAR]
-  end
-
-  def is_admin
-    self.id_role == ROLES[:ADMIN]
-  end
-
-  def is_manager
-    self.id_role == ROLES[:MANAGER]
-  end
-
   def access_token
     return if token.present?
     self.token = generate_authentication_token(token_generator)
@@ -66,7 +47,6 @@ class User
   end
 
   def token_generator
-    # SecureRandom.hex(25)
     SecureRandom.base64(25).tr('+/=', 'Qrt')
   end
 

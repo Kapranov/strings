@@ -29,7 +29,7 @@ gem 'browser'
 gem 'jbuilder'
 gem 'jwt'
 
-# gem "refile", require: "refile/rails"
+# gem "refile"
 # gem "refile-mini_magick"
 # gem "refile-nobrainer"
 
@@ -37,18 +37,21 @@ group :development do
   gem 'subcontractor'
   gem 'faker'
   gem 'ffaker'
-  gem 'seed-fu'
+  gem 'seed-fu',                '~> 2.3'
+  # gem 'rails_real_favicon'
   gem 'letter_opener'
   gem 'listen'
 end
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'minitest-rails'
   gem 'rspec-rails'
   gem 'shoulda-matchers',   require: false
-  gem 'factory_girl_rails'
   gem 'cucumber-rails',     require: false
   gem 'cucumber-api-steps', require: false
+  gem 'factory_girl_rails'
+  gem 'random-word'
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'

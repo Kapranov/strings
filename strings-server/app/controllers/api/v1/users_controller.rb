@@ -1,2 +1,7 @@
-class Api::V1::UsersController < ApplicationController
+module Api::V1
+  class UsersController < ApplicationController
+    def index
+      render json: {}
+    end
+  end
 end
