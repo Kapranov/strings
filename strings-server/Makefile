@@ -77,6 +77,9 @@ reset_db:
 brakeman:
 	$(V)brakeman
 
+server:
+	$(V)ruby -run -e httpd . -p 3000
+
 start_test: clean
 	$(V)rake test
 
