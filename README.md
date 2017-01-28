@@ -11,7 +11,7 @@ Strings - The String Theory Web Site
 3. [Database][3] - ``Rethinkdb``, **v2.3**
 4. [Cache][4]    - ``Redis``, **v3.2.6**
 
-### 27 Jan 2017 Oleg G.Kapranov
+### 28 Jan 2017 Oleg G.Kapranov
 
 [1]: http://rubyonrails.org/
 [2]: http://emberjs.com/

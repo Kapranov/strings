@@ -1,7 +1,9 @@
 > Rails migrations in non-Rails (and non Ruby) projects.
 
 [https://github.com/thuss/standalone-migrations](DB in non Rails)
+
 [https://github.com/andhapp/activerecord_sans_rails](Activerecord in non-Rails)
+
 [http://sequel.jeremyevans.net/](Sequel - The Database Toolkit for Ruby)
 
 
