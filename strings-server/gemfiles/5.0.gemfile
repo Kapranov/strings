@@ -8,6 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails',                    '~> 5.0'
+gem 'rack',                     '> 2' if RUBY_VERSION < '2.3.3'
 gem 'multi_json'
 gem 'oj'
 # gem 'yajl-ruby', require: 'yajl'
