@@ -74,6 +74,9 @@ create_index:
 reset_db:
 	$(V)rake nobrainer:reset
 
+start_guard:
+	$(V)bundle exec guard
+
 brakeman:
 	$(V)brakeman
 
