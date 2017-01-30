@@ -13,7 +13,6 @@ class User
   field :email,           type: String,             required: true, min_length: 5
   field :description,     type: Text,               required: true, min_length: 5
 
-  # field :uid              type: String
   # field :image_url        type: String
   # field :token_expires_at type: DateTime
 

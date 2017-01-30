@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Api User integration" skipped="0" failures="0" errors="0" tests="1" assertions="0" time="0.0001534669991087867">
-  <testcase name="test_0001_should list users index" classname="Api User integration" assertions="0" time="0.0001534669991087867">
-  </testcase>
-</testsuite>

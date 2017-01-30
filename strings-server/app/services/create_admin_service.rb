@@ -11,5 +11,5 @@ class CreateAdminService
     email: Rails.application.secrets.admin_email.to_s,
     description: Rails.application.secrets.admin_description.to_s
   end
-  puts "Destroy all Users: #{User.count}"
+  puts "Destroy  Users: #{User.count}"
 end
