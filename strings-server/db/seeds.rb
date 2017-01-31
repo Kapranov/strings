@@ -32,6 +32,8 @@ if Rails.env.development?
   puts 'CREATED ADMIN USER: ' << user.email
   puts "--------Creating Movie Data-----------"
   movie = CreateMovieService.new.call
+  puts "--------Creating Github Data----------"
+  # github_issue = CreateGithubIssueService.new.call
   puts "----------Seeding Data----------------"
 end
 

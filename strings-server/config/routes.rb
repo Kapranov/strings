@@ -2,14 +2,16 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  mount Sidekiq::Web, at: '/sidekiq'
+  if Rails.env.development?
+    mount Sidekiq::Web, at: '/sidekiq'
+  end
 
   get 'upgrade/index'
 
   #root to: 'upgrade#index'
 
   namespace :api do
-    resources :users
+    resources :users, only: [:index], defaults: {format: 'json'}
   end
 
   constraints subdomain: 'api' do
