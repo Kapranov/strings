@@ -33,7 +33,7 @@ if Rails.env.development?
   puts "--------Creating Movie Data-----------"
   movie = CreateMovieService.new.call
   puts "-------Creating Github Issues---------"
-  # github_issue = CreateGithubIssueService.new.call
+  #github_issue = CreateGithubIssueService.new.call
   puts "---------Seeding Data End-------------"
 end
 
