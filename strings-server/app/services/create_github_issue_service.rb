@@ -3,14 +3,14 @@ require 'rest-client'
 
 class CreateMovieService
   def call
-    url = "https://api.github.com/users/kapranov"
+    url = "https://api.github.com/users/"
     issues = [
       "kapranov",
       "wycats",
       "tomdale"
     ]
     issues.each do |issue|
-      request = RestClient.get(url, { params: {t: issue, r: :json}})
+      request = RestClient.get(url + issue, { params: {t: issue, r: :json}})
       issue_json = JSON.parse(request.body, object_class: OpenStruct)
       issue = GithubIssue.create!(
         login:                issue_json.login,
@@ -44,7 +44,7 @@ class CreateMovieService
         created_at:           issue_json.created_at,
         updated_at:           issue_json.updated_at
       )
-      puts "Created Movie: #{Movie.count}"
+      puts "Created Issue: #{GithubIssue.count}"
     end
     puts "--------------------------------------"
     puts " Created a total :#{GithubIssue.count}"

@@ -32,9 +32,9 @@ if Rails.env.development?
   puts 'CREATED ADMIN USER: ' << user.email
   puts "--------Creating Movie Data-----------"
   movie = CreateMovieService.new.call
-  puts "--------Creating Github Data----------"
+  puts "-------Creating Github Issues---------"
   # github_issue = CreateGithubIssueService.new.call
-  puts "----------Seeding Data----------------"
+  puts "---------Seeding Data End-------------"
 end
 
 if Rails.env.test?
