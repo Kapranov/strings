@@ -1,3 +1,5 @@
-web: subcontract --rbenv . --chdir ../strings-server --signal INT -- bundle exec rackup config.ru -p $PORT
-#job: bundle exec rake jobs:work
-sid: bundle exec sidekiq  2>&1 | logger -t sidekiq
+# web: subcontract --rbenv . --chdir ../strings-server --signal INT -- bundle exec rackup config.ru -p $PORT &
+# job: bundle exec rake jobs:work
+# sid: bundle exec sidekiq  2>&1 | logger -t sidekiq
+sid: bundle exec sidekiq  2>&1
+web: bundle exec rackup config.ru -p 3000

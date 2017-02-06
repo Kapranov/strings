@@ -36,6 +36,7 @@ nginx: down_ruby
 	$(V)if [ "$(UNICORNSERVICE)" ]; then ps aux | grep 'unicorn' | awk '{print $2}' | xargs kill -9 && echo "Running Unicorn Service Killed"; else echo "No Running Unicorn Service!"; fi
 
 bundle:
+	$(V)bundle clean --force
 	$(V)rm -f Gemfile.lock
 	$(V)bundle
 
