@@ -4,29 +4,61 @@ require "rails"
 require "active_model/railtie"
 require "active_job/railtie"
 require "action_controller/railtie"
-require "action_mailer/railtie"
 require "action_view/railtie"
-require "action_cable/engine"
 require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
 
 module StringsServer
   class Application < Rails::Application
-
     config.api_only = true
-    config.middleware.use Rack::Deflater
-    config.middleware.delete ActionDispatch::RequestId
-    config.middleware.delete Rack::Lock
-    config.active_job.queue_adapter = :sidekiq
+    config.cache_store = :redis_store, Rails.application.secrets.redis_cache, { expires_in: 90.minutes }
     config.time_zone = 'Eastern Time (US & Canada)'
+    config.active_job.queue_adapter = :sidekiq
+    config.action_controller.perform_caching = true
     config.exceptions_app = self.routes
-    config.autoload_paths << Rails.root.join('lib')
-    # config.assets.image_optim = false
+    config.debug_exception_response_format = :api
+    config.autoload_paths << Rails.root.join('lib', 'utils', 'custom_formatter.rb')
+
+    config.lograge.keep_original_rails_log = true
+    config.lograge.logger = ActiveSupport::Logger.new "#{Rails.root}/log/lograge_#{Rails.env}.log"
+    config.lograge.formatter = ->(data) { "Called #{data[:controller]}" }
+    # config.lograge.formatter = Lograge::Formatters::Json.new
+    # config.lograge.formatter = Lograge::Formatters::KeyValue.new
+    config.lograge.custom_options = lambda do |event|
+      {:time => event.time, :search_engine => event.payload[:search_engine], :user_agent => event.payload[:user_agent]}
+    end
+    # config.lograge.ignore_actions = ['HomeController#index', 'AController#an_action']
+    # config.lograge.ignore_custom = lambda do |event|
+    #   # return true here if you want to ignore based on the event
+    # end
+
+    config.middleware.delete ActionDispatch::Static
+    # config.middleware.delete ActionDispatch::Executor
+    # config.middleware.delete ActionDispatch::RequestId
+    # config.middleware.delete ActionDispatch::ShowExceptions
+    # config.middleware.delete ActionDispatch::DebugExceptions
+    # config.middleware.delete ActionDispatch::RemoteIp
+    # config.middleware.delete ActionDispatch::Reloader
+    # config.middleware.delete ActionDispatch::Callbacks
+
+    # config.middleware.delete Rack::ConditionalGet
+    # config.middleware.delete Rack::Cors
+    # config.middleware.delete Rack::ETag
+    # config.middleware.delete Rack::Head
+    # config.middleware.delete Rack::Sendfile
+    config.middleware.delete Rack::Runtime
+    # config.middleware.delete Rails::Rack::Logger
+    config.middleware.use Rack::Attack
 
     config.generators do |g|
-      g.test_framework :minitest, spec: true, fixture: true, fixture_replacement: :factory_girl
-      g.fixture_replacement :factory_girl, dir: 'test/fixtures'
+      # g.test_framework :minitest, spec: true,  fixture: true, fixture_replacement: :factory_girl
+      # g.fixture_replacement :factory_girl, dir: 'test/fixtures'
+      g.test_framework :minitest, spec: false, fixture: false
+      g.test_framework :rspec, fixtures: false
+      g.helper false
+      g.decorator false
+      g.controller assets: false
     end
   end
 end

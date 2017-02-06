@@ -1,8 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Api::UsersController, type: :controller do
-  it "#index page for users" do
-    get api_users_url
-    response.status.must_equal 200
+RSpec.describe API::UsersController, type: :controller do
+
+  describe "GET #index" do
+    it "returns http success" do
+      get :index
+      expect(response).to have_http_status(:success)
+    end
   end
+
 end

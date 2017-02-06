@@ -5,7 +5,7 @@ FactoryGirl.define do
     middle_name {"#{FFaker::Name.other_prefix}"}
     password_digest {"#{FFaker::Internet.password}"}
     email {"#{FFaker::Internet.email}"}
-    token {"#{SecureRandom.base64(25).tr('+/=', 'Qrt')}"}
+    apikey {"#{SecureRandom.base64(25).tr('+/=', 'Qrt')}"}
     description {"#{FFaker::Lorem.phrase}"}
   end
 end

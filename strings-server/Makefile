@@ -6,8 +6,6 @@ LOCALSERVER := 'http://api.dev.local:3000'
 RUBYSERVICE := $(shell pgrep ruby)
 NGINXSERVICE := $(shell pgrep nginx)
 UNICORNSERVICE := $(shell pgrep unicorn)
-THINSERVICE := $(shell pgrep thin)
-SIDEKIQSERVICE := $(shell pgrep sidekiq)
 REDISBROWSERSERVICE := $(shell pgrep puma)
 DEVELOPMENT := 'development'
 PRODUCTION := 'production'
@@ -36,9 +34,9 @@ nginx: down_ruby
 	$(V)if [ "$(RUBYSERVICE)" ]; then killall ruby && echo "Running Ruby Service Killed"; else echo "No Running Ruby Service!"; fi
 	$(V)if [ "$(NGINXSERVICE)" ]; then service nginx stop && echo "Running Nginx Service Killed"; else echo "No Running Nginx Service!"; fi
 	$(V)if [ "$(UNICORNSERVICE)" ]; then ps aux | grep 'unicorn' | awk '{print $2}' | xargs kill -9 && echo "Running Unicorn Service Killed"; else echo "No Running Unicorn Service!"; fi
-	$(V)if [ "$(SIDEKIQSERVICE)" ]; then killall sidekiq && echo "Running Sidekiq Service Killed"; else echo "No Running Sidekiq Service!"; fi
 
 bundle:
+	$(V)rm -f Gemfile.lock
 	$(V)bundle
 
 clean: bundle
@@ -79,12 +77,12 @@ up_guard:
 brakeman:
 	$(V)brakeman
 
-up_server:
+ruby_server:
 	$(V)ruby -run -e httpd . -p 3000
 
 up_test: clean
 	$(V)rake test
 
-start: nginx clean brakeman
+start: down_all nginx clean brakeman
 	$(V)echo "\n\n\t  Start App $(DEVELOPMENT) Enviroment\n\n\t     $(LOCALSERVER)\n\n"
-	$(V)foreman start web
+	$(V)guard --no-bundler-warning

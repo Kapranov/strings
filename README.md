@@ -66,7 +66,7 @@ real-time data updates. Additionally, it can be best used to showcase
 sports score on various online displays, monitoring systems, fast
 workflow applications.
 
-### 28 Jan 2017 Oleg G.Kapranov
+### 6 Feb 2017 Oleg G.Kapranov
 
 [1]: http://rubyonrails.org/
 [2]: http://emberjs.com/

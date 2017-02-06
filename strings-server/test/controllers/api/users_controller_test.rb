@@ -25,7 +25,7 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal the_user.first_name, user_json["first_name"]
     assert_equal the_user.last_name, user_json["last_name"]
     assert_equal the_user.middle_name, user_json["middle_name"]
-    assert_equal the_user.token, user_json["token"]
+    assert_equal the_user.apikey, user_json["apikey"]
     assert_equal the_user.email, user_json["email"]
     assert_equal the_user.description, user_json["description"]
   end

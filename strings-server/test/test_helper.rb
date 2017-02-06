@@ -15,6 +15,5 @@ Minitest::Reporters.use! [
 
 class ActiveSupport::TestCase
   include Rack::Test::Methods
-
   # fixtures :all
 end

@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   end
 
   get 'upgrade/index'
+  get "application/index"
 
-  #root to: 'upgrade#index'
+  # root to: 'upgrade#index'
+  root to: "application#index"
 
   namespace :api do
     resources :users, only: [:index], defaults: {format: 'json'}
@@ -16,7 +18,6 @@ Rails.application.routes.draw do
   constraints subdomain: 'api' do
     scope module: 'api' do
       namespace :v1 do
-        # get 'users/index'
         resources :users, only: [:index], defaults: {format: 'json'}
       end
       namespace :v2 do

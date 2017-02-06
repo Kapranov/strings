@@ -1,81 +1,77 @@
 source 'https://rubygems.org'
 
-ruby File.read('.ruby-version').strip
-
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails',                    '~> 5.0'
-gem 'rack',                     '> 2' if RUBY_VERSION > '2.3.3'
-gem 'multi_json'
-gem 'oj'
-gem 'active_model_serializers', '0.10.4'
+gem 'rails',                      '~> 5.0.1'
+gem 'figaro'
+gem 'redis',                      require: ["redis", "redis/connection/hiredis"]
+gem 'redis-rails'
+gem 'redis-namespace'
+gem 'hiredis'
+gem 'em-synchrony'
 gem 'rack-cors'
 gem 'rack-attack'
-gem 'hiredis'
-gem 'redis', require: ["redis", "redis/connection/hiredis"]
-gem 'redis-namespace'
-gem 'redis-rails'
-gem 'redis-rack-cache'
+gem 'nobrainer'
+gem 'nobrainer_streams'
+gem 'no_brainer_soft_delete'
 gem 'sidekiq'
 gem 'sidetiq'
 gem 'sidekiq-scheduler'
 gem 'sidekiq-statistic'
-gem 'em-synchrony'
-gem 'figaro'
-gem 'nobrainer'
-gem 'nobrainer_streams'
-gem 'no_brainer_soft_delete'
+gem 'json',                       '2.0.2'
+gem 'bigdecimal'
 gem 'foreman'
+gem 'multi_json'
+gem 'oj'
 gem 'browser'
 gem 'bcrypt'
 gem 'jwt'
 gem 'rest-client'
-gem 'mustache'
-gem 'image_optim'
-gem 'discourse_fastimage',      '2.0.3', require: 'fastimage'
+gem 'lograge'
+gem 'thor',                       '0.19.1'
+gem 'active_model_serializers',   '0.10.4'
+
 # gem 'refile',                   '0.3.0'
 # gem 'refile-memory',            '0.3.0'
 # gem 'refile-mini_magick',       '0.3.0'
 # gem 'refile-nobrainer',         '0.3.0'
+# gem 'image_optim'
+# gem 'discourse_fastimage',      '2.0.3', require: 'fastimage'
 
 group :development do
   gem 'subcontractor'
-  gem 'faker'
   gem 'ffaker'
-  gem 'letter_opener'
-  gem "brakeman", :require => false
-  gem 'listen'
+  gem 'random-word'
+  gem 'brakeman',                 :require => false
 end
 
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'libnotify'
+  gem 'rb-inotify',               '~> 0.9', require: RUBY_PLATFORM =~ /linux/i ? 'rb-inotify' : false
   gem 'guard-rails'
   gem 'guard-rack'
   gem 'guard-rake'
   gem 'guard-shellexec'
   gem 'guard-foreman'
-  gem 'guard-migrate'
   gem 'guard-sidekiq'
   gem 'guard-rspec'
-  gem 'guard-test'
   gem 'guard-minitest'
-  gem 'guard-cucumber'
   gem 'guard-redis'
   gem 'guard-brakeman'
   gem 'guard-livereload'
-  gem 'rb-inotify',             '~> 0.9', require: RUBY_PLATFORM =~ /linux/i ? 'rb-inotify' : false
   gem 'minitest-rails'
   gem 'minitest-reporters'
-  gem 'rspec-rails'
-  gem 'shoulda-matchers',   require: false
-  gem 'cucumber-rails',     require: false
-  gem 'cucumber-api-steps', require: false
   gem 'factory_girl_rails'
-  gem 'random-word'
+  gem 'rspec-rails'
+  gem 'rspec-its'
+  gem 'shoulda-matchers',         require: false
+  gem 'cucumber-rails',           require: false
+  gem 'cucumber-api',             require: false
+  gem 'cucumber-api-steps',       require: false
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'

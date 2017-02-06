@@ -1,20 +1,13 @@
 general: &general
+  DOMAIN_NAME:          'api.dev.local'
+  LOCALHOST:            '127.0.0.1:3000'
+  IP:                   '127.0.0.1'
   ACCESS_TOKEN:         'fdd110671210f2be353995806414f9d8'
   RACK_CORS_ORIGINS:    'localhost:4200'
-  REDIS_URL:            'redis://localhost:6379/1/cache'
-  DEFAULT_EMAIL_REPLY:  'do-not-reply@example.com'
-
-admin: &admin
- ADMIN_FIRST_NAME:      'Oleg'
- ADMIN_LAST_NAME:       'Kapranov'
- ADMIN_MIDDLE_NAME:     'G.'
- ADMIN_EMAIL:           'lugatex@yahoo.com'
- ADMIN_PASSWORD:        '12345678'
- ADMIN_DESCRIPTION:     'Hello World!'
-
-mail: &mail
- EMAIL_USERNAME:        'kapranov.lugatex'
- EMAIL_PASSWORD:        '12345678'
+  REDIS_URL:            'redis://localhost:6379/0'
+  REDIS_DATA:           'strings_data'
+  REDIS_CACHE:          'redis://localhost:6379/0/strings_cache'
+  REDIS_NAMESPACE:      'sidekiq'
 
 rethinkdb: &rethinkdb
   RETHINKDB_DB:         'strings'
@@ -25,32 +18,28 @@ rethinkdb: &rethinkdb
   RETHINKDB_USER:       'kapranov'
   RETHINKDB_PASSWORD:   '9c838683-fa89-51fc-862c-9b423eb0c291'
 
+admin: &admin
+ ADMIN_FIRST_NAME:      'Oleg'
+ ADMIN_LAST_NAME:       'Kapranov'
+ ADMIN_MIDDLE_NAME:     'G.'
+ ADMIN_EMAIL:           'lugatex@yahoo.com'
+ ADMIN_PASSWORD:        '12345678'
+ ADMIN_DESCRIPTION:     'Hello World!'
+
 development:
   <<: *general
   <<: *rethinkdb
-  <<: *mail
   <<: *admin
-  SECRET_KEY_BASE:      '4186a496111d2676c1af219b821fd509af0fb3135c9f08b02239f7a273720557765c494bd9559e6a2158b0de34caef144443b9793275284fdb683028e56695a8'
-  DOMAIN_NAME:          'api.dev.local'
-  LOCALHOST:            'api.dev.local:3000'
-  HOST_IP:              '127.0.0.1'
+  SECRET_KEY_BASE:      '599ac15f824b962410dfc9748f4dabb442822d470ef62b6fbc0ba7123181daf55f579fe59fe862a4771ce211f8f79edda5b52e6458c0b35a1f15d1b2a8d28c67'
 
 test:
   <<: *general
   <<: *rethinkdb
-  <<: *mail
   <<: *admin
-  SECRET_KEY_BASE:      'feb661ead03e176042f05d93f98312d3d5abe63002201cd00fe0145b86280883eea94a03081874032f7bd45cf9dbb69fc393d60626dcc222e0a122d30d64c475'
-  DOMAIN_NAME:          'api.dev.local'
-  LOCALHOST:            'api.dev.local:3000'
-  HOST_IP:              '127.0.0.1'
+  SECRET_KEY_BASE:      'e8553de0c309a32e73a4852ea6886cc7ebc5a381e41f0c302637b9d78836ab03e7f2e72d15392c06b816e7f888ba538494e436f03d404ee2eca27a863a86651e'
 
 production:
   <<: *general
-  <<: *rethinkdb
-  <<: *mail
   <<: *admin
-  SECRET_KEY_BASE:      '83572744e11a3ad35192159a2a8a7e39ce6fc423a2c20f3f8d3f80d34224b8fd0ec80bdd0d0be539aea5699d6c8a70596b1c075739e2e5e5b2a84d2a61c038db'
-  DOMAIN_NAME:          'api.dev.local'
-  LOCALHOST:            'api.dev.local'
-  HOST_IP:              '127.0.0.1'
+  <<: *rethinkdb
+  SECRET_KEY_BASE:      '9e61e86f559feea526dc08c210d14dd890cca699c414a4b686d352ade7c8708b895c3f5a2f921cbe2ffe3e5b11028a93d031b77dc8400dd67a91460f413064dd'

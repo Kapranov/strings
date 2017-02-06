@@ -4,7 +4,7 @@ one:
   middle_name: MyString
   password_digest: MyString
   email: MyString
-  token: MyString
+  apikey: MyString
   description: MyText
 
 two:
@@ -13,7 +13,7 @@ two:
   middle_name: MyString
   password_digest: MyString
   email: MyString
-  token: MyString
+  apikey: MyString
   description: MyText
 
 three:
@@ -22,5 +22,5 @@ three:
   middle_name: MyString
   password_digest: MyString
   email: MyString
-  token: MyString
+  apikey: MyString
   description: MyText

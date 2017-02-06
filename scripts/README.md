@@ -6,6 +6,9 @@
 
 [http://sequel.jeremyevans.net/](Sequel - The Database Toolkit for Ruby)
 
+[https://github.com/rom-rb/rom](Data mapping and persistence for Ruby)
+
+[https://www.rethinkdb.com/docs/storing-binary/ruby/](Storing binary objects)
 
 ```ruby
 class User < ActiveRecord::Base
