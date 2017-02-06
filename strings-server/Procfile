@@ -1,5 +1,4 @@
-# web: bundle exec puma -C config/puma.rb
-# web: bundle exec puma -p $PORT -e $RACK_ENV
-# web: rails server -p $PORT
-# worker: bundle exec sidekiq -e $RAILS_ENV
-web: subcontract --rbenv . --chdir ../strings-server --signal INT -- bundle exec rackup config.ru -p $PORT &
+# web: redis-browser --config config/redis_browser.yml &
+sidekiq: bundle exec sidekiq -C ./config/sidekiq.yml
+web: rails s
+#web: subcontract --rbenv . --chdir ../strings-server --signal INT -- bundle exec rackup config.ru -p $PORT &

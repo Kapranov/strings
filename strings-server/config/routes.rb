@@ -1,6 +1,5 @@
-require 'sidekiq/web'
-
 Rails.application.routes.draw do
+  require 'sidekiq/web'
 
   if Rails.env.development?
     mount Sidekiq::Web, at: '/sidekiq'

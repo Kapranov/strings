@@ -22,6 +22,7 @@ module StringsServer
     config.time_zone = 'Eastern Time (US & Canada)'
     config.exceptions_app = self.routes
     config.autoload_paths << Rails.root.join('lib')
+    # config.assets.image_optim = false
 
     config.generators do |g|
       g.test_framework :minitest, spec: true, fixture: true, fixture_replacement: :factory_girl
