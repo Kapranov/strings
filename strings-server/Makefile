@@ -76,7 +76,7 @@ up_guard:
 	$(V)bundle exec guard
 
 brakeman:
-	$(V)brakeman
+	$(V)brakeman -d
 
 ruby_server:
 	$(V)ruby -run -e httpd . -p 3000
