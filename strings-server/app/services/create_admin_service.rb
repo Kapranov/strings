@@ -12,4 +12,5 @@ class CreateAdminService
     description: Rails.application.secrets.admin_description.to_s
   end
   puts "Destroy  Users: #{User.count}"
+  puts "Destroy   APIs: #{Token.count}"
 end
