@@ -21,10 +21,10 @@ Rails.application.routes.draw do
         resources :users, only: [:index], defaults: {format: 'json'}
       end
       namespace :v2 do
-        get 'users/index'
+        get 'users/index', defaults: {format: 'json'}
       end
       namespace :v3 do
-        get 'users/index'
+        get 'users/index', defaults: {format: 'json'}
       end
     end
   end
