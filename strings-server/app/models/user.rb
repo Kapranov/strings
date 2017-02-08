@@ -3,6 +3,9 @@ class User
   include NoBrainer::Document::Timestamps
   include ActiveModel::SecurePassword
 
+  has_secure_password
+  before_validation :access_token, on: [:create], unless: :apikey
+
   self.include_root_in_json = true
 
   field :first_name,      type: String, required: true, min_length: 4
@@ -15,8 +18,6 @@ class User
 
   index :apikey
 
-  has_secure_password
-
   validates :first_name,      presence: true, length: { minimum: 4,  allow_blank: false }
   validates :last_name,       presence: true, length: { minimum: 4,  allow_blank: false }
   validates :middle_name,     presence: true, length: { minimum: 2,  allow_blank: false }
@@ -24,8 +25,6 @@ class User
   validates :description,     presence: true, length: { minimum: 5,  allow_blank: false }
   validates :apikey,          presence: true, length: { minimum: 25, allow_blank: false }
   validates :password_digest, presence: { on: :create }, length: { minimum: 8, allow_blank: false }
-
-  before_validation :access_token, on: [:create], unless: :apikey
 
   def access_token
     return if apikey.present?
