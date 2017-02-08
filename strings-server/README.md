@@ -394,6 +394,49 @@ DELETE  - Remove a resource
 
 Here is a quick example of what NoBrainer can do:
 
+### Orders of [Callbacks][1] for Rethinkdb
+
+When a document is created:
+
+* ``before_validation``
+* ``after_validation``
+* ``before_save``
+* ``before_create``
+* ``after_create``
+* ``after_save``
+
+When a document is updated:
+
+* ``before_validation``
+* ``after_validation``
+* ``before_save``
+* ``before_update``
+* ``after_update``
+* ``after_save``
+
+When an existing document is destroyed:
+
+* ``before_destroy``
+* ``after_destroy``
+
+When a document is initialized with ``new``, or reinitialized with ``reload``:
+
+* ``before_initialize``
+* ``after_initialize``
+
+When a document is fetched from the database:
+
+* ``before_initialize``
+* ``after_initialize``
+* ``after_find``
+
+The ``after_find`` callback will not be triggered again when calling ``reload``
+on a model. ``around_*`` callbacks are available as usual.
+
+```ruby
+Use a :before_validation, :set_creation_date, :on => :create instead of a before_create
+```
+
 ```ruby
 require 'nobrainer'
 
@@ -459,3 +502,5 @@ Features
 * Scopes
 * Thread-safe
 * Polymorphism
+
+[1]: http://nobrainer.io/docs/callbacks/#orders_of_callbacks

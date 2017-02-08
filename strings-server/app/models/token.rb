@@ -2,7 +2,7 @@ class Token
   include NoBrainer::Document
   include NoBrainer::Document::Timestamps
 
-  # before_validation :access_token, on: [:create], unless: :apikey
+  before_validation :access_token, on: [:create], unless: :apikey
 
   self.include_root_in_json = true
 
