@@ -27,14 +27,13 @@
 # User.create(first_name: 'Oleg', last_name: 'Kapranov', middle_name: 'G.', password: '12345678', email: 'lugatex@yahoo.com', description: 'Hello Wolrd!')
 
 if Rails.env.development?
-  puts "--------Creating Admin User-----------"
+  puts "--------Creating Users----------------"
   user = CreateAdminService.new.call
   puts 'CREATED ADMIN USER: ' << user.email
-  puts "--------Creating Movie Data-----------"
-  movie = CreateMovieService.new.call
-  puts "-------Creating Github Issues---------"
-  #github_issue = CreateGithubService.new.call
-  puts "---------Seeding Data End-------------"
+  puts "--------Creating Movies---------------"
+  # movie = CreateMovieService.new.call
+  puts "--------Creating Github---------------"
+  # github = CreateGithubService.new.call
 end
 
 if Rails.env.test?
