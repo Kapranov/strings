@@ -28,8 +28,9 @@
 
 if Rails.env.development?
   puts "--------Creating Token--------------------------------"
-  token = Token.create!
-  puts 'CREATED APIs KEY: ' << token.apikey
+  # token = Token.create!
+  token = CreateTokenService.new.call
+  puts 'CREATED APIs Token KEY: ' << token.apikey
   puts "--------Creating Users--------------------------------"
   user = CreateAdminService.new.call
   puts 'CREATED ADMIN USER: ' << user.email

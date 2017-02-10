@@ -23,7 +23,16 @@ class ApplicationController < ActionController::API
   end
 
   def index
-    render plain: "Everyone can see me!"
+    @tokens = Token.all
+    # render json: @tokens
+    render json: MultiJson.dump(json_for(@tokens), mode: :compat)
+    # render json: Oj.dump(@tokens.last, mode: :compat)
+    # render json: Oj.dump(@tokens.first, mode: :compat)
+    # render json: @tokens, methods: [:aipkey]
+    # render json: @tokens.select([:username, :aipkey])
+    # render html: "<strong>Everyone can see me!</strong>".html_safe
+    # render plain: { hello: 'world' }.to_json, content_type: 'application/json'
+    # render json: {username: @tokens.username, aipkey: @tokens.apikey }
   end
 
   def meta(options)
@@ -63,7 +72,7 @@ class ApplicationController < ActionController::API
     end
 
     def valid_apikey?(key)
-      #@user = User.find_by(api_key:key)
+      #@user = User.find_by(apikey:key)
       #!!@user # Make boolean
     end
 

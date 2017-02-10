@@ -1,16 +1,23 @@
 class Token
   include NoBrainer::Document
   include NoBrainer::Document::Timestamps
+  include ActiveModel::SecurePassword
+
+  has_secure_password
 
   before_validation :access_token, on: [:create], unless: :apikey
 
   self.include_root_in_json = true
 
-  field :apikey, type: String, required: true, min_length: 25, uniq: true
+  field :apikey,          type: String, required: true, min_length: 25, uniq: true
+  field :username,        type: String, required: true, min_length: 5
+  field :password_digest, type: String, required: true, min_length: 8
 
   index :apikey
 
-  validates :apikey, presence: true, length: { minimum: 25, allow_blank: false }
+  validates :apikey,          presence: true, length: { minimum: 25, allow_blank: false }
+  validates :username,        presence: true, length: { minimum: 5,  allow_blank: false }
+  validates :password_digest, presence: { on: :create }, length: { minimum: 8, allow_blank: false }
 
   def access_token
     return if apikey.present?

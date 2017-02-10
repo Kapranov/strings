@@ -1,3 +1,3 @@
 class TokenSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :apikey, :username
 end
