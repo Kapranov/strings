@@ -1,7 +1,10 @@
+# Mime::EXTENSION_LOOKUP.each { |m| puts m}
+
 api_mime_types = %W(
-  application/vnd.api+json
   text/x-json
   application/json
+  application/jsonrequest
+  application/vnd.api+json
 )
 
 # Mime::Type.register "application/vnd.api+json", :json
