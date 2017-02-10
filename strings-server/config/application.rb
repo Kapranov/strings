@@ -1,11 +1,11 @@
 require_relative 'boot'
-
 require "rails"
 require "active_model/railtie"
 require "active_job/railtie"
 require "action_controller/railtie"
 require "action_view/railtie"
 require "rails/test_unit/railtie"
+require "./lib/middleware/catch_json_parse_errors.rb"
 
 Bundler.require(*Rails.groups)
 
@@ -33,7 +33,7 @@ module StringsServer
     #   # return true here if you want to ignore based on the event
     # end
 
-    config.middleware.delete ActionDispatch::Static
+    # config.middleware.delete ActionDispatch::Static
     # config.middleware.delete ActionDispatch::Executor
     # config.middleware.delete ActionDispatch::RequestId
     # config.middleware.delete ActionDispatch::ShowExceptions
@@ -50,6 +50,7 @@ module StringsServer
     config.middleware.delete Rack::Runtime
     # config.middleware.delete Rails::Rack::Logger
     config.middleware.use Rack::Attack
+    config.middleware.insert_before Rack::Head, CatchJsonParseErrors
 
     config.generators do |g|
       # g.test_framework :minitest, spec: true,  fixture: true, fixture_replacement: :factory_girl
