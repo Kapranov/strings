@@ -3,40 +3,24 @@ class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Basic::ControllerMethods
   include ActiveModel::Serializers::JSON
 
-  # include ActionController::Rendering
-  # include ActionController::MimeResponds
-  # include AbstractController::Callbacks
-  # append_view_path "#{Rails.root}/app/views"
+  TOKEN = 'secret'
+  AUTHS = { 'me' => '@home', 'you' => '@work' }
 
-  http_basic_authenticate_with name: "kapranov", password: "12345678", except: :index
-
-  TOKEN = "secret"
-
-  before_action :authenticate, except: [ :index ]
-  # before_action :authorize!
-  after_action :set_online
+  before_action :authenticate_http
+  before_action :authenticate_token, except: [ :index ]
+  after_action  :set_online
 
   def append_info_to_payload(payload)
     super
     payload[:host] = request.host
-    # payload[:username] = current_user.try(:username)
   end
 
   def index
-    @tokens = Token.all
+    # @tokens = Token.all
     # render json: @tokens
-    render json: MultiJson.dump(json_for(@tokens), mode: :compat)
-    # render json: Oj.dump(@tokens.last, mode: :compat)
+    # render json: MultiJson.dump(json_for(@tokens), mode: :compat)
     # render json: Oj.dump(@tokens.first, mode: :compat)
-    # render json: @tokens, methods: [:aipkey]
-    # render json: @tokens.select([:username, :aipkey])
-    # render html: "<strong>Everyone can see me!</strong>".html_safe
-    # render plain: { hello: 'world' }.to_json, content_type: 'application/json'
-    # render json: {username: @tokens.username, aipkey: @tokens.apikey }
-  end
-
-  def meta(options)
-    { copyright: "© #{Time.now.year} LugaTeX - WeblogAsAService, Inc." }
+    render html: "<strong>Everyone can see me!</strong>".html_safe
   end
 
   def json_for(target, options = {})
@@ -45,49 +29,33 @@ class ApplicationController < ActionController::API
     data = ActiveModelSerializers::SerializableResource.new(target, options)
   end
 
-  protected
-
-    def authenticate
-    end
-
-    def authenticate_token
-      authenticate_with_http_token do |token, options|
-      end
-    end
-
-    def render_unauthorized(realm = "Application")
-      self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
-      render json: 'Bad credentials', status: :unauthorized
-    end
-
-    def authorize!
-      hdr = request.headers["Authorization"]
-      if hdr && hdr =~ /\AToken\s+(token="?)?(.+?)"?\s*\z/
-        return true if valid_apikey?($2)
-      end
-
-      render(status: :unauthorized, json:{errors:[{
-        status:401, code:"unauthorized", title:"Unauthorized"
-      }]})
-    end
-
-    def valid_apikey?(key)
-      #@user = User.find_by(apikey:key)
-      #!!@user # Make boolean
-    end
+  def meta(options)
+    { copyright: "© #{Time.now.year} LugaTeX - WeblogAsAService, Inc." }
+  end
 
   private
 
-    def set_online
-      $redis.set("hello", "Application was connected to Redis!")
-    end
+  def set_online
+    $redis.set("hello", "Application was connected to Redis!")
+  end
 
-    def authenticate
-       authenticate_or_request_with_http_token do |token, options|
-         ActiveSupport::SecurityUtils.secure_compare(
-           ::Digest::SHA256.hexdigest(token),
-           ::Digest::SHA256.hexdigest(TOKEN)
-         )
-       end
+  def authenticate_http
+    if Rails.env == 'development' && request.remote_addr !~ /^192.168.0.\d{1,3}$/
+      authenticate_or_request_with_http_basic("Application") do |name, password|
+        @name = Token.where.first[:username]
+        @password = Token.where.first[:password]
+        @name = name && @password = password
+        # AUTHS.has_key?(name) && AUTHS[name] == password
+      end
     end
+  end
+
+  def authenticate_token
+    authenticate_or_request_with_http_token do |token, options|
+      ActiveSupport::SecurityUtils.secure_compare(
+       ::Digest::SHA256.hexdigest(token),
+       ::Digest::SHA256.hexdigest(TOKEN)
+      )
+    end
+  end
 end

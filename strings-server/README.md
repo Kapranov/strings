@@ -390,11 +390,11 @@ PATCH   - Update an existing resource (partially)
 DELETE  - Remove a resource
 ```
 
-> No Brainer Usage
+> NoBrainer Usage
 
-Here is a quick example of what NoBrainer can do:
+Here is a quick example of what [NoBrainer][1] can do:
 
-### Orders of [Callbacks][1] for Rethinkdb
+### Orders of [Callbacks][1] for [Rethinkdb][2]
 
 When a document is created:
 
@@ -484,6 +484,133 @@ post.comments.where(:author => 'dude').destroy
 puts post.comments.count == 1
 ```
 
+```ruby
+Token.where(:id => /4QPezySrjb82KQ/).order_by(:username => :desc).to_a
+token = Token.first
+token.apikey
+token[:apikey].empty?
+token[:apikey].present?
+# may be used to check on various object types like empty string "" or empty array []
+token[:apikey].empty?
+# checks for nil? or empty?
+token[:apikey].blank?
+# checks to see if variable is referencing an object or not
+token[:apikey].nil?
+
+if token[:apikey].empty?
+  token[:apikey] = token[:body].scan(/\w+/)[0..2].join(' ')
+end
+
+token[:created_at] = Time.now.to_i
+token.created_at
+token[:created_at] = Time.at(token['created_at'])
+
+token[:username]
+token[:username].downcase
+
+Token.where(:apikey => 'TaCwuILwEDWOR2XJ1Es2PrFG1DLGqtdVYgtt').sample(1)
+
+Token.where(lock: id).update_all lock: nil
+```
+
+```javascript
+r.db("strings").table("token").filter({password: "87654321"})
+
+r.table('users')
+ .concatMap(r.row('inventory').default([]))
+ .eqJoin('name', r.table('prices'))
+
+r.table('data').indexCreate('timestamp')
+r.table('data').orderBy({index: 'timestamp'})
+r.table('data').between(r.now().sub(60*60), r.now(), {index: 'timestamp'})
+r.table('data').between(r.now().sub(60*60), r.maxval, {index: 'timestamp'}).orderBy({index: 'timestamp'})
+r.table('data').orderBy({index: 'timestamp'}).filter({colour: 'red'})
+r.table('data').filter({colour: 'red'}).orderBy('timestamp')
+
+r.union(
+  r.table('table1').changes(),
+  r.table('table2').changes()
+).run(conn)
+
+r.db('dbone').table("usertable").filter(r.row("userid").eq("002")).pluck('Min')("Min").sum()
+r.db('dbone').table("usertable").filter(r.row("userid").eq("002")).pluck('Min').sum("Min")
+
+r.db("table").table("products").filter(function(row){
+     return row("title").downcase().match("(.*)microsoft(.*)").and(row("price").lt(100));
+})
+
+r.table('friends').getAll(userId, {index: 'user_id'})
+
+r.db("strings").table("users").group("created_at").max("created_at").ungroup()
+
+r.table('posts').get(POST_ID).update({user_id: USER_ID})
+
+r.table('transactions').insert(
+  r.table('records').concatMap(function (doc){return doc('transactions')})
+)
+
+r.table('users').filter(lambda user: r.expr([1,2,3])
+  .contains(user['id']) & (user['active'] == 1))
+
+r.table('users')
+  .filter(lambda user: r.expr([1,2,3])
+    .contains(user['id']) & (user['active'] == 1)) r.table('users')
+      .filter(lambda user: r.all(r.expr([1,2,3])
+        .contains(user['id']), user['active'] == 1))
+
+r.db('admin').table('services')
+  .filter(function (service) { return service('appkey')
+    .hasFields('YcJ1HR6vjebXNHwOzeC2l2EAvUNw8qyp') })
+
+r.db('strings').table('tokens').getField('apikey')
+
+r.db('test')
+ .table('test')
+ .getAll(1, {index: 'record'})
+ .getField('data')
+ .concatMap(r.row.coerceTo('array'))
+ .group(r.row(0))
+ .concatMap([r.row(1)])
+ .ungroup()
+
+r.db('strings').table('tokens').getAll('4QPezySrjb82KQ')
+r.db('strings').table('tokens').getAll('4QPezySrjb82KQ').changes()
+r.db('strings').table('tokens').get('4QPezySrjb82KQ').keys()
+```
+> RethinkDB supports different types of secondary indexes:
+
+1. Simple indexes based on the value of a single field.
+2. Compound indexes based on multiple fields.
+3. Multi indexes based on arrays of values.
+4. Indexes based on arbitrary expressions.
+
+```
+class Post
+ field field1
+ field field2
+
+ index :fields_lambda, ->(doc){ doc[‘field1’] + “_” + doc[‘field2’] }
+end
+
+Post.where(:fields_lambda => 'John_Saucisse')
+
+rake db:update_indexes
+NoBrainer.update_indexes
+Model.perform_update_indexes
+```
+
+> The users could specify the uuid generation scheme on table creation:
+
+```
+> r.uuid(scheme='random').run()
+'e0f75d10-d770-4434-ae3e-23194ffbe581'
+
+> r.uuid(scheme='ordered').run()
+'2014-09-17;05:15:59.123;e0f7'
+
+> r.table_create('foo', id_scheme='ordered')
+```
+
 Features
 ---------
 
@@ -504,3 +631,6 @@ Features
 * Polymorphism
 
 [1]: http://nobrainer.io/docs/callbacks/#orders_of_callbacks
+[2]: https://www.rethinkdb.com/api/ruby/
+[3]: https://github.com/nviennot/nobrainer
+[4]: https://github.com/luiscript/graphql-rethinkdb-x

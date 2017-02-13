@@ -9,14 +9,15 @@ class Token
 
   self.include_root_in_json = true
 
-  field :apikey,          type: String, required: true, min_length: 25, uniq: true
-  field :username,        type: String, required: true, min_length: 5
-  field :password_digest, type: String, required: true, min_length: 8
+  field :apikey,          type: String, required: true, uniq: true, readonly: true
+  field :username,        type: String, required: true, uniq: true
+  field :password_digest, type: String, required: true
+  field :state,           in: %w(active locked)
 
   index :apikey
 
   validates :apikey,          presence: true, length: { minimum: 25, allow_blank: false }
-  validates :username,        presence: true, length: { minimum: 5,  allow_blank: false }
+  validates :username,        presence: true, length: { in: 8..15,   allow_blank: false }
   validates :password_digest, presence: { on: :create }, length: { minimum: 8, allow_blank: false }
 
   def access_token
@@ -31,11 +32,13 @@ class Token
     loop do
       set_apikey = token_generator
       break set_apikey if token_suitable?(set_apikey)
+      # break unless Token.where(apikey: set_apikey).first.present?
     end
   end
 
   def token_suitable?(set_apikey)
-    self.class.where(apikey: set_apikey).count == 0
+    # self.class.where(apikey: set_apikey).count == 0
+    self.class.where(apikey: set_apikey).first.present?
   end
 
   def token_generator

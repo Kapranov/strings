@@ -6,6 +6,10 @@ class User
   has_secure_password
   before_validation :access_token, on: [:create], unless: :apikey
 
+  # EMAIL_REGEX = /A[w+-.]+@[a-zd-.]+.[a-z]+z/i
+  # EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+  EMAIL_REGEX = /^[\S&&[^@]]+@[\S&&[^@]]+$/
+
   self.include_root_in_json = true
 
   field :first_name,      type: String, required: true, min_length: 4
@@ -21,9 +25,11 @@ class User
   validates :first_name,      presence: true, length: { minimum: 4,  allow_blank: false }
   validates :last_name,       presence: true, length: { minimum: 4,  allow_blank: false }
   validates :middle_name,     presence: true, length: { minimum: 2,  allow_blank: false }
+  # validates :email,           presence: true, uniqueness: true, format: EMAIL_REGEX
   validates :email,           presence: true, length: { minimum: 5,  allow_blank: false }
   validates :description,     presence: true, length: { minimum: 5,  allow_blank: false }
   validates :apikey,          presence: true, length: { minimum: 25, allow_blank: false }
+  # validates_length_of :password, in: 8..20, on: :create
   validates :password_digest, presence: { on: :create }, length: { minimum: 8, allow_blank: false }
 
   def access_token
