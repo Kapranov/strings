@@ -27,10 +27,12 @@ class ApplicationController < ActionController::API
     options[:scope] ||= self
     options[:url_options] ||= url_options
     data = ActiveModelSerializers::SerializableResource.new(target, options)
+    logger.debug("Application as_json called!")
+    super
   end
 
   def meta(options)
-    { copyright: "© #{Time.now.year} LugaTeX - WeblogAsAService, Inc." }
+    { copyright: "© #{Time.now.year} LugaTeX - WeblogAsService, Inc." }
   end
 
   private

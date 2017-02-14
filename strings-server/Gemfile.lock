@@ -261,7 +261,7 @@ GEM
     pry-byebug (3.4.2)
       byebug (~> 9.0)
       pry (~> 0.10)
-    pry-rails (0.3.4)
+    pry-rails (0.3.5)
       pry (>= 0.9.10)
     pry-stack_explorer (0.4.9.2)
       binding_of_caller (>= 0.7)
@@ -472,4 +472,4 @@ DEPENDENCIES
   thor (= 0.19.1)
 
 BUNDLED WITH
-   1.14.3
+   1.14.4

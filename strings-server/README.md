@@ -611,6 +611,89 @@ Model.perform_update_indexes
 > r.table_create('foo', id_scheme='ordered')
 ```
 
+```
+r.db('myDb').table('myTable').insert({
+  "name": "Andrew",
+  "age": 20,
+  "interests": ["reading", "playing guitar", "pop music"],
+  "contact info": {
+    "email": "andrew@example.com",
+    "phone": "5555555555"
+  }
+})
+
+r.db('myDb').table('myTable').insert([{
+  "name": "Carl",
+  "age": 25,
+  "interests": ["sports", "pizza", "poetry"],
+  "contact info": {
+    "email": "carl@example.com",
+    "phone": "5555555555"
+  }
+},
+{
+  "name": "Sophia",
+  "age": 21,
+  "interests": ["playing golf", "solving puzzles", "rock music"],
+  "contact info": {
+    "email": "sophia@example.com",
+    "phone": "5555555555"
+  }
+}])
+
+r.db('myDb').table('myTable').get("0530c22a-db04-4d22-a9a9-df82c1b76196")
+
+r.db('myDb').table('myTable').limit(1)
+
+r.db('myDb').table('myTable').filter({name: "Andrew"})
+r.db('myDb').table('myTable').filter(r.row("name").eq("Andrew"))
+r.db('myDb').table('myTable').filter(r.row("age").gt(22))
+r.db('myDb').table('myTable').filter(r.row("contact info")("phone").eq("5555555555"))
+r.db('myDb').table('myTable').filter(r.row("age").eq("21").or(r.row("age").eq("25")))
+r.db('myDb').table('myTable').filter(r.row("interests").contains("reading"))
+r.db('myDb').table('myTable').pluck("name", "interests")
+r.db("myDb").table("myTable").orderBy("name")
+r.db("myDb").table("myTable").orderBy(r.desc("name"))
+r.db('myDb').table('myTable').update({gender: "male"})
+r.db('myDb').table('myTable').filter({name: "Sophia"}).update({gender: "female"})
+r.db('myDb').table('myTable').get("0530c22a-db04-4d22-a9a9-df82c1b76196").delete()
+r.db('myDb').table('myTable').filter(r.row("name").eq("Sophia")).delete()
+r.db('myDb').table('myTable').delete()
+r.db('myDb').table('myTable').count()
+r.db('myDb').tableDrop('myTable')
+r.dbDrop('myDb')
+r.dbCreate('myDb')
+r.db('myDb').tableCreate("people")
+r.dbList()
+r.db("myDb").tableList()
+r.db("myDb").table("people").indexCreate("name")
+r.db("myDb").table("people").indexCreate("name_age_index", [r.row("name"), r.row("age")])
+r.db("myDb").table("people").getAll(["Andrew", 21], {index: "name_age_index"})
+r.db("myDb").table("interests").indexCreate("people_id")
+r.db("myDb").table("people").eqJoin(
+  "id",
+  r.db("myDb").table("interests"),
+  {index: 'people_id'}
+}
+
+r.db("myDb").table("people").merge(
+  function (person) {
+    return {
+      interest_ids: r.db("myDb").table('interests').filter(function (interestDoc) {
+        return person('interest_ids').contains(interestDoc('id'));
+      }).coerceTo('array')
+    }
+  })
+
+r.db("myDb").table("people").changes().run(conn).then(function(cursor) {
+  cursor.each(console.log);
+});
+
+r.db("myDb").table("people").filter(r.row("age").lt(20)).changes()
+
+r.db("myDb").table("people").changes({squash: 5})
+```
+
 Features
 ---------
 

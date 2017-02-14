@@ -26,6 +26,13 @@
 # bash> rake nobrainer:sync_indexes
 # User.create(first_name: 'Oleg', last_name: 'Kapranov', middle_name: 'G.', password: '12345678', email: 'lugatex@yahoo.com', description: 'Hello Wolrd!')
 
+# users = []
+# 5.times {|n| users << User.create(username: "user_#{n}") }
+
+# AwesomeStuff.all.each { |aww| aww.update user: users.sample }
+
+# User.first.awesome_stuffs
+
 if Rails.env.development?
   puts "--------Creating Token--------------------------------"
   # token = Token.create!
