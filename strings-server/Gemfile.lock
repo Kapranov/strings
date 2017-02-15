@@ -367,6 +367,12 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
+    sidekiq-cron (0.4.5)
+      redis-namespace (>= 1.5.2)
+      rufus-scheduler (>= 2.0.24)
+      sidekiq (>= 4.2.1)
+    sidekiq-limit_fetch (3.4.0)
+      sidekiq (>= 4)
     sidekiq-scheduler (2.1.1)
       hashie (~> 3.4)
       redis (~> 3)
@@ -465,6 +471,8 @@ DEPENDENCIES
   rspec-rails
   shoulda-matchers
   sidekiq
+  sidekiq-cron
+  sidekiq-limit_fetch
   sidekiq-scheduler
   sidekiq-statistic
   sidetiq
