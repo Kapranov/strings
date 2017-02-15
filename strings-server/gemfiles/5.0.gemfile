@@ -50,6 +50,7 @@ group :development do
   gem 'subcontractor'
   gem 'ffaker'
   gem 'random-word'
+  gem 'license_finder'
   gem 'brakeman',                 :require => false
 end
 
