@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
   end
 
   def index
-    @tokens = Token.all
+    # @tokens = Token.all
     # render json: @tokens
     # render json: MultiJson.dump(json_for(@tokens), mode: :compat)
     # render json: Oj.dump(@tokens.first, mode: :compat)
