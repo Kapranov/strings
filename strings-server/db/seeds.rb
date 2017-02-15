@@ -37,7 +37,9 @@ if Rails.env.development?
   puts "--------Creating Token--------------------------------"
   # token = Token.create!
   token = CreateTokenService.new.call
-  puts 'CREATED APIs Token KEY: ' << token.apikey
+  puts 'CREATED APIs Token key: ' << token.apikey
+  puts 'CREATED APIs  Username: ' << token.username
+  puts 'CREATED APIs  Password: ' << token.password
   puts "--------Creating Users--------------------------------"
   user = CreateAdminService.new.call
   puts 'CREATED ADMIN USER: ' << user.email

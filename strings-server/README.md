@@ -2,6 +2,8 @@
 
 ```
 curl -H "Authorization: Token token=PsmmvKBqQDOaWwEsPpOCYMsy" http://localhost:3000/users
+curl -H "Authorization: Token token=PsmmvKBqQDOaWwEsPpOCYMsy" -u 'Oleg G.Kapranov:87654321' http://localhost:3000/users
+
 ```
 
 ```

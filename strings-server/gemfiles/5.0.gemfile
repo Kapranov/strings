@@ -96,6 +96,10 @@ group :development, :test do
   gem 'license_finder'
   gem 'bundler-audit'
   gem 'benchmark-ips',            '~> 2.7', require: false
+  gem 'awesome_rails_console'
+  gem 'hirb'
+  gem 'hirb-unicode'
+  gem 'awesome_print'
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
