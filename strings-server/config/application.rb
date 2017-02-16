@@ -68,6 +68,13 @@ module StringsServer
       File.write Rails.root.join("config", "secret_#{filename}.yml"), my_secrets.to_yaml
     end
 
+    encryption_type = "KEY"
+    puts 10.times.each_with_object({}) do |number, acc|
+      index = sprintf "%02d", number
+
+      acc[index] = %Q{<%= ENV["MY_SECRET_#{encryption_type}_#{index}\"] %>}
+    end
+
     config.generators do |g|
       # g.test_framework :minitest, spec: true,  fixture: true, fixture_replacement: :factory_girl
       # g.fixture_replacement :factory_girl, dir: 'test/fixtures'
