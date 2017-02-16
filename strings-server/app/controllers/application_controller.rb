@@ -6,9 +6,9 @@ class ApplicationController < ActionController::API
   TOKEN = 'secret'
   ACCESS = { 'user1' => 'Tamron', 'user2' => 'Hall' }
 
-  before_action :authenticate_http,   except: [ :index ]
-  before_action :authenticate_token,  except: [ :index ]
-  before_action :validate_token,      except: [ :index ]
+  # before_action :authenticate_http
+  before_action :authenticate
+  before_action :validate_token
   before_action :check_header
   after_action  :set_online
 
@@ -18,11 +18,12 @@ class ApplicationController < ActionController::API
   end
 
   def index
-    @tokens = Token.all
+    # @tokens = Token.all
     # render json: @tokens, status: :ok, meta: default_meta
-    render json: MultiJson.dump(json_for(@tokens, status: :ok, meta: default_meta), mode: :compat)
+    # render json: MultiJson.dump(json_for(@tokens, status: :ok, meta: default_meta), mode: :compat)
     # render json: Oj.dump(@tokens.first, mode: :compat)
     # render html: "<strong>Everyone can see me!</strong>".html_safe
+    render text: "Everyone can see me!"
   end
 
   def json_for(target, options = {})
@@ -52,6 +53,10 @@ class ApplicationController < ActionController::API
 
   def set_online
     $redis.set("hello", "Application was connected to Redis!")
+  end
+
+  def authenticate
+    authenticate_token || render_unauthorized
   end
 
   def authenticate_http
@@ -105,4 +110,12 @@ class ApplicationController < ActionController::API
   #    return false
   #  end
   #end
+
+  def render_unauthorized(realm=nil)
+    if realm
+      # self.headers['WWW-Authenticate'] = 'Token realm="Application"'
+      self.headers['WWW-Authenticate'] = %(Token realm="#{realm.gsub(/"/, "")}")
+    end
+    render json: 'Bad credentials', status: 401
+  end
 end

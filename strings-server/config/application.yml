@@ -3,7 +3,7 @@ general: &general
   LOCALHOST:            '127.0.0.1:3000'
   IP:                   '127.0.0.1'
   ACCESS_TOKEN:         'fdd110671210f2be353995806414f9d8'
-  TOKEN_USERNAME:       'Oleg G.Kapranov'
+  TOKEN_USERNAME:       'Oleg.G.Kapranov'
   TOKEN_PASSWORD:       '87654321'
   RACK_CORS_ORIGINS:    'localhost:4200'
   REDIS_URL:            'redis://localhost:6379/0'

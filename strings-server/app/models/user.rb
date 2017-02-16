@@ -48,6 +48,7 @@ class User
   end
 
   def token_suitable?(set_apikey)
+    # return if self.class.where(apikey: set_apikey).present?
     self.class.where(apikey: set_apikey).count == 0
   end
 

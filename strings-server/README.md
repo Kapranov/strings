@@ -1,9 +1,18 @@
 > Authenticating Your API
 
 ```
-curl -H "Authorization: Token token=PsmmvKBqQDOaWwEsPpOCYMsy" http://localhost:3000/users
-curl -H "Authorization: Token token=PsmmvKBqQDOaWwEsPpOCYMsy" -u 'Oleg G.Kapranov:87654321' http://localhost:3000/users
+curl http://localhost:3000/
+curl -I -v http://localhost:3000
+curl -I --trace-ascii - http://localhost:3000
+curl -I http://localhost:3000/
 
+curl -u Oleg%20G.Kapranov:87654321 http://localhost:3000/
+
+curl -u Oleg.G.Kapranov:87654321 http://localhost:3000/
+curl -u Oleg.G.Kapranov:87654321 http://localhost:3000/api/users
+
+curl -H "Authorization: Token token=Tbb4IOXzebLrnQrhmg8GxCOoLlzkGdfeQQtt" http://localhost:3000/
+curl -H "Authorization: Token token=Tbb4IOXzebLrnQrhmg8GxCOoLlzkGdfeQQtt" http://localhost:3000/api/users
 ```
 
 ```
