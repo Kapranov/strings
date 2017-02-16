@@ -5,8 +5,12 @@ Rails.application.routes.draw do
     mount Sidekiq::Web, at: '/sidekiq'
   end
 
+  %w( 404 422 500 ).each do |code|
+    get code, to: 'errors#show', code: code
+  end
+
   get 'upgrade/index'
-  get "application/index"
+  get 'application/index'
 
   # root to: 'upgrade#index'
   root to: "application#index"
