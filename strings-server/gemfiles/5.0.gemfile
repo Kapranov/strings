@@ -47,6 +47,7 @@ gem 'chronic'
 gem 'chronic_duration'
 gem 'http_accept_language',       '~>2.1', require: false
 gem 'net-ssh'
+gem 'rack-throttle'
 gem 'thor',                       '0.19.1'
 gem 'active_model_serializers',   '0.10.4'
 

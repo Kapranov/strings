@@ -705,6 +705,21 @@ r.db("myDb").table("people").filter(r.row("age").lt(20)).changes()
 r.db("myDb").table("people").changes({squash: 5})
 ```
 
+> Webhook
+
+Webhooks allow developers to build apps that receive information, in
+near–real time, about events that happen on Github. Webhooks
+require you to provide a callback URI where you want us to send
+information about the events that your app subscribes to.When the event
+happens Github will send a POST request to your callback URI and
+then your app can perform some action based on that event.
+
+Here are few examples for such events
+
+* An order is placed.
+* A product is added.
+* A customer record is updated.
+
 Features
 ---------
 

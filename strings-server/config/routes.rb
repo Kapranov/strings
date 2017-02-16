@@ -9,8 +9,14 @@ Rails.application.routes.draw do
     get code, to: 'errors#show', code: code
   end
 
+  constraints subdomain: "hooks" do
+    get   '/:integration_name' => 'webhooks#complete',  as: :complete_webhooks
+    post  '/:integration_name' => 'webhooks#receive',   as: :receive_webhooks
+  end
+
   get 'upgrade/index'
   get 'application/index'
+  # get "/webhooks/receive", to: "webhooks#complete"
 
   # root to: 'upgrade#index'
   root to: "application#index"
