@@ -52,6 +52,22 @@ module StringsServer
     config.middleware.use Rack::Attack
     config.middleware.insert_before Rack::Head, CatchJsonParseErrors
 
+    def generate_random_values
+      10.times.each_with_object({}) do |number, acc|
+        index = sprintf "%02d", number
+
+        acc[index] = SecureRandom.hex(64)
+      end
+    end
+
+    ["keys", "salts"].each do |filename|
+      my_secrets = {
+        development: generate_random_values,
+        test:        generate_random_values
+      }
+      File.write Rails.root.join("config", "secret_#{filename}.yml"), my_secrets.to_yaml
+    end
+
     config.generators do |g|
       # g.test_framework :minitest, spec: true,  fixture: true, fixture_replacement: :factory_girl
       # g.fixture_replacement :factory_girl, dir: 'test/fixtures'
