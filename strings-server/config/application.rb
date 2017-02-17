@@ -75,7 +75,7 @@ module StringsServer
       acc[index] = %Q{<%= ENV["MY_SECRET_#{encryption_type}_#{index}\"] %>}
     end
 
-    config.middleware.use Rack::Throttle::Interval
+    config.middleware.use Rack::Throttle::Interval, :min => 3.0, :cache => Redis.new, :key_prefix => :throttle
 
     config.generators do |g|
       # g.test_framework :minitest, spec: true,  fixture: true, fixture_replacement: :factory_girl

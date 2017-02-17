@@ -69,6 +69,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'minitest-rails'
   gem 'minitest-reporters'
+  gem 'json_api_client'
 end
 
 group :development, :test do

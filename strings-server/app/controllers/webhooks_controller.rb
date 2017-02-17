@@ -4,6 +4,12 @@ class WebhooksController < ApplicationController
   skip_before_action :validate_token
   skip_before_action :check_header
 
+  def index;  webhook; end
+  def create; webhook; end
+  def show;   webhook; end
+  def update; webhook; end
+  def delete; webhook; end
+
   def complete
     return head :ok
   end
@@ -20,4 +26,11 @@ class WebhooksController < ApplicationController
     puts "<<<<<<<<<<< CREATED WEBHOOK INITIATED >>>>>>>>>>>>>>>"
     render nothing: true, status: 200
   end
+
+  private
+
+    def webhook
+      WebhookJob.perform_later(params.to_json)
+      render(status: :accepted, plain:"OK")
+    end
 end

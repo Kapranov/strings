@@ -1,5 +1,8 @@
 > Authenticating Your API
 
+[http://requestb.in/](Inspect HTTP Requests)
+
+
 ```
 curl http://localhost:3000/
 curl -I -v http://localhost:3000
@@ -705,7 +708,7 @@ r.db("myDb").table("people").filter(r.row("age").lt(20)).changes()
 r.db("myDb").table("people").changes({squash: 5})
 ```
 
-> Webhook
+> Webhook and Non-REST-ful Requests
 
 Webhooks allow developers to build apps that receive information, in
 near–real time, about events that happen on Github. Webhooks
@@ -713,6 +716,19 @@ require you to provide a callback URI where you want us to send
 information about the events that your app subscribes to.When the event
 happens Github will send a POST request to your callback URI and
 then your app can perform some action based on that event.
+
+Depending on your use case, standard REST requests can’t always be sent.
+I’ve worked with systems that can only send GET requests, so all payload
+information and authentication must appear in the query string.
+
+If your application needs to respond to these Webhooks requests that are
+used by a limited client that doesn’t understand REST, you need to build
+a non-REST-ful interface.
+
+For that case, I create a special endpoint and set up a controller that
+maps the get request into a processing request. Here, I accept the
+request and send it off into an ActiveJob so we can quickly return for
+the client.
 
 Here are few examples for such events
 
