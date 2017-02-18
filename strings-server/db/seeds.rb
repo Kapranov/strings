@@ -33,6 +33,14 @@
 
 # User.first.awesome_stuffs
 
+# json = ActiveSupport::JSON.decode(File.read('db/seeds/posts.json'))
+# json.each do |post|
+#   record = Post.new post
+#   record.author = author;
+#   record.save!
+# end
+
+
 if Rails.env.development?
   puts "--------Creating Token--------------------------------"
   # token = Token.create!

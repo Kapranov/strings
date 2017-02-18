@@ -29,8 +29,8 @@ class WebhooksController < ApplicationController
 
   private
 
-    def webhook
-      WebhookJob.perform_later(params.to_json)
-      render(status: :accepted, plain:"OK")
-    end
+  def webhook
+    WebhookJob.perform_later(params.to_json)
+    render(status: :accepted, plain:"OK")
+  end
 end

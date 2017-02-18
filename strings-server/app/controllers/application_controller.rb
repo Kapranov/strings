@@ -23,7 +23,7 @@ class ApplicationController < ActionController::API
     # render json: MultiJson.dump(json_for(@tokens, status: :ok, meta: default_meta), mode: :compat)
     # render json: Oj.dump(@tokens.first, mode: :compat)
     # render html: "<strong>Everyone can see me!</strong>".html_safe
-    render text: "Everyone can see me!"
+    render plain: "Everyone can see me!"
   end
 
   def json_for(target, options = {})

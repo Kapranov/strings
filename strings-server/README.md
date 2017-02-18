@@ -16,6 +16,14 @@ curl -u Oleg.G.Kapranov:87654321 http://localhost:3000/api/users
 
 curl -H "Authorization: Token token=Tbb4IOXzebLrnQrhmg8GxCOoLlzkGdfeQQtt" http://localhost:3000/
 curl -H "Authorization: Token token=Tbb4IOXzebLrnQrhmg8GxCOoLlzkGdfeQQtt" http://localhost:3000/api/users
+curl -H "Authorization: Token token=Tbb4IOXzebLrnQrhmg8GxCOoLlzkGdfeQQtt" http://localhost:3000/api/users?token=M8lCpnUh6LsZn526rtPr9jACGgvoOPpqVAtt
+```
+
+```
+GET       - http://localhost:3000/api/v1/users?token=Params
+POST      - http://localhost:3000/api/v1/users?token=Params
+GET       - http://localhost:3000/api/v1/users/id?token=Params
+PUT/PATCH - http://localhost:3000/api/v1/users/id?token=Params
 ```
 
 ```
