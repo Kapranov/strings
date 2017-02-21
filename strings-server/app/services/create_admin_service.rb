@@ -1,6 +1,7 @@
 class CreateAdminService
   def call
     generate_token = SecureRandom.base64(25).tr('+/=', 'Qrt')
+    exit if User.any?
 
     user = FactoryGirl.create :user,
     first_name: Rails.application.secrets.admin_first_name.to_s,

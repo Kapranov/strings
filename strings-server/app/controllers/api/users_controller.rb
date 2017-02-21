@@ -34,4 +34,9 @@ class API::UsersController < ApplicationController
       head :unauthorized
     end
   end
+
+  def bearer_token
+    auth_header = request.headers['Authorization']
+    auth_header ? auth_header.split(' ').last : nil
+  end
 end
