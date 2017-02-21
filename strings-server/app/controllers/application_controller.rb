@@ -12,11 +12,6 @@ class ApplicationController < ActionController::API
   before_action :check_header
   after_action  :set_online
 
-  def append_info_to_payload(payload)
-    super
-    payload[:host] = request.host
-  end
-
   def index
     # @tokens = Token.all
     # render json: @tokens, status: :ok, meta: default_meta
@@ -46,7 +41,9 @@ class ApplicationController < ActionController::API
   end
 
   def meta(options)
-    { copyright: "© #{Time.now.year} LugaTeX -  LaTeX Project Public License (LPPL)." }
+    {
+      copyright: "© #{Time.now.year} LugaTeX -  LaTeX Project Public License (LPPL)."
+    }
   end
 
   private

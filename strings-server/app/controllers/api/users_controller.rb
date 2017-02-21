@@ -11,6 +11,12 @@ class API::UsersController < ApplicationController
     render :json => MultiJson.dump(json_for(@users), mode: :compat)
   end
 
+  def meta
+    {
+      copyright: "© #{Time.now.year} LugaTeX -  LaTeX Project Public License (LPPL)."
+    }
+  end
+
   private
 
   def user_param
@@ -27,16 +33,13 @@ class API::UsersController < ApplicationController
 
   def restrict_access
     token = User.where(:apikey => params[:token])
+    auth_header = request.headers['Authorization']
     params[:token] = token
     if token.present?
-      return headers['Authorization']
+      # return headers['Authorization']
+      auth_header ? auth_header.split(' ').last : nil
     else
-      head :unauthorized
+      render json: { error: 'Incorrect credentials', meta: meta }, status: 401
     end
-  end
-
-  def bearer_token
-    auth_header = request.headers['Authorization']
-    auth_header ? auth_header.split(' ').last : nil
   end
 end
