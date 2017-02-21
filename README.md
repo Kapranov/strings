@@ -1,6 +1,25 @@
 Strings - The String Theory Web Site
 ------------------------------------
 
+               .=     ,        =.
+       _  _   /'/    )\,/,/(_   \ \
+         `//-.|  (  ,\\)\//\)\/_  ) |
+        //___\   `\\\/\\/\/\\///'  /
+    ,-"~`-._ `"--'_   `"""`  _ \`'"~-,_
+    \       `-.  '_`.      .'_` \ ,-"~`/
+      `.__.-'`/   (-\        /-) |-.__,'
+        ||   |     \O)  /^\ (O/  |
+        `\\  |         /   `\    /
+          \\  \       /      `\ /
+          `\\ `-.  /' .---.--.\
+            `\\/`~(, '()      ('
+              /(O) \\   _,.-.,_)
+            //  \\ `\'`      /
+           / |  ||   `""""~"`
+          /'  |__||
+                `o
+
+
 * **strings-server** - APIs Backend
   * README.md
 * **strings-client** - Frontend
@@ -66,7 +85,7 @@ real-time data updates. Additionally, it can be best used to showcase
 sports score on various online displays, monitoring systems, fast
 workflow applications.
 
-### 6 Feb 2017 Oleg G.Kapranov
+### 22 Feb 2017 Oleg G.Kapranov
 
 [1]: http://rubyonrails.org/
 [2]: http://emberjs.com/
