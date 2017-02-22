@@ -1,7 +1,7 @@
 require 'json'
 require 'rest-client'
 
-class CreateGithubService
+class CreateGithub
   def call
     url = "https://api.github.com/users/"
     issues = [

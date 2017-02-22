@@ -6,11 +6,10 @@ class ApplicationController < ActionController::API
   TOKEN = 'secret'
   ACCESS = { 'user1' => 'Tamron', 'user2' => 'Hall' }
 
-  # before_action :authenticate_http
+  before_action :authenticate_http
   before_action :authenticate
   before_action :validate_token
   before_action :check_header
-  #before_action :restrict_access
   after_action  :set_online
 
   def index

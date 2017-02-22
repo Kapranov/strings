@@ -1,7 +1,7 @@
 require 'json'
 require 'rest-client'
 
-class CreateMovieService
+class CreateMovie
   def call
     url = "http://www.omdbapi.com/"
     movies = [

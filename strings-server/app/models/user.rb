@@ -4,7 +4,10 @@ class User
   include ActiveModel::SecurePassword
 
   has_secure_password
+
   before_validation :access_token, on: [:create], unless: :apikey
+
+  has_many :authentications
 
   # EMAIL_REGEX = /A[w+-.]+@[a-zd-.]+.[a-z]+z/i
   # EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i

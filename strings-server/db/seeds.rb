@@ -44,23 +44,26 @@
 if Rails.env.development?
   puts "--------Creating Token--------------------------------"
   # token = Token.create!
-  token = CreateTokenService.new.call
+  token = CreateToken.new.call
   puts 'CREATED APIs Token key: ' << token.apikey
   puts 'CREATED APIs  Username: ' << token.username
   puts 'CREATED APIs  Password: ' << token.password
   puts "--------Creating Users--------------------------------"
-  user = CreateAdminService.new.call
+  user = CreateAdmin.new.call
   puts 'CREATED ADMIN Account of the USER: ' << user.email
   puts 'CREATED ADMIN Account of the ROLE: ' << user.role.to_s
+  puts "--------Creating  JWT---------------------------------"
+  jwt = AccessToken.generate(user_id: user.id)
+  puts 'CREATED AccessToken: ' << jwt
   puts "--------Creating Movies-------------------------------"
-  # movie = CreateMovieService.new.call
+  # movie = CreateMovie.new.call
   puts "--------Creating Github-------------------------------"
-  # github = CreateGithubService.new.call
+  # github = CreateGithub.new.call
 end
 
 if Rails.env.test?
   puts "--------Seeding Data Start----------------------------"
-  user = CreateAdminService.new.call
+  user = CreateAdmin.new.call
   puts 'CREATED ADMIN USER: ' << user.email
   puts "--------Seeding Data End------------------------------"
 end

@@ -1,4 +1,4 @@
-class CreateAdminService
+class CreateAdmin
   def call
     generate_token = SecureRandom.base64(25).tr('+/=', 'Qrt')
     exit if User.any?
