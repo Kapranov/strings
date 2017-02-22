@@ -50,11 +50,15 @@ if Rails.env.development?
   puts 'CREATED APIs  Password: ' << token.password
   puts "--------Creating Users--------------------------------"
   user = CreateAdmin.new.call
-  puts 'CREATED ADMIN Account of the USER: ' << user.email
-  puts 'CREATED ADMIN Account of the ROLE: ' << user.role.to_s
+  puts 'CREATED ADMIN USER:     ' << user.email
+  puts 'CREATED ADMIN ROLE:     ' << user.role.to_s
   puts "--------Creating  JWT---------------------------------"
   jwt = AccessToken.generate(user_id: user.id)
-  puts 'CREATED AccessToken: ' << jwt
+  puts 'CREATED AccessToken:    ' << jwt
+  puts "--------Creating Authentication-----------------------"
+  auth = CreateAuth.new.call
+  puts 'CREATED AUTH USER_ID:   ' << auth.user_id
+  puts 'CREATED AUTH KEY:       ' << auth.key
   puts "--------Creating Movies-------------------------------"
   # movie = CreateMovie.new.call
   puts "--------Creating Github-------------------------------"

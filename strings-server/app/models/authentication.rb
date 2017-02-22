@@ -2,11 +2,11 @@ class Authentication
   include NoBrainer::Document
   include NoBrainer::Document::Timestamps
 
-  before_validation :secret, on: [:create], unless: :secret_digest
+  #validate :login
 
   belongs_to :user
 
-  field :user_id,           type: Integer
+  field :user_id,           type: String
   field :key,               type: String, uniq: true
   field :secret_digest,     type: String
   field :browser,           type: String
@@ -25,6 +25,20 @@ class Authentication
   def authenticate(unencrypted)
     BCrypt::Password.new(secret_digest) == unencrypted && self
   end
+
+  #def login
+  #  return if model.user.present? && model.user.authenticate(password)
+  #  errors.add(:base, :unauthenticated)
+  #end
+
+  #def model!(params)
+  #  @user = User.where.first[:email]
+  #  Authentication.new(
+  #    user_id: @user,
+  #    key: SecureRandom.uuid,
+  #    secret: secret
+  #  )
+  #end
 
   private
 
