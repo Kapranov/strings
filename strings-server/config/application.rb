@@ -80,8 +80,8 @@ module StringsServer
     config.generators do |g|
       # g.test_framework :minitest, spec: true,  fixture: true, fixture_replacement: :factory_girl
       # g.fixture_replacement :factory_girl, dir: 'test/fixtures'
-      g.test_framework :minitest, spec: false, fixture: false
-      g.test_framework :rspec, fixtures: false
+      g.test_framework :minitest, spec: true, fixture: true
+      g.test_framework :rspec, fixtures: true
       g.helper false
       g.decorator false
       g.controller assets: false

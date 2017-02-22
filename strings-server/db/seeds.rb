@@ -49,8 +49,9 @@ if Rails.env.development?
   puts 'CREATED APIs  Username: ' << token.username
   puts 'CREATED APIs  Password: ' << token.password
   puts "--------Creating Users--------------------------------"
-  user = CreateAdminService.new.call
-  puts 'CREATED ADMIN USER: ' << user.email
+  user = CreateUserService.new.call
+  puts 'CREATED ACCOUNT USER: ' << user.email
+  puts 'CREATED ACCOUNT ROLE: ' << user.role.to_s
   puts "--------Creating Movies-------------------------------"
   # movie = CreateMovieService.new.call
   puts "--------Creating Github-------------------------------"

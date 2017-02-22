@@ -12,13 +12,23 @@ class User
 
   self.include_root_in_json = true
 
+  def self.roles
+    [
+      :'Admin',
+      :'Manager',
+      :'Contributor',
+      :'Reviewer'
+    ]
+  end
+
   field :first_name,      type: String, required: true, min_length: 4
   field :last_name,       type: String, required: true, min_length: 4
   field :middle_name,     type: String, required: true, min_length: 2
   field :password_digest, type: String, required: true, min_length: 8
   field :apikey,          type: String, required: true, min_length: 25, uniq: true
-  field :email,           type: String, required: true, min_length: 5
+  field :email,           type: String, required: true, min_length: 5,  uniq: true
   field :description,     type: Text,   required: true, min_length: 5
+  field :role,            type: Enum,   in: self.roles, default: self.roles.first
 
   index :apikey
 
