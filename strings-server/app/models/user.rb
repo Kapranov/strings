@@ -28,7 +28,7 @@ class User
   field :apikey,          type: String, required: true, min_length: 25, uniq: true
   field :email,           type: String, required: true, min_length: 5,  uniq: true
   field :description,     type: Text,   required: true, min_length: 5
-  field :role,            type: Enum,   in: self.roles, default: self.roles.first
+  field :role,            type: Enum,   required: true, in: self.roles, default: self.roles.first
 
   index :apikey
 
@@ -41,6 +41,7 @@ class User
   validates :apikey,          presence: true, length: { minimum: 25, allow_blank: false }
   # validates_length_of :password, in: 8..20, on: :create
   validates :password_digest, presence: { on: :create }, length: { minimum: 8, allow_blank: false }
+  validates :role,            presence: true
 
   def access_token
     return if apikey.present?

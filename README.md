@@ -85,6 +85,13 @@ real-time data updates. Additionally, it can be best used to showcase
 sports score on various online displays, monitoring systems, fast
 workflow applications.
 
+> Currently, the following roles are available in Enterprise:
+
+* **Admins:** Full account access
+* **Manager:** Can invite members, create teams, and view all prototypes
+* **Contributor:** Can create and edit prototypes they are on
+* **Reviewer:** Can be assigned prototypes to review
+
 ### 22 Feb 2017 Oleg G.Kapranov
 
 [1]: http://rubyonrails.org/
