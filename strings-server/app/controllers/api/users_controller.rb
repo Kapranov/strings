@@ -1,9 +1,6 @@
 class API::UsersController < ApplicationController
   include ActionController::Serialization
 
-  before_action :authenticate
-  before_action :validate_token
-  before_action :check_header
   before_action :restrict_access
 
   def index
@@ -27,19 +24,8 @@ class API::UsersController < ApplicationController
       :password,
       :apikey,
       :email,
-      :description
+      :description,
+      :role
     )
-  end
-
-  def restrict_access
-    token = User.where(:apikey => params[:token])
-    auth_header = request.headers['Authorization']
-    params[:token] = token
-    if token.present?
-      # return headers['Authorization']
-      auth_header ? auth_header.split(' ').last : nil
-    else
-      render json: { error: 'Incorrect credentials', meta: meta }, status: 401
-    end
   end
 end

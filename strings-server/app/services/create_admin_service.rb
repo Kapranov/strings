@@ -1,4 +1,4 @@
-class CreateUserService
+class CreateAdminService
   def call
     generate_token = SecureRandom.base64(25).tr('+/=', 'Qrt')
     exit if User.any?
@@ -19,7 +19,8 @@ class CreateUserService
     apikey: generate_token,
     password: Rails.application.secrets.admin_password.to_s,
     email: Rails.application.secrets.admin_email.to_s,
-    description: Rails.application.secrets.admin_description.to_s
+    description: Rails.application.secrets.admin_description.to_s,
+    role: User.roles[0]
   end
   puts "Destroy  Users: #{User.count}"
 end

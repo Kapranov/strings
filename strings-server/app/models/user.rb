@@ -28,7 +28,7 @@ class User
   field :apikey,          type: String, required: true, min_length: 25, uniq: true
   field :email,           type: String, required: true, min_length: 5,  uniq: true
   field :description,     type: Text,   required: true, min_length: 5
-  field :role,            type: Enum,   required: true, in: self.roles, default: self.roles.first
+  field :role,            type: Enum,   required: true, in: self.roles, default: self.roles[3]
 
   index :apikey
 
