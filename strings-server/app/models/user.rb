@@ -3,11 +3,13 @@ class User
   include NoBrainer::Document::Timestamps
   include ActiveModel::SecurePassword
 
+  # include Authentication
+
   has_secure_password
 
   before_validation :access_token, on: [:create], unless: :apikey
 
-  has_many :authentications
+  has_many :accesses
 
   # EMAIL_REGEX = /A[w+-.]+@[a-zd-.]+.[a-z]+z/i
   # EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i

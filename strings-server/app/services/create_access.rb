@@ -1,9 +1,9 @@
-class CreateAuth
+class CreateAccess
   def call
-    authentication = FactoryGirl.create :authentication,
+    access = FactoryGirl.create :access,
     user_id:  User.where.first[:id],
     key:      SecureRandom.uuid,
     secret:   SecureRandom.hex(30)
   end
-  puts "Destroy   Auth: #{Authentication.count}"
+  puts "Destroy Access: #{Access.count}"
 end

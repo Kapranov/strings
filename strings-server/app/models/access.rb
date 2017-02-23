@@ -1,4 +1,4 @@
-class Authentication
+class Access
   include NoBrainer::Document
   include NoBrainer::Document::Timestamps
 
@@ -29,15 +29,6 @@ class Authentication
   #def login
   #  return if model.user.present? && model.user.authenticate(password)
   #  errors.add(:base, :unauthenticated)
-  #end
-
-  #def model!(params)
-  #  @user = User.where.first[:email]
-  #  Authentication.new(
-  #    user_id: @user,
-  #    key: SecureRandom.uuid,
-  #    secret: secret
-  #  )
   #end
 
   private

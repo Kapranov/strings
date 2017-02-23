@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :authentication do
+  factory :access do
     user ""
     key "MyString"
     secret_digest "MyString"

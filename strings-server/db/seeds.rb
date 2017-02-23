@@ -55,10 +55,10 @@ if Rails.env.development?
   puts "--------Creating  JWT---------------------------------"
   jwt = AccessToken.generate(user_id: user.id)
   puts 'CREATED AccessToken:    ' << jwt
-  puts "--------Creating Authentication-----------------------"
-  auth = CreateAuth.new.call
-  puts 'CREATED AUTH USER_ID:   ' << auth.user_id
-  puts 'CREATED AUTH KEY:       ' << auth.key
+  puts "--------Creating Access-------------------------------"
+  access = CreateAccess.new.call
+  puts 'CREATED Access USER_ID: ' << access.user_id
+  puts 'CREATED Access KEY:     ' << access.key
   puts "--------Creating Movies-------------------------------"
   # movie = CreateMovie.new.call
   puts "--------Creating Github-------------------------------"

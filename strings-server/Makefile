@@ -84,6 +84,9 @@ db_sync:
 db_index:
 	$(V)rake nobrainer:sync_indexes
 
+db_reload:
+	$(V)rake db:reload
+
 guard:
 	$(V)bundle exec guard
 
