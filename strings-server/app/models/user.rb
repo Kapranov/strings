@@ -26,8 +26,8 @@ class User
     ]
   end
 
-  field :first_name,      type: String, required: true, min_length: 4
-  field :last_name,       type: String, required: true, min_length: 4
+  field :first_name,      type: String, required: true, min_length: 2
+  field :last_name,       type: String, required: true, min_length: 2
   field :middle_name,     type: String, required: true, min_length: 2
   field :password_digest, type: String, required: true, min_length: 8
   field :apikey,          type: String, required: true, min_length: 25, uniq: true
@@ -37,8 +37,8 @@ class User
 
   index :apikey
 
-  validates :first_name,      presence: true, length: { minimum: 4,  allow_blank: false }
-  validates :last_name,       presence: true, length: { minimum: 4,  allow_blank: false }
+  validates :first_name,      presence: true, length: { minimum: 2,  allow_blank: false }
+  validates :last_name,       presence: true, length: { minimum: 2,  allow_blank: false }
   validates :middle_name,     presence: true, length: { minimum: 2,  allow_blank: false }
   # validates :email,           presence: true, uniqueness: true, format: EMAIL_REGEX
   validates :email,           presence: true, length: { minimum: 5,  allow_blank: false }
