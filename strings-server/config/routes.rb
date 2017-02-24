@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'home/index'
+
   require 'sidekiq/web'
 
   if Rails.env.development?
@@ -15,11 +17,11 @@ Rails.application.routes.draw do
   end
 
   get 'upgrade/index'
-  get 'authentication/index'
+  get 'home/index'
   # get "/webhooks/receive", to: "webhooks#complete"
 
   # root to: 'upgrade#index'
-  root to: "authentication#index"
+  root to: "home#index"
 
   namespace :api do
     resources :users, only: [:index], defaults: {format: 'json'}
