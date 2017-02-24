@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   namespace :api do
-    resources :users, only: [:index], defaults: {format: 'json'}
+    resources :users, only: [:index, :show], defaults: {format: 'json'}
   end
 
   constraints subdomain: 'api' do

@@ -15,6 +15,10 @@ class API::UsersController < AuthenticationController
     # end
   end
 
+  def show
+    render json: user
+  end
+
   def meta
     {
       copyright: "© #{Time.now.year} LugaTeX -  LaTeX Project Public License (LPPL)."
@@ -34,6 +38,10 @@ class API::UsersController < AuthenticationController
       :description,
       :role
     )
+  end
+
+  def user
+    User.find(params[:id])
   end
 
   def apikey?
