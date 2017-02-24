@@ -87,6 +87,16 @@ db_index:
 db_reload:
 	$(V)rake db:reload
 
+db_admin:
+	$(V)clear
+	$(V)bundle exec rake tmp:clear
+	$(V)bundle exec rake log:clear
+	$(V)rake db:clean
+	$(V)rake db:admin
+	$(V)rake db:users
+	$(V)bundle exec rake tmp:clear
+	$(V)bundle exec rake log:clear
+
 guard:
 	$(V)bundle exec guard
 

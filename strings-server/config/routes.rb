@@ -15,11 +15,11 @@ Rails.application.routes.draw do
   end
 
   get 'upgrade/index'
-  get 'application/index'
+  get 'authentication/index'
   # get "/webhooks/receive", to: "webhooks#complete"
 
   # root to: 'upgrade#index'
-  root to: "application#index"
+  root to: "authentication#index"
 
   namespace :api do
     resources :users, only: [:index], defaults: {format: 'json'}

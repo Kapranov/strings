@@ -40,25 +40,53 @@
 #   record.save!
 # end
 
+#
+# images = [
+#   'https://unsplash.com/?photo=b1NFkUR-3Fg/download?force=true',
+#   'https://unsplash.com/?photo=3IEZsaXmzzs/download?force=true',
+#   'https://unsplash.com/?photo=9O1oQ9SzQZQ/download?force=true',
+#   'https://unsplash.com/?photo=zNN6ubHmruI/download?force=true',
+#   'https://unsplash.com/?photo=vL4ARRCFyg4/download?force=true',
+#   'https://unsplash.com/?photo=eJx43ng-fTU/download?force=true',
+#   'https://unsplash.com/?photo=oiLGd4Dd7eY/download?force=true',
+#   'https://unsplash.com/?photo=XN_CrZWxGDM/download?force=true',
+#   'https://unsplash.com/?photo=cmKPOUgdmWc/download?force=true',
+#   'https://unsplash.com/?photo=7bwQXzbF6KE/download?force=true'
+# ]
+#
+# 10.times.each do |count|
+#   trip = user.trips.create!(name: "Pune trip #{count}", description: "Was mostly in summer #{count}")
+#   trip.tag_list.add(*tags.sample(rand(10)))
+#   trip.save!
+#
+#   place = trip.places.create!(name: "Agakhan Palace #{count}", description: "A very nice place #{count}", review: 'A good review')
+#   place.pictures.create!(url: images[count], description: 'just a pic')
+# end
 
 if Rails.env.development?
   puts "--------Creating Token--------------------------------"
   # token = Token.create!
   token = CreateToken.new.call
-  puts 'CREATED APIs Token key: ' << token.apikey
+  puts 'CREATED APIs   TokenId: ' << token.id
+  puts 'CREATED APIs  TokenKey: ' << token.apikey
   puts 'CREATED APIs  Username: ' << token.username
   puts 'CREATED APIs  Password: ' << token.password
   puts "--------Creating Users--------------------------------"
   user = CreateAdmin.new.call
-  puts 'CREATED ADMIN USER:     ' << user.email
-  puts 'CREATED ADMIN ROLE:     ' << user.role.to_s
-  puts "--------Creating  JWT---------------------------------"
-  jwt = AccessToken.generate(user_id: user.id)
-  puts 'CREATED AccessToken:    ' << jwt
+  puts 'CREATED ADMIN       Id: ' << user.id
+  puts 'CREATED ADMIN     User: ' << user.email
+  puts 'CREATED ADMIN     Role: ' << user.role.to_s
   puts "--------Creating Access-------------------------------"
   access = CreateAccess.new.call
-  puts 'CREATED Access USER_ID: ' << access.user_id
-  puts 'CREATED Access KEY:     ' << access.key
+  puts 'CREATED Access      Id: ' << access.id
+  puts 'CREATED Access  UserId: ' << access.user_id
+  puts 'CREATED Access     Key: ' << access.key
+  puts "--------Creating  JWT---------------------------------"
+  jwt_encode = AccessToken.generate(user_id: access.user_id)
+  jwt_decode = AccessToken.decode(jwt_encode).to_s
+  puts 'CREATED Encode  UserId: ' << access.user_id
+  puts 'CREATED JWT for Encode: ' << jwt_encode
+  puts 'CREATED JWT for Decode: ' << jwt_decode
   puts "--------Creating Movies-------------------------------"
   # movie = CreateMovie.new.call
   puts "--------Creating Github-------------------------------"

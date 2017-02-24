@@ -1,6 +1,15 @@
 require 'json'
 require 'rest-client'
 
+# https://www.rethinkdb.com/api/ruby/http/
+# https://developer.github.com/v3/auth/
+
+# r.db("strings").table('githubs').insert(r.http('https://api.github.com/users/kapranov'))
+# r.db("strings").table('githubs').insert(r.http('https://api.github.com/users/wycats'))
+# r.db("strings").table('githubs').insert(r.http('https://api.github.com/users/tomdale'))
+
+# r.http('https://api.github.com/users/kapranov', { auth: { user: GITHUB_TOKEN, pass: 'x-oauth-basic' } })
+
 class CreateGithub
   def call
     url = "https://api.github.com/users/"
@@ -13,8 +22,8 @@ class CreateGithub
       request = RestClient.get(url + issue, { params: {t: issue, r: :json}})
       issue_json = JSON.parse(request.body, object_class: OpenStruct)
       issue = Github.create!(
+        github_id:            issue_json.id,
         login:                issue_json.login,
-        github_id:            issue_json.id.to_i,
         avatar_url:           issue_json.avatar_url,
         gravatar_id:          issue_json.gravatar_id.to_i,
         url:                  issue_json.url,

@@ -6,13 +6,11 @@ class Access
 
   belongs_to :user
 
-  field :user_id,           type: String
   field :key,               type: String, uniq: true
   field :secret_digest,     type: String
   field :browser,           type: String
   field :operating_system,  type: String
 
-  index :user_id
   index :key
 
   attr_accessor :secret_unencrypted
@@ -34,6 +32,7 @@ class Access
   private
 
   def secret
-    @secret ||= SecureRandom.hex(30)
+    #@secret ||= SecureRandom.hex(30)
+    @secret ||= SecureRandom.base64(25).tr('+/=', 'Qrt')
   end
 end

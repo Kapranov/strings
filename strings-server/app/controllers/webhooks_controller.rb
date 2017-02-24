@@ -1,4 +1,4 @@
-class WebhooksController < ApplicationController
+class WebhooksController < AuthenticationController
   skip_before_action :authenticate_http
   skip_before_action :authenticate
   skip_before_action :validate_token
