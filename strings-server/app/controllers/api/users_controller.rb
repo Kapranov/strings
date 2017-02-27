@@ -19,6 +19,13 @@ class API::UsersController < AuthenticationController
     render json: user
   end
 
+  def ping
+    render json: {
+      message: "All good. You only get this message if you're authenticated.",
+      user: @current_user
+    }
+  end
+
   def meta
     {
       copyright: "© #{Time.now.year} LugaTeX -  LaTeX Project Public License (LPPL)."
