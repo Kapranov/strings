@@ -5,9 +5,12 @@ class User
 
   # include Authentication
 
-  has_secure_password
-
+  # after_create :generate_jwt_token
   before_validation :access_token, on: [:create], unless: :apikey
+
+  attr_accessor :jwt
+
+  has_secure_password
 
   has_many :accesses
 
@@ -77,5 +80,9 @@ class User
       set_apikey = SecureRandom.hex(25)
       break set_apikey unless User.where(apikey: set_apikey).first
     end
+  end
+
+  def generate_jwt_token
+    self.jwt = JWTWrapper.encode(self.slice(:id, :email))
   end
 end

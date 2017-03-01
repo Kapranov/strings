@@ -8,7 +8,6 @@ class ApplicationController < ActionController::API
     options[:scope] ||= self
     options[:url_options] ||= url_options
     data = ActiveModelSerializers::SerializableResource.new(target, options)
-    # logger.debug("Application as_json called!")
   end
 
   def render_error(resource, status)
@@ -16,17 +15,11 @@ class ApplicationController < ActionController::API
   end
 
   def default_meta
-    {
-      licence: 'CC-0',
-      authors: ['LugaTeX Inc.'],
-      logged_in: Token.first[:username] ? true : false
-    }
+    { licence: 'CC-0', authors: ['LugaTeX Inc.'], logged_in: Token.first[:username] ? true : false }
   end
 
   def meta(options)
-    {
-      copyright: "© #{Time.now.year} LugaTeX -  LaTeX Project Public License (LPPL)."
-    }
+    { copyright: "© #{Time.now.year} LugaTeX -  LaTeX Project Public License (LPPL)." }
   end
 
   private

@@ -62,8 +62,8 @@ class AuthenticationController < ApplicationController
     authenticate_or_request_with_http_token do |token, options|
       apikey = Token.where.first[:apikey]
       ActiveSupport::SecurityUtils.secure_compare(
-       ::Digest::SHA256.hexdigest(token),
-       ::Digest::SHA256.hexdigest(apikey)
+        ::Digest::SHA256.hexdigest(token),
+        ::Digest::SHA256.hexdigest(apikey)
       )
     end
   end
@@ -111,6 +111,7 @@ class AuthenticationController < ApplicationController
     token = User.where(:apikey => params[:token])
     auth_header = request.headers['Authorization']
     params[:token] = token
+
     if token.present?
       # return headers['Authorization']
       auth_header ? auth_header.split(' ').last : nil
