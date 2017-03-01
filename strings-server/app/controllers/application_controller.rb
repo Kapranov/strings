@@ -4,6 +4,11 @@ class ApplicationController < ActionController::API
 
   after_action  :set_online
 
+  # def current_user
+  #   return unless session[:user_id]
+  #   @current_user ||= User.find(session[:user_id])
+  # end
+
   def json_for(target, options = {})
     options[:scope] ||= self
     options[:url_options] ||= url_options
