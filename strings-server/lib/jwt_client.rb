@@ -4,10 +4,12 @@ require 'jwt'
 
 puts "====================== Example #1 ======================="
 
+ALGORITHM = 'HS256'
+
 hmac_secret = '599ac15f824b962410dfc9748f4dabb442822d470ef62b6fbc0ba7123181daf55f579fe59fe862a4771ce211f8f79edda5b52e6458c0b35a1f15d1b2a8d28c67'
 payload = {data: '4TYNfavfAgS3Ma'}
 
-token = JWT.encode payload, hmac_secret, 'HS256'
+token = JWT.encode payload, hmac_secret, ALGORITHM
 decoded_token = JWT.decode token, hmac_secret, true, { :algorithm => 'HS256' }
 
 puts "JWT Secrets: #{hmac_secret}"
@@ -20,7 +22,7 @@ puts "====================== Example #2 ======================="
 hmac_secret = 'iQIrdobu5FU6XMDe2QzSmfIkCk7H2ySdtQtt'
 payload = {user_id: "4TYNfavfAgS3Ma", email: 'lugatex@yahoo.com', }
 
-token = JWT.encode payload, hmac_secret, 'HS256'
+token = JWT.encode payload, hmac_secret, ALGORITHM
 decoded_token = JWT.decode token, hmac_secret, true, { :algorithm => 'HS256' }
 
 puts "JWT Secrets: #{hmac_secret}"
@@ -36,7 +38,7 @@ leeway = 30
 hmac_secret = 'iQIrdobu5FU6XMDe2QzSmfIkCk7H2ySdtQtt'
 payload = { :data => 'data', :exp => exp }
 
-token = JWT.encode payload, hmac_secret, 'HS256'
+token = JWT.encode payload, hmac_secret, ALGORITHM
 
 begin
   decoded_token = JWT.decode token, hmac_secret, true, { :exp_leeway => leeway, :algorithm => 'HS256' }
@@ -65,10 +67,9 @@ puts "====================== Example #5 ======================="
 
 hmac_secret='123123'
 payload = { user_id: 1 }
-algorithm = 'HS256'
 
-token = JWT.encode(payload, hmac_secret, algorithm)
-decoded_token = JWT.decode(token, hmac_secret, true, {algorithm: algorithm})
+token = JWT.encode(payload, hmac_secret, ALGORITHM)
+decoded_token = JWT.decode(token, hmac_secret, true, {algorithm: ALGORITHM})
 
 puts "JWT Secrets: #{hmac_secret}"
 puts "JWT Payload: #{payload}"
@@ -77,7 +78,7 @@ puts "JWT Decodes: #{decoded_token}"
 
 payload = { user_id:1, exp: Time.now.to_i }
 
-token = JWT.encode(payload, hmac_secret, algorithm)
+token = JWT.encode(payload, hmac_secret, ALGORITHM)
 # raises -> JWT::ExpiredSignature: Signature has expired
 # decoded_token = JWT.decode(token, hmac_secret, true, {algorithm: algorithm})
 
@@ -88,6 +89,19 @@ puts "JWT Encodes: #{token}"
 puts "JWT Expired: raises \-\> JWT\:\:ExpiredSignature\: Signature has expired"
 
 puts "====================== Example #6 ======================="
+
+hmac = '$39asdulawk3j489us39vm9370dmsZ'
+payload = {user_id: 1}
+
+token = JWT.encode(payload, hmac, ALGORITHM)
+decoded_token = JWT.decode(token, hmac, ALGORITHM)
+
+puts "JWT Secrets: #{hmac}"
+puts "JWT Payload: #{payload}"
+puts "JWT Encodes: #{token}"
+puts "JWT Decodes: #{decoded_token}"
+
+puts "====================== Example #7 ======================="
 
 payload = JWT.encode({
   :email => "bob@example.com", :name => "Bob", :iat => Time.now.to_i, :jti => rand(2<<64).to_s
