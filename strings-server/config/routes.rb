@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'home/index'
-
   require 'sidekiq/web'
 
   if Rails.env.development?
