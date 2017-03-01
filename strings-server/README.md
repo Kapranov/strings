@@ -26,99 +26,6 @@ GET       - http://localhost:3000/api/v1/users/id?token=Params
 PUT/PATCH - http://localhost:3000/api/v1/users/id?token=Params
 ```
 
-```
-bash> rails g scaffold user name email
-bash> rails g serializer user
-
-class ApplicationController < ActionController::API
-  include ActionController::Serialization
-end
-
-# GET http://api.mysite.com/v1/users/
-
-# app/controllers/
-# |-- api
-# |   `-- v1
-# |       |-- api_controller.rb
-# |       `-- users_controller.rb
-# |-- application_controller.rb
-
-# app/controllers/api/v1/api_controller.rb
-module Api::V1
-  class ApiController < ApplicationController
-    # Generic API stuff here
-  end
-end
-
-# app/controllers/api/v1/users_controller.rb
-module Api::V1
-  class UsersController < ApiController
-    def index
-      render json: User.all
-    end
-  end
-end
-
-# config/routes.rb
-constraints subdomain: 'api' do
-  scope module: 'api' do
-    namespace :v1 do
-      resources :users
-    end
-  end
-end
-
-# Authorization: Token token="WCZZYjnOQFUYfJIN2ShH1iD24UHo58A6TI"
-
-bash> rails g migration AddApiKeyToUsers api_key:string
-
-class User < ActiveRecord::Base
-  before_create do |user|
-    user.api_key = user.generate_api_key
-  end
-end
-
-# Generate a unique API key
-def generate_api_key
-  loop do
-    token = SecureRandom.base64.tr('+/=', 'Qrt')
-    break token unless User.exists?(api_key: token)
-  end
-end
-
-class ApplicationController < ActionController::Base
-  include ActionController::HttpAuthentication::Token::ControllerMethods
-
-  before_action :authenticate
-
-  protected
-  def authenticate
-    authenticate_token || render_unauthorized
-  end
-
-  def authenticate_token
-    authenticate_with_http_token do |token, options|
-      @current_user = User.find_by(api_key: token)
-    end
-  end
-
-  def render_unauthorized(realm = "Application")
-    self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
-    render json: 'Bad credentials', status: :unauthorized
-  end
-end
-
-curl -H "Authorization: Token token=PsmmvKBqQDOaWwEsPpOCYMsy" http://localhost:3000/users
-```
-
-> Using RSpec for Testing
-
-```ruby
-rails g rspec:install
-```
-
-> For clearance install Sidekiq without info wars
-
 ``Unresolved specs during Gem::Specification.reset``
 
 I was seeing this issue by just running RSpec on its own. From what I
@@ -763,7 +670,155 @@ Features
 * Thread-safe
 * Polymorphism
 
-[1]: http://nobrainer.io/docs/callbacks/#orders_of_callbacks
-[2]: https://www.rethinkdb.com/api/ruby/
-[3]: https://github.com/nviennot/nobrainer
-[4]: https://github.com/luiscript/graphql-rethinkdb-x
+> [JSON Web Token][5] (JWT) is an open standard (RFC 7519)
+
+That defines a compact and self-contained way for securely transmitting
+information between parties as a JSON object. This information can be
+verified and trusted because it is digitally signed. JWTs can be signed
+using a secret (with HMAC algorithm) or a public/private key pair using
+RSA.
+
+You can browse to [jwt.io][6] where you can play with a JWT and put these
+concepts in practice. [jwt.io][6] allows you to decode, verify and generate
+JWT.
+
+Let’s explain some concepts of this definition further.
+
+* **Compact:** Because of its size, it can be sent through an URL, POST
+  parameter, or inside an HTTP header. Additionally, due to its size its
+  transmission is fast.
+* **Self-contained:** The payload contains all the required information
+  about the user, to avoid querying the database more than once.
+
+
+### When should you use JSON Web Tokens?
+
+These are some scenarios where JSON Web Tokens are useful:
+
+* **Authentication:** This is the typical scenario for using JWT, once
+  the user is logged in, each subsequent request will include the JWT,
+  allowing the user to access routes, services, and resources that are
+  permitted with that token. Single Sign On is a feature that widely uses
+  JWT nowadays, because of its small overhead and its ability to be easily
+  used among systems of different domains.
+* **Information Exchange:** JWTs are a good way of securely transmitting
+  information between parties, because as they can be signed, for
+  example using a public/private key pair, you can be sure that the sender
+  is who he says he is. Additionally, as the signature is calculated using
+  the header and the payload, you can also verify that the content hasn’t
+  changed.
+
+
+### Which is the JSON Web Token structure?
+
+JWTs consist of three parts separated by dots ``(.)``, which are:
+
+* **Header**
+* **Payload**
+* **Signature**
+
+Therefore, a JWT typically looks like the following.
+
+```
+xxxxx.yyyyy.zzzzz
+```
+
+Let’s break down the different parts.
+
+### Header
+
+The header **typically** consists of two parts: the type of the token,
+which is JWT, and the hashing algorithm such as HMAC SHA256 or RSA.
+
+For example:
+
+```
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+Then, this JSON is Base64Url encoded to form the first part of the JWT.
+
+### Payload
+
+The second part of the token is the payload, which contains the claims.
+Claims are statements about an entity (typically, the user) and
+additional metadata. There are three types of claims: **reserved**,
+**public**, and **private** claims.
+
+* **Reserved claims:** These are a set of predefined claims, which are
+  not mandatory but recommended, thought to provide a set of useful,
+  interoperable claims. Some of them are: **iss**(issuer), **exp**
+  (expiration time), **sub** (subject), **aud** (audience), among
+  others.
+
+> Notice that the claim names are only three characters long as JWT is
+> meant to be compact.
+
+* **Public claims:** These can be defined at will by those using JWTs.
+  But to avoid collisions they should be defined in the IANA JSON Web
+  Token Registry or be defined as a URI that contains a collision
+  resistant namespace.
+* **public:** These are the custom claims created to share information
+  between parties that agree on using them.
+
+An example of payload could be:
+
+```
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "admin": true
+}
+```
+
+The payload is then **Base64Url** encoded to form the second part of
+the JWT.
+
+### Signature
+
+To create the signature part you have to take the encoded header, the
+encoded payload, a secret, the algorithm specified in the header, and
+sign that.
+
+For example if you want to use the HMAC SHA256 algorithm, the signature
+will be created in the following way.
+
+```
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret)
+```
+
+The signature is used to verify that the sender of the JWT is who it
+says it is and to ensure that the message was’t changed in the way.
+
+### Putting all together
+
+The output is three Base64 strings separated by dots that can be easily
+passed in HTML and HTTP environments, while being more compact compared
+to XML-based standards such as SAML.
+
+The following shows a JWT that has the previous header and payload
+encoded and it is signed with a secret.
+
+```
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.
+eyJ1c2VyX2lkIjoiNFRZTmZhdmZBZ1MzTWEiLCJlbWFpbCI6Imx1Z2F0ZXhAeWFob28uY29tIn0.
+oPdFdPAoKQARunvCAd58X01SXzo5CMtPc8hTv99Ovvg
+```
+
+[1]:  http://nobrainer.io/docs/callbacks/#orders_of_callbacks
+[2]:  https://www.rethinkdb.com/api/ruby/
+[3]:  https://github.com/nviennot/nobrainer
+[4]:  https://github.com/luiscript/graphql-rethinkdb-x
+[5]:  https://jwt.io/introduction/
+[6]:  https://jwt.io/
+[7]:  https://github.com/auth0/node-jsonwebtoken
+[8]:  https://github.com/MichielDeMey/express-jwt-permissions
+[9]:  https://github.com/dwyl/learn-json-web-tokens
+[10]: https://github.com/auth0/express-jwt
+[11]: https://github.com/kazu69/jwt-express-example
