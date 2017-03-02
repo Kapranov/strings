@@ -9,7 +9,7 @@ def linux_only(require_as)
   RUBY_PLATFORM.include?('linux') && require_as
 end
 
-gem 'rails',                      '~> 5.0.1'
+gem 'rails',                      '5.0.2'
 gem 'figaro'
 gem 'redis',                      require: ["redis", "redis/connection/hiredis"]
 gem 'redis-rails'
@@ -27,7 +27,7 @@ gem 'sidekiq-cron'
 gem 'sidekiq-scheduler'
 gem 'sidekiq-statistic'
 gem 'sidekiq-limit_fetch'
-gem 'json',                       '2.0.3'
+gem 'json'
 gem 'bigdecimal'
 gem 'foreman'
 gem 'multi_json'
@@ -45,18 +45,18 @@ gem 'ruby-prof'
 gem 'sys-filesystem'
 gem 'chronic'
 gem 'chronic_duration'
-gem 'http_accept_language',       '~> 2.1', require: false
+gem 'http_accept_language',       require: false
 gem 'net-ssh'
 gem 'rack-throttle'
-gem 'thor',                       '0.19.4'
-gem 'active_model_serializers',   '0.10.4'
+gem 'thor'
+gem 'active_model_serializers'
 
 # gem 'refile',                   '0.3.0'
 # gem 'refile-memory',            '0.3.0'
 # gem 'refile-mini_magick',       '0.3.0'
 # gem 'refile-nobrainer',         '0.3.0'
 # gem 'image_optim'
-# gem 'discourse_fastimage',      '2.0.3', require: 'fastimage'
+# gem 'discourse_fastimage',      require: 'fastimage'
 
 group :development do
   gem 'subcontractor'
@@ -75,7 +75,7 @@ end
 group :development, :test do
   gem 'byebug',                   platform: :mri
   gem 'libnotify'
-  gem 'rb-inotify',               '~> 0.9', require: RUBY_PLATFORM =~ /linux/i ? 'rb-inotify' : false
+  gem 'rb-inotify',               require: RUBY_PLATFORM =~ /linux/i ? 'rb-inotify' : false
   gem 'guard-rails'
   gem 'guard-rack'
   gem 'guard-rake'
@@ -97,7 +97,7 @@ group :development, :test do
   gem 'stackprof'
   gem 'license_finder'
   gem 'bundler-audit'
-  gem 'benchmark-ips',            '~> 2.7', require: false
+  gem 'benchmark-ips',            require: false
   gem 'awesome_rails_console'
   gem 'hirb'
   gem 'hirb-unicode'
