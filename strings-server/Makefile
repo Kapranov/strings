@@ -85,7 +85,8 @@ db_index:
 	$(V)rake nobrainer:sync_indexes
 
 db_reload:
-	$(V)rake db:reload
+	$(V)rake db:clean
+	$(V)rake nobrainer:seed
 
 db_admin:
 	$(V)clear

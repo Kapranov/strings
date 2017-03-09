@@ -3,7 +3,7 @@ class CreateAccess
     access = FactoryGirl.create :access,
     user_id:  User.where.first[:id],
     key:      SecureRandom.base64(25).tr('+/=', 'Qrt'),
-    secret:   SecureRandom.hex(30)
+    secret:   SecureRandom.base64(25).tr('+/=', 'Qrt')
   end
   puts "Destroy Access: #{Access.count}"
 end

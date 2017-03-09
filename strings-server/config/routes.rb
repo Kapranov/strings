@@ -1,12 +1,9 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
-  require 'sidekiq/web'
 
   if Rails.env.development?
     mount Sidekiq::Web, at: '/sidekiq'
-  end
-
-  %w( 404 422 500 ).each do |code|
-    get code, to: 'errors#show', code: code
   end
 
   constraints subdomain: "hooks" do
@@ -18,7 +15,10 @@ Rails.application.routes.draw do
   get 'home/index'
   # get "/webhooks/receive", to: "webhooks#complete"
 
-  # root to: 'upgrade#index'
+  match "/404", to: "errors#not_found",             via: :all
+  match "/422", to: "errors#unacceptable",          via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
+
   root to: "home#index"
 
   namespace :api do
@@ -38,5 +38,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
 end

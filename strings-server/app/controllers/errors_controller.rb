@@ -1,12 +1,14 @@
 class ErrorsController < ApplicationController
 
-  def show
-    render status_code.to_s, :status => status_code
+  def not_found
+    render json: { errors: ["Not Found"]}.to_json, status: 401
   end
 
-  protected
+  def unacceptable
+    render json: { errors: ["Unprocessable Entity"]}.to_json, status: 422
+  end
 
-  def status_code
-    params[:code] || 500
+  def internal_server_error
+    render json: { errors: ["Internal Server Error"]}.to_json, status: 500
   end
 end

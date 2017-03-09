@@ -3,8 +3,6 @@ class AccessToken
 
   class << self
     def generate(payload)
-      # exp = Time.now.to_i + 3600
-      # JWT.encode(payload.merge(exp: exp), hmac_secret, ALGORITHM)
       JWT.encode(
         payload,
         auth_secret,
@@ -13,7 +11,6 @@ class AccessToken
     end
 
     def decode(token)
-      # JWT.decode(token, hmac_secret, true, leeway: 30, algorithm: ALGORITHM)[0]
       JWT.decode(
         token,
         auth_secret,

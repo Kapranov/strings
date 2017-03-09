@@ -1,8 +1,5 @@
 class WebhooksController < AuthenticationController
-  skip_before_action :authenticate_http
   skip_before_action :authenticate
-  skip_before_action :validate_token
-  skip_before_action :check_header
 
   def index;  webhook; end
   def create; webhook; end

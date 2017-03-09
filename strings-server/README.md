@@ -4,6 +4,30 @@
 
 
 ```
+JWT_TOKEN='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjRWQ3gzbjJjbEdBdFpYIiwiZXhwIjoxNDkxMTM2MDcxfQ.8i3ScmFDaU_9c-GfPsWI64diM914EEJnTcA_KG_J5p4'
+
+# USER AUTHORIZATION
+curl -X POST -d email="kl@udia.com" -d username="klaudia" -d password="password" http://localhost:3000/login
+result> {"token":"JWT","user":{"id":"4VAjPS7qYU3ehe","username":"klaudia","email":"kl@udia.com","cards":[]}}
+
+# USER CREATE
+curl -X POST -d email="lugatex@yahoo.com" -d username="Kapranov" -d password="87654321" http://localhost:3000/register
+result> {"token":"JWT","user":{"id":5,"username":"Kapranov"}}
+
+# USER SHOW
+curl --header "Authorization: JWT_TOKEN" http://localhost:3000/cards
+curl --header "Authorization: JWT_TOKEN" http://localhost:3000/home
+curl --header "Authorization: JWT_TOKEN" http://localhost:3000/rooms
+curl --header "Authorization: JWT_TOKEN" http://localhost:3000/users
+curl --header "Authorization: JWT_TOKEN" http://localhost:3000/users/:id
+
+# USER DESTROY
+curl -X DELETE --header "Authorization: JWT_TOKEN" http://localhost:3000/users/:id
+
+# USER UPDATE
+curl -X PUT -d username="Oleg" --header "Authorization: JWT_TOKEN" http://localhost:3000/users/:id
+```
+
 curl http://localhost:3000/
 curl -I -v http://localhost:3000
 curl -I --trace-ascii - http://localhost:3000
@@ -14,9 +38,11 @@ curl -u Oleg%20G.Kapranov:87654321 http://localhost:3000/
 curl -u Oleg.G.Kapranov:87654321 http://localhost:3000/
 curl -u Oleg.G.Kapranov:87654321 http://localhost:3000/api/users
 
-curl -H "Authorization: Token token=aEghsJrLyTnYcw0ejZzQxY6gKzOk2rRrUQtt" http://localhost:3000/
-curl -H "Authorization: Token token=aEghsJrLyTnYcw0ejZzQxY6gKzOk2rRrUQtt" http://localhost:3000/api/users
-curl -H "Authorization: Token token=aEghsJrLyTnYcw0ejZzQxY6gKzOk2rRrUQtt" http://localhost:3000/api/users?token=iQIrdobu5FU6XMDe2QzSmfIkCk7H2ySdtQtt
+curl http://localhost:3000/
+curl -H "Authorization: Token token=" http://localhost:3000/
+curl -H "Authorization: Token token=" http://localhost:3000/api/users
+curl -H "Authorization: Token token=" http://localhost:3000/api/users?token=
+curl -H "Authorization: Token token=" http://localhost:3000/api/users/:id/?token=
 ```
 
 ```
@@ -34,6 +60,7 @@ gems installed on your system, and RSpec is unsure which to use. After
 uninstalling older version of the gems, the warnings went away.
 
 ```
+bash> gem 'thor', '0.19.1'
 bash> bundle clean --force
 bash> gem install bigdecimal
 bash> gem install json -v '2.0.2'
@@ -46,51 +73,6 @@ Sidekiq.configure_server do |config|
 end
 Sidekiq.configure_client do |config|
   config.redis = { url: Rails.application.secrets.redis_url, :namespace => 'sidekiq' }
-end
-```
-
-```
-# routing_test.rb
-it "routes to #index" do
-  expect(get: "/comments").to route_to("comments#index")
-end
-
-# request_test.rb
-it "won't work without authentication" do
-  get comments_path
-  expect(response.status).to be(401)
-end
-
-it "will work with authentication" do
-  get comments_path, {}, valid_session
-  expect(response.status).to be(200)
-end
-
-# model_test.rb
-it "should have errors if created with no user or post id" do
-  comment = Comment.create
-  expect(comment.save).to eq(false)
-  expect(comment.errors.messages).to have_key(:user)
-  expect(comment.errors.messages).to have_key(:post)
-end
-
-# controller_tests.rb
-RSpec.describe CommentsController, type: :controller do
-  describe "GET show" do
-    it "assigns the requested comment as @comment" do
-      comment = Comment.create! valid_attributes
-      get :show, {id: comment.to_param}, valid_session
-      expect(assigns(:comment)).to eq(comment)
-    end
-  end
-end
-
-describe "POST create" do
-  it "creates a new Comment" do
-    expect {
-      post :create, valid_attributes, valid_session
-    }.to change(Comment, :count).by(1)
-  end
 end
 ```
 
@@ -107,155 +89,6 @@ RestClient.get 'http://localhost:3000/' , {:Authorization => 'Bearer secret'}
 
 response = RestClient.get("http://localhost:3000/users")
 response = RestClient.get("http://localhost:3000/users", :accept => :json)
-```
-
-> Makes it dead easy to do HTTP Basic authentication.
-
-```ruby
-class UsersController < ApplicationController
-  http_basic_authenticate_with name: "dhh", password: "secret", except: :index
-
-  def index
-    render plain: "Everyone can see me!"
-  end
-
-  def edit
-    render plain: "I'm only accessible if you know the password"
-  end
-end
-```
-
-> Crafting APIs With Rails
-
-[https://github.com/bodrovis/TutsPlusSource/tree/master/Rails_API](Source code)
-
-
-```ruby
-# controllers/api/v1/users_controller.rb
-def index
-  @users = User.order('created_at DESC')
-  render json: @users
-end
-
-rails g migration add_token_to_users token:string:index
-
-#db/migrate/xyz_add_token_to_users.rb
-add_index :users, :token, unique: true
-
-# models/user.rb
-before_create -> {self.token = generate_token}
-
-private
-def generate_token
-  loop do
-    token = SecureRandom.hex
-    return token unless User.exists?({token: token})
-  end
-end
-
-# api_client.rb
-
-require 'faraday'
-require 'oj'
-
-client = Faraday.new(url: 'http://localhost:3000') do |config|
-  config.adapter  Faraday.default_adapter
-end
-
-response = client.post do |req|
-  req.url '/api/v1/users'
-  req.headers['Content-Type'] = 'application/json'
-  req.body = '{ "user": {"name": "test user"} }'
-end
-
-puts Oj.load(response.body)
-puts response.status
-
-# controllers/api/v1/posts_controller.rb
-class PostsController < ApplicationController
-  include ActionController::HttpAuthentication::Token::ControllerMethods
-end
-
-# controllers/api/v1/posts_controller.rb
-before_action :authenticate, only: [:create, :destroy]
-
-private
-
-def authenticate
-  authenticate_or_request_with_http_token do |token, options|
-    @user = User.find_by(token: token)
-  end
-end
-
-# controllers/api/v1/posts_controller.rb
-def create
-  @post = @user.posts.new(post_params)
-  if @post.save
-    render json: @post, status: :created
-  else
-    render json: @post.errors, status: :unprocessable_entity
-  end
-end
-
-# api_client.rb
-client = Faraday.new(url: 'http://localhost:3000') do |config|
-  config.adapter  Faraday.default_adapter
-  config.token_auth('127a74dbec6f156401b236d6cb32db0d')
-end
-
-response = client.post do |req|
-  req.url '/api/v1/posts'
-  req.headers['Content-Type'] = 'application/json'
-  req.body = '{ "post": {"title": "Title", "body": "Text"} }'
-end
-
-# controllers/api/v1/posts_controller.rb
-def destroy
-  @post = @user.posts.find_by(params[:id])
-  if @post
-    @post.destroy
-  else
-    render json: {post: "not found"}, status: :not_found
-  end
-end
-
-# api_client.rb
-response = client.delete do |req|
-  req.url '/api/v1/posts/6'
-  req.headers['Content-Type'] = 'appli
-end
-
-# app/controllers/application_controller.rb
-def token
-  authenticate_with_http_basic do |email, password|
-    user = User.find_by(email: email)
-    if user && user.password == password
-      render json: { token: user.auth_token }
-    else
-      render json: { error: 'Incorrect credentials' }, status: 401
-    end
-  end
-end
-
-# app/models/user.rb
-before_create -> { self.auth_token = SecureRandom.hex }
-
-curl http://localhost:3000/token -H 'Authorization: Basic dXNlckBleGFtcGxlLmNvbTpwYXNzd29yZA==\n'
-
-# Second Handling Every Other Request
-curl http://localhost:3000/posts/1 -H 'Authorization: Token token=861af99a9dbf5e052b8b55cfc41e69d7'
-
-# app/controllers/application_controller.rb
-before_filter :authenticate_user_from_token, except: [:token]
-
-private
-def authenticate_user_from_token
-  unless authenticate_with_http_token { |token, options| User.find_by(auth_token: token) }
-    render json: { error: 'Bad Token'}, status: 401
-  end
-end
-
-curl http://localhost:3000/posts/1 -H 'Authorization: Token token=861af99a9dbf5e052b8b55cfc41e69d'
 ```
 
 > Dummy SMTP server – Mailtrap.io
@@ -811,24 +644,39 @@ eyJ1c2VyX2lkIjoiNFRZTmZhdmZBZ1MzTWEiLCJlbWFpbCI6Imx1Z2F0ZXhAeWFob28uY29tIn0.
 oPdFdPAoKQARunvCAd58X01SXzo5CMtPc8hTv99Ovvg
 ```
 
+> The customize the ``to_json`` output and alter the output:
+
+* **only** – Only show column names in the output as specified in this list
+* **except** – Show all column names except the ones specified in this list
+* **methods** – Include these methods nodes (without any arguments) as nodes
+  in the output
+* **include** – Add child nodes (potentially nested) based on associations
+  within the object
+
 ```
-ALGORITHM = 'HS256'
-hmac_secret = 'somethingrandomrandom'
-expiry_in_minutes=60*24*30
-payload = {id: user.id, exp: expiry_in_minutes.minutes.from_now.to_i}
+# app/models/
+def as_json(options={})
+  super(options.merge(:methods => [...], :only => [...], :include => [...])
+end
 
-token = JWT.encode payload, hmac_secret, ALGORITHM
-decoded = JWT.decode(token, hmac_secret, true, { leeway: leeway, algorithm: ALGORITHM })
+render :json => @posts.to_json(:include => [...], :methods => [...])
 
-curl -X POST -d email="a@a.com" -d username="Kapranov" -d password="changeme" http://localhost:3000/register
-
-{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNDkwOTgzMjQ1fQ.upYr7weENIh6uNfLxzPvdZYupZrRS2tzSkUODeEUMGY","user":{"id":5,"username":"Kapranov"}}
-
-curl --header "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNDkwOTgzMjQ1fQ.upYr7weENIh6uNfLxzPvdZYupZrRS2tzSkUODeEUMGY" http://localhost:3000/rooms
-
-curl -X POST -d email="a@a.com" -d username="Kapranov" -d password="changeme" http://localhost:3000/login
-
-{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNDkwOTg0MDkyfQ.rJKvNAt3F4RPmT3ebUBwMfdTwl_hV6euXuhz2_QT4ts","user":{"id":5,"username":"Kapranov"}}
+render :json => @posts.to_json(
+  :only => [:title, :body, :created_at, :tags, :category],
+  :include => [
+    :likes => {
+      :only => [:created_at], :include => [:author]
+    },
+    comments => {
+      :only => [:created_at, :body], :include => [:author]
+    },
+    :user => {
+      :only => [:first_name, :last_name],
+      :methods => [:full_name]
+    }
+  ],
+  :methods => [:likes_count, :comments_count]
+)
 ```
 
 [1]:  http://nobrainer.io/docs/callbacks/#orders_of_callbacks

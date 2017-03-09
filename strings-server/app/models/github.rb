@@ -2,6 +2,8 @@ class Github
   include NoBrainer::Document
   include NoBrainer::Document::Timestamps
 
+  self.include_root_in_json = true
+
   field :login,               type: String,   required: true
   field :github_id,           type: Integer,  required: true
   field :avatar_url,          type: String,   required: true

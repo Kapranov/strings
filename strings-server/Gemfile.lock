@@ -24,11 +24,11 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_model_serializers (0.10.4)
+    active_model_serializers (0.10.5)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
-      jsonapi (= 0.1.1.beta6)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.2)
     activejob (5.0.2)
       activesupport (= 5.0.2)
       globalid (>= 0.3.6)
@@ -143,7 +143,7 @@ GEM
     faraday_middleware (0.11.0.1)
       faraday (>= 0.7.4, < 1.0)
     ffaker (2.5.0)
-    ffi (1.9.17)
+    ffi (1.9.18)
     figaro (1.1.1)
       thor (~> 0.14)
     foreman (0.83.0)
@@ -224,11 +224,7 @@ GEM
       addressable (~> 2.2)
       faraday (~> 0.9)
       faraday_middleware (~> 0.9)
-    jsonapi (0.1.1.beta6)
-      jsonapi-parser (= 0.1.1.beta3)
-      jsonapi-renderer (= 0.1.1.beta1)
-    jsonapi-parser (0.1.1.beta3)
-    jsonapi-renderer (0.1.1.beta1)
+    jsonapi-renderer (0.1.2)
     jsonpath (0.5.8)
       multi_json
     jwt (1.5.6)
@@ -240,7 +236,7 @@ GEM
       rubyzip
       thor
       xml-simple
-    licensee (8.8.2)
+    licensee (8.8.3)
       rugged (~> 0.24)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -295,6 +291,7 @@ GEM
       shellany (~> 0.0)
     numerizer (0.1.1)
     oj (2.18.2)
+    oj_mimic_json (1.0.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -362,9 +359,9 @@ GEM
       redis-store (~> 1.2.0)
     redis-namespace (1.5.3)
       redis (~> 3.0, >= 3.0.4)
-    redis-rack (2.0.0)
-      rack (~> 2.0)
-      redis-store (~> 1.2.0)
+    redis-rack (2.0.1)
+      rack (>= 2.0, < 3)
+      redis-store (>= 1.2, < 1.4)
     redis-rails (5.0.1)
       redis-actionpack (~> 5.0.0)
       redis-activesupport (~> 5.0.0)
@@ -444,7 +441,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     stackprof (0.2.10)
-    subcontractor (0.8.0)
+    subcontractor (0.9.0)
     symbol_decoration (1.1.0)
     sys-filesystem (1.1.7)
       ffi
@@ -522,6 +519,7 @@ DEPENDENCIES
   nobrainer
   nobrainer_streams
   oj
+  oj_mimic_json
   pry-byebug
   pry-rails
   pry-stack_explorer

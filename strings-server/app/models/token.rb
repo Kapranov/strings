@@ -31,13 +31,11 @@ class Token
   def generate_authentication_token(token_generator)
     loop do
       set_apikey = token_generator
-      break set_apikey if token_suitable?(set_apikey)
-      # break unless Token.where(apikey: set_apikey).first.present?
+      break unless Token.where(apikey: set_apikey).first.present?
     end
   end
 
   def token_suitable?(set_apikey)
-    # self.class.where(apikey: set_apikey).count == 0
     self.class.where(apikey: set_apikey).first.present?
   end
 

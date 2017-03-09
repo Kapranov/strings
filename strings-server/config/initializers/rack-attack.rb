@@ -1,5 +1,4 @@
 class Rack::Attack
-  # Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
   Rack::Attack.cache.store = ActiveSupport::Cache::RedisStore.new(Rails.application.secrets.redis_cache, { expires_in: 480.minutes })
 
   safelist('allow-localhost') do |req|

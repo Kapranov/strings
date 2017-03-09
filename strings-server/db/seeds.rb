@@ -67,20 +67,29 @@ if Rails.env.development?
   puts "--------Creating Token--------------------------------"
   # token = Token.create!
   token = CreateToken.new.call
-  puts 'CREATED APIs   TokenId: ' << token.id
-  puts 'CREATED APIs  TokenKey: ' << token.apikey
-  puts 'CREATED APIs  Username: ' << token.username
-  puts 'CREATED APIs  Password: ' << token.password
+  puts 'CREATED APIs           Id: ' << token.id
+  puts 'CREATED APIs       ApiKey: ' << token.apikey
+  puts 'CREATED APIs     Username: ' << token.username
+  puts 'CREATED APIs     Password: ' << token.password
+  puts 'CREATED APIs        State: ' << token.state
   puts "--------Creating Users--------------------------------"
   user = CreateAdmin.new.call
-  puts 'CREATED ADMIN       Id: ' << user.id
-  puts 'CREATED ADMIN     User: ' << user.email
-  puts 'CREATED ADMIN     Role: ' << user.role.to_s
+  puts 'CREATED ADMIN          Id: ' << user.id
+  puts 'CREATED ADMIN        User: ' << user.email
+  puts 'CREATED ADMIN      ApiKey: ' << user.apikey
+  puts 'CREATED ADMIN        Role: ' << user.role.to_s
+  puts 'CREATED ADMIN   FirstName: ' << user.first_name
+  puts 'CREATED ADMIN    LastName: ' << user.last_name
+  puts 'CREATED ADMIN  MiddleName: ' << user.middle_name
+  puts 'CREATED ADMIN Description: ' << user.description
+  puts 'CREATED ADMIN    Password: ' << user.password
   puts "--------Creating Access-------------------------------"
   access = CreateAccess.new.call
-  puts 'CREATED Access      Id: ' << access.id
-  puts 'CREATED Access  UserId: ' << access.user_id
-  puts 'CREATED Access     Key: ' << access.key
+  puts 'CREATED Access         Id: ' << access.id
+  puts 'CREATED Access     UserId: ' << access.user_id
+  puts 'CREATED Access        Key: ' << access.key
+  puts 'CREATED Access    Browser: ' << access.browser
+  puts 'CREATED Access         OS: ' << access.operating_system
   puts "--------Creating  JWT---------------------------------"
   jwt_encode = AccessToken.generate(user_id: access.user_id)
   jwt_decode = AccessToken.decode(jwt_encode).to_s

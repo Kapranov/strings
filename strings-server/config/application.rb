@@ -17,8 +17,10 @@ module StringsServer
     config.active_job.queue_adapter = :sidekiq
     config.action_controller.perform_caching = true
     config.exceptions_app = self.routes
-    config.debug_exception_response_format = :api
-    config.autoload_paths << Rails.root.join('lib', 'utils', 'custom_formatter.rb')
+    #config.autoload_paths << Rails.root.join('lib', 'utils', 'custom_formatter.rb')
+    config.eager_load_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join('utils')
+    config.eager_load_paths << Rails.root.join('custom_formatter.rb')
 
     config.lograge.keep_original_rails_log = true
     config.lograge.logger = ActiveSupport::Logger.new "#{Rails.root}/log/lograge_#{Rails.env}.log"
@@ -47,9 +49,28 @@ module StringsServer
     # config.middleware.delete Rack::ETag
     # config.middleware.delete Rack::Head
     # config.middleware.delete Rack::Sendfile
-    config.middleware.delete Rack::Runtime
+    # config.middleware.delete Rack::Runtime
     # config.middleware.delete Rails::Rack::Logger
-    config.middleware.use Rack::Attack
+    # config.middleware.delete Rack::Attack
+
+    config.middleware.delete Rack::ETag
+    config.middleware.delete ActionDispatch::Static
+    config.middleware.delete ActionDispatch::Executor
+    config.middleware.delete ActionDispatch::RemoteIp
+    config.middleware.delete ActionDispatch::RequestId
+    config.middleware.delete ActionDispatch::Reloader
+    config.middleware.delete ActionDispatch::Callbacks
+    config.middleware.delete Rack::Runtime
+    config.middleware.delete Rack::Sendfile
+    config.middleware.delete Rack::Runtime
+    config.middleware.delete Rack::Cors
+    config.middleware.delete Rails::Rack::Logger
+
+    config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+    config.middleware.use ActionDispatch::Flash
+
     config.middleware.insert_before Rack::Head, CatchJsonParseErrors
 
     def generate_random_values

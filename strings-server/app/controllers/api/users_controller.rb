@@ -5,32 +5,35 @@ class API::UsersController < AuthenticationController
 
   def index
     @users = User.all
-    render json: MultiJson.dump(json_for(@users, meta: meta), mode: :compat)
+    render json: Oj.dump(json_for(@users, meta: meta), mode: :compat)
   end
 
   def show
-    @user = User.find(params[:id])
-    render json: @user
+    @user = User.where(id: params[:id]).first
+    if @user
+      render json: Oj.dump(json_for(@user, meta: meta), mode: :compat)
+    else
+      return head :unauthorized
+    end
   end
 
   def create
     user = User.new(user_params)
     if user.save
-      render json: user, status: :ok
+      render json: Oj.dump(json_for(@user, meta: meta), mode: :compat)
+    else
+      return head :unauthorized
     end
   end
 
   def meta
-    {
-      copyright: "© #{Time.now.year} LugaTeX -  LaTeX Project Public License (LPPL)."
-    }
+    { copyright: "© #{Time.now.year} LugaTeX -  LaTeX Project Public License (LPPL)." }
   end
 
   private
 
   def user_params
-    hash = {}
-    hash.merge! params.slice(
+    params.permit(
       :first_name,
       :last_name,
       :middle_name,
@@ -40,6 +43,5 @@ class API::UsersController < AuthenticationController
       :description,
       :role
     )
-    hash
   end
 end

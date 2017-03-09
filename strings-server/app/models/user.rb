@@ -5,17 +5,12 @@ class User
 
   # include Authentication
 
-  # after_create :generate_jwt_token
   before_validation :access_token, on: [:create], unless: :apikey
-
-  attr_accessor :jwt
 
   has_secure_password
 
   has_many :accesses
 
-  # EMAIL_REGEX = /A[w+-.]+@[a-zd-.]+.[a-z]+z/i
-  # EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   EMAIL_REGEX = /^[\S&&[^@]]+@[\S&&[^@]]+$/
 
   self.include_root_in_json = true
@@ -47,7 +42,6 @@ class User
   validates :email,           presence: true, length: { minimum: 5,  allow_blank: false }
   validates :description,     presence: true, length: { minimum: 5,  allow_blank: false }
   validates :apikey,          presence: true, length: { minimum: 25, allow_blank: false }
-  # validates_length_of :password, in: 8..20, on: :create
   validates :password_digest, presence: { on: :create }, length: { minimum: 8, allow_blank: false }
   validates :role,            presence: true
 
@@ -80,9 +74,5 @@ class User
       set_apikey = SecureRandom.hex(25)
       break set_apikey unless User.where(apikey: set_apikey).first
     end
-  end
-
-  def generate_jwt_token
-    self.jwt = JWTWrapper.encode(self.slice(:id, :email))
   end
 end
