@@ -1,15 +1,15 @@
 class API::UsersController < AuthenticationController
   include ActionController::Serialization
 
+  before_action :set_user, only: [:show]
   before_action :restrict_access
 
   def index
-    @users = User.all
+    @users = User.order_by(email: :desc)
     render json: Oj.dump(json_for(@users, meta: meta), mode: :compat)
   end
 
   def show
-    @user = User.where(id: params[:id]).first
     if @user
       render json: Oj.dump(json_for(@user, meta: meta), mode: :compat)
     else
@@ -26,11 +26,11 @@ class API::UsersController < AuthenticationController
     end
   end
 
-  def meta
-    { copyright: "© #{Time.now.year} LugaTeX -  LaTeX Project Public License (LPPL)." }
-  end
-
   private
+
+  def set_user
+    @user = User.where(id: params[:id]).first
+  end
 
   def user_params
     params.permit(

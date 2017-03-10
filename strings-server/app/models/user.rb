@@ -11,7 +11,9 @@ class User
 
   has_many :accesses
 
-  EMAIL_REGEX = /^[\S&&[^@]]+@[\S&&[^@]]+$/
+  # EMAIL_REGEX = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i
+  # EMAIL_REGEX = /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/
+  EMAIL_REGEX = /([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})/i
 
   self.include_root_in_json = true
 
@@ -38,8 +40,7 @@ class User
   validates :first_name,      presence: true, length: { minimum: 2,  allow_blank: false }
   validates :last_name,       presence: true, length: { minimum: 2,  allow_blank: false }
   validates :middle_name,     presence: true, length: { minimum: 2,  allow_blank: false }
-  # validates :email,           presence: true, uniqueness: true, format: EMAIL_REGEX
-  validates :email,           presence: true, length: { minimum: 5,  allow_blank: false }
+  validates :email,           presence: true, length: { minimum: 5,  allow_blank: false }, format: EMAIL_REGEX
   validates :description,     presence: true, length: { minimum: 5,  allow_blank: false }
   validates :apikey,          presence: true, length: { minimum: 25, allow_blank: false }
   validates :password_digest, presence: { on: :create }, length: { minimum: 8, allow_blank: false }

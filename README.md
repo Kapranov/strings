@@ -92,7 +92,7 @@ workflow applications.
 * **Contributor:** Can create and edit prototypes they are on
 * **Reviewer:** Can be assigned prototypes to review
 
-### 9 Mar 2017 Oleg G.Kapranov
+### 10 Mar 2017 Oleg G.Kapranov
 
 [1]: http://rubyonrails.org/
 [2]: http://emberjs.com/
