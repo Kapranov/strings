@@ -8,5 +8,5 @@ end
 
 Rails.application.routes.default_url_options = {
   host: Rails.application.secrets.domain_name,
-  post: Rails.application.secrets.port
+  port: Rails.application.secrets.port
 }
