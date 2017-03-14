@@ -6,3 +6,8 @@ Rails.application.configure do
   config.active_support.deprecation = :log
   config.log_level = :debug
 end
+
+Rails.application.routes.default_url_options = {
+  host: Rails.application.secrets.domain_name,
+  post: Rails.application.secrets.port
+}

@@ -1,6 +1,7 @@
 class RoomSerializer < ActiveModel::Serializer
-  attributes :id, :title, :black_card, :pick, :current
+  attributes :id, :title, :black_card, :pick
   has_many :cards
+  link(:self) { user_url(object) }
 
   def current
     {

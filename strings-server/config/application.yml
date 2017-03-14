@@ -3,6 +3,7 @@ general: &general
   CORS:               '127.0.0.1:3000'
   LOCALHOST:          '127.0.0.1'
   DOMAIN_NAME:        'api.dev.local'
+  DOMAIN_NAME_PORT:   'api.dev.local:3000'
   RACK_CORS_ORIGINS:  'localhost:4200'
 
 redis: &redis
