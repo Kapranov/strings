@@ -1,48 +1,63 @@
 general: &general
-  DOMAIN_NAME:          'api.dev.local'
-  LOCALHOST:            '127.0.0.1:3000'
-  IP:                   '127.0.0.1'
-  ACCESS_TOKEN:         'fdd110671210f2be353995806414f9d8'
-  TOKEN_USERNAME:       'Oleg.G.Kapranov'
-  TOKEN_PASSWORD:       '87654321'
-  RACK_CORS_ORIGINS:    'localhost:4200'
-  REDIS_URL:            'redis://localhost:6379/0'
-  REDIS_DATA:           'strings_data'
-  REDIS_CACHE:          'redis://localhost:6379/0/strings_cache'
-  REDIS_NAMESPACE:      'sidekiq'
+  PORT:               '3000'
+  CORS:               '127.0.0.1:3000'
+  LOCALHOST:          '127.0.0.1'
+  DOMAIN_NAME:        'api.dev.local'
+  RACK_CORS_ORIGINS:  'localhost:4200'
+
+redis: &redis
+  REDIS_URL:          'redis://localhost:6379/0'
+  REDIS_DATA:         'strings_data'
+  REDIS_CACHE:        'redis://localhost:6379/0/strings_cache'
+  REDIS_NAMESPACE:    'sidekiq'
 
 rethinkdb: &rethinkdb
-  RETHINKDB_DB:         'strings'
-  RETHINKDB_URL:        'rethinkdb://localhost:28015/strings'
-  RETHINKDB_HOST:       '127.0.0.1'
-  RETHINKDB_PORT:       '28015'
-  RETHINKDB_AUTH:       'rethinkdb://kapranov:9c838683-fa89-51fc-862c-9b423eb0c291@127.0.0.1:28015/strings'
-  RETHINKDB_USER:       'kapranov'
-  RETHINKDB_PASSWORD:   '9c838683-fa89-51fc-862c-9b423eb0c291'
+  RETHINKDB_DB:       'jwtdemo'
+  RETHINKDB_URL:      'rethinkdb://localhost:28015/jwtdemo'
+  RETHINKDB_HOST:     '127.0.0.1'
+  RETHINKDB_PORT:     '28015'
+  RETHINKDB_AUTH:     'rethinkdb://kapranov:9c838683-fa89-51fc-862c-9b423eb0c291@127.0.0.1:28015/jwtdemo'
+  RETHINKDB_USER:     'kapranov'
+  RETHINKDB_PASSWORD: '9c838683-fa89-51fc-862c-9b423eb0c291'
 
 admin: &admin
- ADMIN_FIRST_NAME:      'Oleg'
- ADMIN_LAST_NAME:       'Kapranov'
- ADMIN_MIDDLE_NAME:     'G.'
- ADMIN_EMAIL:           'lugatex@yahoo.com'
- ADMIN_PASSWORD:        '12345678'
- ADMIN_DESCRIPTION:     'Hello World!'
+  ADMIN_FIRST_NAME:   'Oleg'
+  ADMIN_LAST_NAME:    'Kapranov'
+  ADMIN_MIDDLE_NAME:  'G.'
+  ADMIN_EMAIL:        'lugatex@yahoo.com'
+  ADMIN_PASSWORD:     '12345678'
+  ADMIN_DESCRIPTION:  'Hello World!'
+  ADMIN_PHONE_CELL:   '380997170609'
+  ADMIN_PHONE_WORK:   '380997170609'
+  ADMIN_PHONE_HOME:   '380965468967'
+
+token: &token
+  TOKEN_ACCESS:       'fdd110671210f2be353995806414f9d8'
+  TOKEN_USERNAME:     'Oleg.G.Kapranov'
+  TOKEN_PASSWORD:     '87654321'
 
 development:
   <<: *general
+  <<: *redis
   <<: *rethinkdb
   <<: *admin
-  SECRET_KEY_BASE:      '599ac15f824b962410dfc9748f4dabb442822d470ef62b6fbc0ba7123181daf55f579fe59fe862a4771ce211f8f79edda5b52e6458c0b35a1f15d1b2a8d28c67'
-  AUTH_SECRET:          '\x85\x11\xFA\xEF\xF2A\x11\xC7\x90\x9C!{\xDC\x11W\xFB\x93\xE5\xA3\xCD\xE3\xC2\x9E#7\xC4\xCDa\xCF\xC9/\xEA'
+  <<: *token
+  AUTH_SECRET:        'somethingrandomrandom'
+  SECRET_KEY_BASE:    '1d12e5dc037039e25692fb012c580c9baf06325319c4404f43fdd48b3eea7e3bed34d290ae703446e5d1579cdb6704304e5d307e17cacfc9f33379323548d101'
 
 test:
   <<: *general
+  <<: *redis
   <<: *rethinkdb
   <<: *admin
-  SECRET_KEY_BASE:      'e8553de0c309a32e73a4852ea6886cc7ebc5a381e41f0c302637b9d78836ab03e7f2e72d15392c06b816e7f888ba538494e436f03d404ee2eca27a863a86651e'
+  <<: *token
+  AUTH_SECRET:        '\x85\x11\xFA\xEF\xF2A\x11\xC7\x90\x9C!{\xDC\x11W\xFB\x93\xE5\xA3\xCD\xE3\xC2\x9E#7\xC4\xCDa\xCF\xC9/\xEA'
+  SECRET_KEY_BASE:    '69dedff27eb3349dd0ea880280aa6910b96901c33adb96e1165a4186edb328c35df50089581fb1e3340602a76939aa87ecccdbacd175afbd10313f48f23bd021'
 
 production:
   <<: *general
-  <<: *admin
+  <<: *redis
   <<: *rethinkdb
-  SECRET_KEY_BASE:      '9e61e86f559feea526dc08c210d14dd890cca699c414a4b686d352ade7c8708b895c3f5a2f921cbe2ffe3e5b11028a93d031b77dc8400dd67a91460f413064dd'
+  <<: *admin
+  <<: *token
+  SECRET_KEY_BASE:    'eeb0a8a1fbcf5898a7623448abfe3e5f9722eff327bfb7b60246e84775fb2dc2eab449cae224d8547c0fddee6a8ef8df9a20b24415d8a5660ce0e6a3cfabe61a'

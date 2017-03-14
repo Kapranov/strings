@@ -26,7 +26,7 @@ module Authentication
   end
 
   def new_token
-    update_columns(token: set_token, updated_at: Time.current)
+    self.token = SecureRandom.hex(16)
   end
 
   def fix_up_token

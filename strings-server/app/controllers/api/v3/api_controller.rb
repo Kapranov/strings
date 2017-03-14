@@ -1,4 +1,4 @@
-module Api::V3
+module API::V3
   class ApiController < ApplicationController
   end
 end

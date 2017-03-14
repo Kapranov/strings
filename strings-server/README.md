@@ -2,19 +2,16 @@
 
 [http://requestb.in/](Inspect HTTP Requests)
 
-
 ```
 JWT_TOKEN='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjRWQ3gzbjJjbEdBdFpYIiwiZXhwIjoxNDkxMTM2MDcxfQ.8i3ScmFDaU_9c-GfPsWI64diM914EEJnTcA_KG_J5p4'
 
-# authorization
-curl -X POST -d email="test@example.com" -d username="Example" -d password="87654321" http://api.dev.local:3000/login
-
 # show
+curl -I -v http://api.dev.local:3000
+curl -I --trace-ascii - http://api.dev.local:3000
+
 curl http://api.dev.local:3000
-curl http://api.dev.local:3000/home
 curl http://api.dev.local:3000/home/user_id | jq '.'
 curl http://api.dev.local:3000/home/user_id | python -m json.tool
-curl http://api.dev.local:3000/upgrade
 
 curl --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/cards
 curl --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/rooms
@@ -22,36 +19,14 @@ curl --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/users
 curl --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/users/:id
 curl --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/users/:id/phones
 
+# login
+curl -X POST -d email="test@example.com" -d last_name="Example" -d password="87654321" http://api.dev.local:3000/login
 # create
-curl -X POST -d email="test@example.com" -d username="Example" -d password="87654321" http://api.dev.local:3000/register
+curl -X POST -d email="test@example.com" -d last_name="Example" -d password="87654321" http://api.dev.local:3000/register
 # update
-curl -X PUT -d username="EXAMPLE" --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/users/:id
+curl -X PUT -d last_name="EXAMPLE" --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/users/:id
 # destroy
 curl -X DELETE --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/users/:id
-```
-
-curl http://api.dev.local:3000
-curl -I -v http://api.dev.local:3000
-curl -I --trace-ascii - http://api.dev.local:3000
-curl -I http://api.dev.local:3000
-
-curl -u Oleg%20G.Kapranov:87654321 http://api.dev.local:3000
-
-curl -u Oleg.G.Kapranov:87654321 http://api.dev.local:3000
-curl -u Oleg.G.Kapranov:87654321 http://api.dev.local:3000/api/users
-
-curl http://api.dev.local:3000
-curl -H "Authorization: Token token=" http://api.dev.local:3000
-curl -H "Authorization: Token token=" http://api.dev.local:3000/api/users
-curl -H "Authorization: Token token=" http://api.dev.local:3000/api/users?token=
-curl -H "Authorization: Token token=" http://api.dev.local:3000/api/users/:id/?token=
-```
-
-```
-GET       - http://api.dev.local:3000/api/v1/users?token=Params
-POST      - http://api.dev.local:3000/api/v1/users?token=Params
-GET       - http://api.dev.local:3000/api/v1/users/id?token=Params
-PUT/PATCH - http://api.dev.local:3000/api/v1/users/id?token=Params
 ```
 
 ``Unresolved specs during Gem::Specification.reset``

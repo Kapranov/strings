@@ -5,48 +5,31 @@ class Token
 
   has_secure_password
 
-  before_validation :access_token, on: [:create], unless: :apikey
+  before_validation :set_auth_token, on: [:create], unless: :auth_token
 
   self.include_root_in_json = true
 
-  field :apikey,          type: String, required: true, uniq: true, readonly: true
   field :username,        type: String, required: true, uniq: true
   field :password_digest, type: String, required: true
+  field :auth_token,      type: String, required: true, uniq: true, readonly: true
   field :state,           in: %w(active locked)
 
-  index :apikey
-
-  validates :apikey,          presence: true, length: { minimum: 25, allow_blank: false }
-  validates :username,        presence: true, length: { in: 8..15,   allow_blank: false }
+  validates :username,        presence: true, length: { minimum: 4,  allow_blank: false }
   validates :password_digest, presence: { on: :create }, length: { minimum: 8, allow_blank: false }
+  validates :auth_token,      presence: true, length: { minimum: 25, allow_blank: false }
+  validates :state,           presence: true
 
-  def access_token
-    return if apikey.present?
-    self.apikey = generate_authentication_token(token_generator)
-    Rails.logger.info("Set new token for user #{ id }")
-  end
+  index :auth_token
 
   private
 
-  def generate_authentication_token(token_generator)
-    loop do
-      set_apikey = token_generator
-      break unless Token.where(apikey: set_apikey).first.present?
-    end
+  def set_auth_token
+    return if auth_token.present?
+    self.auth_token = generate_auth_token
+    Rails.logger.info("Set new token for username #{ id } - #{username} - #{auth_token}")
   end
 
-  def token_suitable?(set_apikey)
-    self.class.where(apikey: set_apikey).first.present?
-  end
-
-  def token_generator
+  def generate_auth_token
     SecureRandom.base64(25).tr('+/=', 'Qrt')
-  end
-
-  def generate_token
-    loop do
-      set_apikey = SecureRandom.hex(25)
-      break set_apikey unless User.where(apikey: set_apikey).first
-    end
   end
 end

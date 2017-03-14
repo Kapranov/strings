@@ -1,6 +1,4 @@
-class WebhooksController < AuthenticationController
-  skip_before_action :authenticate
-
+class WebhooksController < ApplicationController
   def index;  webhook; end
   def create; webhook; end
   def show;   webhook; end

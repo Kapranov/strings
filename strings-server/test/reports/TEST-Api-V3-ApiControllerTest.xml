@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Api::V3::ApiControllerTest" skipped="0" failures="0" errors="0" tests="1" assertions="0" time="0.0009559820009599207">
-  <testcase name="test_0001_#index Go to the Page Api::V3" classname="Api::V3::ApiControllerTest" assertions="0" time="0.0009559820009599207">
-  </testcase>
-</testsuite>
