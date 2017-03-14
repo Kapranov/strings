@@ -6,50 +6,52 @@
 ```
 JWT_TOKEN='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjRWQ3gzbjJjbEdBdFpYIiwiZXhwIjoxNDkxMTM2MDcxfQ.8i3ScmFDaU_9c-GfPsWI64diM914EEJnTcA_KG_J5p4'
 
-# USER AUTHORIZATION
-curl -X POST -d email="kl@udia.com" -d username="klaudia" -d password="password" http://localhost:3000/login
-result> {"token":"JWT","user":{"id":"4VAjPS7qYU3ehe","username":"klaudia","email":"kl@udia.com","cards":[]}}
+# authorization
+curl -X POST -d email="test@example.com" -d username="Example" -d password="87654321" http://api.dev.local:3000/login
 
-# USER CREATE
-curl -X POST -d email="lugatex@yahoo.com" -d username="Kapranov" -d password="87654321" http://localhost:3000/register
-result> {"token":"JWT","user":{"id":5,"username":"Kapranov"}}
+# show
+curl http://api.dev.local:3000
+curl http://api.dev.local:3000/home
+curl http://api.dev.local:3000/home/user_id | jq '.'
+curl http://api.dev.local:3000/home/user_id | python -m json.tool
+curl http://api.dev.local:3000/upgrade
 
-# USER SHOW
-curl --header "Authorization: JWT_TOKEN" http://localhost:3000/cards
-curl --header "Authorization: JWT_TOKEN" http://localhost:3000/home
-curl --header "Authorization: JWT_TOKEN" http://localhost:3000/rooms
-curl --header "Authorization: JWT_TOKEN" http://localhost:3000/users
-curl --header "Authorization: JWT_TOKEN" http://localhost:3000/users/:id
+curl --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/cards
+curl --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/rooms
+curl --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/users
+curl --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/users/:id
+curl --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/users/:id/phones
 
-# USER DESTROY
-curl -X DELETE --header "Authorization: JWT_TOKEN" http://localhost:3000/users/:id
-
-# USER UPDATE
-curl -X PUT -d username="Oleg" --header "Authorization: JWT_TOKEN" http://localhost:3000/users/:id
+# create
+curl -X POST -d email="test@example.com" -d username="Example" -d password="87654321" http://api.dev.local:3000/register
+# update
+curl -X PUT -d username="EXAMPLE" --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/users/:id
+# destroy
+curl -X DELETE --header "Authorization: JWT_TOKEN" http://api.dev.local:3000/users/:id
 ```
 
-curl http://localhost:3000/
-curl -I -v http://localhost:3000
-curl -I --trace-ascii - http://localhost:3000
-curl -I http://localhost:3000/
+curl http://api.dev.local:3000
+curl -I -v http://api.dev.local:3000
+curl -I --trace-ascii - http://api.dev.local:3000
+curl -I http://api.dev.local:3000
 
-curl -u Oleg%20G.Kapranov:87654321 http://localhost:3000/
+curl -u Oleg%20G.Kapranov:87654321 http://api.dev.local:3000
 
-curl -u Oleg.G.Kapranov:87654321 http://localhost:3000/
-curl -u Oleg.G.Kapranov:87654321 http://localhost:3000/api/users
+curl -u Oleg.G.Kapranov:87654321 http://api.dev.local:3000
+curl -u Oleg.G.Kapranov:87654321 http://api.dev.local:3000/api/users
 
-curl http://localhost:3000/
-curl -H "Authorization: Token token=" http://localhost:3000/
-curl -H "Authorization: Token token=" http://localhost:3000/api/users
-curl -H "Authorization: Token token=" http://localhost:3000/api/users?token=
-curl -H "Authorization: Token token=" http://localhost:3000/api/users/:id/?token=
+curl http://api.dev.local:3000
+curl -H "Authorization: Token token=" http://api.dev.local:3000
+curl -H "Authorization: Token token=" http://api.dev.local:3000/api/users
+curl -H "Authorization: Token token=" http://api.dev.local:3000/api/users?token=
+curl -H "Authorization: Token token=" http://api.dev.local:3000/api/users/:id/?token=
 ```
 
 ```
-GET       - http://localhost:3000/api/v1/users?token=Params
-POST      - http://localhost:3000/api/v1/users?token=Params
-GET       - http://localhost:3000/api/v1/users/id?token=Params
-PUT/PATCH - http://localhost:3000/api/v1/users/id?token=Params
+GET       - http://api.dev.local:3000/api/v1/users?token=Params
+POST      - http://api.dev.local:3000/api/v1/users?token=Params
+GET       - http://api.dev.local:3000/api/v1/users/id?token=Params
+PUT/PATCH - http://api.dev.local:3000/api/v1/users/id?token=Params
 ```
 
 ``Unresolved specs during Gem::Specification.reset``
@@ -690,3 +692,4 @@ render :json => @posts.to_json(
 [9]:  https://github.com/dwyl/learn-json-web-tokens
 [10]: https://github.com/auth0/express-jwt
 [11]: https://github.com/kazu69/jwt-express-example
+[12]: https://forum.jscourse.com/t/v-chem-princzip-json-api-rest-api/1417

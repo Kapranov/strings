@@ -3,15 +3,6 @@ class CreateAdmin
     generate_token = SecureRandom.base64(25).tr('+/=', 'Qrt')
     exit if User.any?
 
-    def self.roles
-      [
-        :'Admin',
-        :'Manager',
-        :'Contributor',
-        :'Reviewer'
-      ]
-    end
-
     user = FactoryGirl.create :user,
     first_name: Rails.application.secrets.admin_first_name.to_s,
     last_name: Rails.application.secrets.admin_last_name.to_s,
