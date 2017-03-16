@@ -1,41 +1,61 @@
 general: &general
-  PORT:               '3000'
-  CORS:               '127.0.0.1:3000'
-  LOCALHOST:          '127.0.0.1'
-  DOMAIN_NAME:        'api.dev.local'
-  DOMAIN_NAME_PORT:   'api.dev.local:3000'
-  RACK_CORS_ORIGINS:  'localhost:4200'
+  PORT:                 '3000'
+  CORS:                 '127.0.0.1:3000'
+  LOCALHOST:            '127.0.0.1'
+  DOMAIN_NAME:          'api.dev.local'
+  DOMAIN_NAME_PORT:     'api.dev.local:3000'
+  RACK_CORS_ORIGINS:    'localhost:4200'
 
 redis: &redis
-  REDIS_URL:          'redis://localhost:6379/0'
-  REDIS_DATA:         'strings_data'
-  REDIS_CACHE:        'redis://localhost:6379/0/strings_cache'
-  REDIS_NAMESPACE:    'sidekiq'
+  REDIS_URL:            'redis://localhost:6379/0'
+  REDIS_DATA:           'strings_data'
+  REDIS_CACHE:          'redis://localhost:6379/0/strings_cache'
+  REDIS_NAMESPACE:      'sidekiq'
 
 rethinkdb: &rethinkdb
-  RETHINKDB_DB:       'jwtdemo'
-  RETHINKDB_URL:      'rethinkdb://localhost:28015/jwtdemo'
-  RETHINKDB_HOST:     '127.0.0.1'
-  RETHINKDB_PORT:     '28015'
-  RETHINKDB_AUTH:     'rethinkdb://kapranov:9c838683-fa89-51fc-862c-9b423eb0c291@127.0.0.1:28015/jwtdemo'
-  RETHINKDB_USER:     'kapranov'
-  RETHINKDB_PASSWORD: '9c838683-fa89-51fc-862c-9b423eb0c291'
+  RETHINKDB_DB:         'jwtdemo'
+  RETHINKDB_URL:        'rethinkdb://localhost:28015/jwtdemo'
+  RETHINKDB_HOST:       '127.0.0.1'
+  RETHINKDB_PORT:       '28015'
+  RETHINKDB_AUTH:       'rethinkdb://kapranov:9c838683-fa89-51fc-862c-9b423eb0c291@127.0.0.1:28015/jwtdemo'
+  RETHINKDB_USER:       'kapranov'
+  RETHINKDB_PASSWORD:   '9c838683-fa89-51fc-862c-9b423eb0c291'
 
 admin: &admin
-  ADMIN_FIRST_NAME:   'Oleg'
-  ADMIN_LAST_NAME:    'Kapranov'
-  ADMIN_MIDDLE_NAME:  'G.'
-  ADMIN_EMAIL:        'lugatex@yahoo.com'
-  ADMIN_PASSWORD:     '12345678'
-  ADMIN_DESCRIPTION:  'Hello World!'
-  ADMIN_PHONE_CELL:   '380997170609'
-  ADMIN_PHONE_WORK:   '380997170609'
-  ADMIN_PHONE_HOME:   '380965468967'
+  ADMIN_FIRST_NAME:     'Oleg'
+  ADMIN_LAST_NAME:      'Kapranov'
+  ADMIN_MIDDLE_NAME:    'G.'
+  ADMIN_EMAIL:          'lugatex@yahoo.com'
+  ADMIN_PASSWORD:       '12345678'
+  ADMIN_DESCRIPTION:    'Hello World!'
+  ADMIN_PHONE_CELL:     '380997170609'
+  ADMIN_PHONE_WORK:     '380997170609'
+  ADMIN_PHONE_HOME:     '380965468967'
 
 token: &token
-  TOKEN_ACCESS:       'fdd110671210f2be353995806414f9d8'
-  TOKEN_USERNAME:     'Oleg.G.Kapranov'
-  TOKEN_PASSWORD:     '87654321'
+  TOKEN_ACCESS:         'fdd110671210f2be353995806414f9d8'
+  TOKEN_USERNAME:       'Oleg.G.Kapranov'
+  TOKEN_PASSWORD:       '87654321'
+
+tunemygc: &tunemygc
+  RUBY_GC_TOKEN:        'bd087c6fe87a174714f92cefc5878623'
+  RUBY_GC_TUNE:         '200'
+  RUBY_GC_SPY:          'action_controller'
+
+git_hub_hub: &git_hub_hub
+  GITHUB_API_KEY:       'asdfe92fakeKey43ad638e35asdfd98167847248a26'
+  GITHUB_VERSION:       'vnd.github.v3.full+json'
+  USER_AGENT:           'strings-server'
+  RETRIES:              '3'
+  OWNER:                'schneems'
+  REPO:                 'wicked'
+  USER_NAME:            'Richard Schneeman'
+  WATCH_OWNER:          'emberjs'
+  WATCH_REPO:           'ember.js'
+
+rollbar: &rollbar
+  ROLLBAR_ACCESS_TOKEN: 'd44d00897ba14f4cbe6d8aa609f58fe4'
+  ROLLBAR_ENV:          'development'
 
 development:
   <<: *general

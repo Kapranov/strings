@@ -27,4 +27,4 @@ until ./lib/bar; rake nobrainer:reset clear:clear; do
 done
 
 echo -en "\n\n\tStart localhost Server\n\n"
-rails server -b api.dev.local
+RUBY_GC_TOKEN=bd087c6fe87a174714f92cefc5878623 bundle exec rails s -b api.dev.local

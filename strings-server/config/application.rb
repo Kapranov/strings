@@ -65,6 +65,10 @@ module StringsServer
       {:time => event.time, :search_engine => event.payload[:search_engine], :user_agent => event.payload[:user_agent]}
     end
 
+    initializer :regenerate_require_cache, before: :load_environment_config do
+      Bootscale.regenerate
+    end
+
     config.generators do |g|
       # g.test_framework :minitest, spec: true,  fixture: true, fixture_replacement: :factory_girl
       # g.fixture_replacement :factory_girl, dir: 'test/fixtures'

@@ -58,6 +58,9 @@ sidekiq_up:
 sidekiq_down:
 	$(V)bundle exec sidekiqctl stop ./tmp/pids/sidekiq.pid
 
+rollbar_test:
+	$(V)bundle exec rake rollbar:test
+
 db_up:
 	$(V)sudo service redis_6379 start
 	$(V)sudo service rethinkdb start

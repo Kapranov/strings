@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_action :set_cache_headers, only: [:index]
   before_action :set_user,  only: [:show]
 
   def index

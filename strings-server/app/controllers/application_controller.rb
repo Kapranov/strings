@@ -31,5 +31,16 @@ class ApplicationController < ActionController::API
     request.format = :json
   end
 
+  def render_error(resource, status)
+    render json: resource, status: status, adapter: :json_api,
+      serializer: ErrorSerializer
+  end
+
+  def set_cache_headers
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
+
   ActiveSupport.run_load_hooks(:action_controller, self)
 end

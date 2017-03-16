@@ -1,5 +1,7 @@
 # web: subcontract --rbenv . --chdir ../strings-server --signal INT -- bundle exec rackup config.ru -p $PORT &
 # job: bundle exec rake jobs:work
 # sid: bundle exec sidekiq  2>&1 | logger -t sidekiq
+# wkr: bundle exec sidekiq -q default -q mailers -c ${SIDEKIQ_CONCURRENCY:-5}
+# rel: bundle exec rake db:migrate
 sid: bundle exec sidekiq  2>&1
 web: bundle exec rackup config.ru -p 3000
