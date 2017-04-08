@@ -61,6 +61,7 @@ gem 'rack-timeout'
 gem 'pundit'
 gem 'carrierwave'
 gem 'carrierwave-nobrainer'
+gem 'pronto'
 
 group :development do
   gem 'subcontractor'

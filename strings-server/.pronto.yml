@@ -1,0 +1,8 @@
+all:
+  exclude:
+    - 'spec/**/*'
+github:
+  slug: Kapranov/strings
+  access_token: B26354
+  api_endpoint: https://api.github.com/
+  web_endpoint: https://github.com/
