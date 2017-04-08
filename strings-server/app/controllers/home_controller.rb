@@ -5,14 +5,17 @@ class HomeController < ApplicationController
   def index
     @users = User.order_by(email: :desc)
     Rails.logger.info "The Full list users by completed!"
-    render json: Oj.dump(json_for(@users, include: ['phones', 'cards'], meta: meta), mode: :compat)
-    # binding.pry
+    if @users
+      render json: Oj.dump(json_for(@users, include: ['phones', 'cards'], meta: meta), mode: :compat)
+      # binding.pry
+    else
+      return head :unauthorized
+    end
   end
 
   def show
-    @user = User.where(id: params[:id]).first
     if @user
-      render json: Oj.dump(json_for(@user, include: ['cards', 'phones'], meta: meta), mode: :compat)
+      render json: Oj.dump(json_for(@user, include: ['phones', 'cards'], meta: meta), mode: :compat)
     else
       return head :unauthorized
     end
@@ -22,5 +25,9 @@ class HomeController < ApplicationController
 
   def set_user
     @user = User.where(id: params[:id]).first
+  end
+
+  def user_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params)
   end
 end

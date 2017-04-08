@@ -1,14 +1,14 @@
 class AuthenticationController < ApplicationController
-  before_action :set_email, only: [:login]
-  before_action :set_authenticate, only: [:set_authenticate]
+  #before_action :set_email, only: [:login]
+  #before_action :set_authenticate, only: [:set_authenticate]
 
-  def set_authenticate(realm=nil)
-    if realm
-      self.headers['WWW-Authenticate'] = %(Token realm="#{realm.gsub(/"/, "")}")
-    end
-
-    render json: { errors: ["Bad credentials"] }.to_json, status: 401 unless user_signed_in?
-  end
+  #def set_authenticate(realm=nil)
+  #  if realm
+  #    self.headers['WWW-Authenticate'] = %(Token realm="#{realm.gsub(/"/, "")}")
+  #  end
+  #
+  #  render json: { errors: ["Bad credentials"] }.to_json, status: 401 unless user_signed_in?
+  #end
 
   def user_signed_in?
     !!current_user
@@ -69,11 +69,11 @@ class AuthenticationController < ApplicationController
                 end
   end
 
-  def admin_only
-    unless @current_user.admin == true
-      render json: { message: "Access denied" }.to_json
-    end
-  end
+  #def admin_only
+  #  unless @current_user.admin == true
+  #    render json: { message: "Access denied" }.to_json
+  #  end
+  #end
 
   def validate_token
     token = request.headers["Authorization"]

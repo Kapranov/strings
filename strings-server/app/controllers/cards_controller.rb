@@ -1,10 +1,17 @@
 class CardsController < AuthenticationController
-  before_action :set_authenticate
+  #before_action :set_authenticate
   before_action :set_card, only: [:show, :update, :destroy]
 
   def index
-    @cards = Card.order_by(content: :desc)
-    render json: Oj.dump(json_for(@cards, meta: meta), mode: :compat)
+    #@cards = Card.order_by(content: :desc)
+    user = User.where(id: params[:user_id]).first
+    @cards = user.cards
+
+    if @cards
+      render json: Oj.dump(json_for(@cards, meta: meta), mode: :compat)
+    else
+      return head :unauthorized
+    end
   end
 
   def show
@@ -15,8 +22,16 @@ class CardsController < AuthenticationController
     end
   end
 
+  def new
+    user = User.where(id: params[:user_id]).first
+    @card = user.cards.new
+  end
+
   def create
-    @card = Card.new(card_params)
+    #@card = Card.new(card_params)
+    user = User.where(id: params[:user_id]).first
+    @card = user.cards.new(card_params)
+
     if @card.save
       render json: Oj.dump(json_for(@card, meta: meta), mode: :compat)
     else
@@ -24,17 +39,23 @@ class CardsController < AuthenticationController
     end
   end
 
-  def destroy
-    if @card.destroy
-      render json: { message: "card deleted" }.to_json, status: :ok
+  def update
+    user = User.where(id: params[:user_id]).first
+    @card = user.cards.where(id: params[:id]).first
+
+    if @card.update(card_params)
+      render json: Oj.dump(json_for(@card, meta: meta), mode: :compat)
     else
       return head :unauthorized
     end
   end
 
-  def update
-    if @card.update(card_params)
-      render json: Oj.dump(json_for(@card, meta: meta), mode: :compat)
+  def destroy
+    user = User.where(id: params[:user_id]).first
+    @card = user.cards.where(id: params[:id]).first
+
+    if @card.destroy
+      render json: { message: "card deleted" }.to_json, status: :ok
     else
       return head :unauthorized
     end
@@ -43,20 +64,12 @@ class CardsController < AuthenticationController
   private
 
   def set_card
-    @card = Card.where(id: params[:id]).first
+    #@card = Card.where(id: params[:id]).first
+    user = User.where(id: params[:user_id]).first
+    @user_card = user.cards.where(id: params[:id]).first
   end
 
   def card_params
-    params.permit(
-      :id,
-      :content,
-      :color,
-      :pick,
-      :room_id,
-      :user_id,
-      :votes
-      # phones_attributes: Phone.attribute_names.map(&:to_sym).push(:_destroy),
-      #  cards_attributes:  Card.attribute_names.map(&:to_sym).push(:_destroy)
-    )
+    params.permit( :id, :content, :color, :pick, :room_id, :user_id, :votes)
   end
 end

@@ -3,7 +3,7 @@ class Phone
   include NoBrainer::Document::Timestamps
   include ActionView::Helpers::NumberHelper
 
-  belongs_to :user
+  belongs_to :user, foreign_key: :user_id, class_name: :User
 
   field :name,          type: String
   field :phone_number,  type: String

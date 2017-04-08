@@ -22,7 +22,7 @@ progress-bar() {
 
 echo -en "\n\n\tPLEASE WAIT CLEAR LOG FILES...\n\n"
 
-until ./lib/bar; rake nobrainer:reset clear:clear; do
+until ./lib/bar; rake nobrainer:sync_indexes nobrainer:reset clear:clear; do
   echo -en "\n\n\tDOWN!\n\n"
 done
 

@@ -1,5 +1,5 @@
 class RoomsController < AuthenticationController
-  before_action :set_authenticate
+  #before_action :set_authenticate
   before_action :set_room, only: [:show, :update, :destroy]
 
   def index
@@ -47,7 +47,6 @@ class RoomsController < AuthenticationController
   end
 
   def room_params
-    # params.permit( :id, :title, cards_attributes: Card.attribute_names.map(&:to_sym).push(:_destroy))
     params.permit( :id, :title)
   end
 end

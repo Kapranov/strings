@@ -5,6 +5,15 @@
 ```
 JWT_TOKEN='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjRWQ3gzbjJjbEdBdFpYIiwiZXhwIjoxNDkxMTM2MDcxfQ.8i3ScmFDaU_9c-GfPsWI64diM914EEJnTcA_KG_J5p4'
 
+# GET /users
+$ http http://api.dev.local:3000/users
+# POST /users
+$ http POST http://api.dev.local:3000/users first_name=Mozart last_name=Buzz
+# PUT /users/:id
+$ http PUT http://api.dev.local:3000/users/1 last_name=Beethoven
+# DELETE /users/:id
+$ http DELETE http://api.dev.local:3000/users/1
+
 # show
 curl -I -v http://api.dev.local:3000
 curl -I --trace-ascii - http://api.dev.local:3000
@@ -654,6 +663,38 @@ render :json => @posts.to_json(
   ],
   :methods => [:likes_count, :comments_count]
 )
+```
+
+> Adding reference IDs to associated records using Faker, seeds.rb.
+
+```
+params = { user:
+  { email: Faker::Internet.email, password: 'password1', profile_attributes: {
+    name: Faker::Name.name, ...other attributes, applicant_attributes: { .... }
+  }
+}
+10.times { User.create!(params[:user])
+
+User.create_profile(profile_attributes)
+
+u = User.first[:id]
+up = UserProfile.new(user: u)
+up.save
+
+country_list = [
+  [ "Deutschland", 81831000 ],
+  [ "Frankreich", 65447374 ],
+  [ "Belgien", 10839905 ],
+  [ "Niederlande", 16680000 ]
+]
+
+country_list.each do |country|
+  Country.create( :name => country[0], :population => country[1] )
+end
+
+phones_attributes: Phone.attribute_names.map(&:to_sym).push(:_destroy),
+cards_attributes:  Card.attribute_names.map(&:to_sym).push(:_destroy)
+params.permit( :id, :title, cards_attributes: Card.attribute_names.map(&:to_sym).push(:_destroy))
 ```
 
 [1]:  http://nobrainer.io/docs/callbacks/#orders_of_callbacks

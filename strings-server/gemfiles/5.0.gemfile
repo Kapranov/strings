@@ -12,6 +12,7 @@ end
 gem 'rails',                      '5.0.2'
 gem 'nobrainer'
 gem 'nobrainer_streams'
+gem 'will_paginate-nobrainer'
 gem 'no_brainer_soft_delete'
 gem 'active_model_serializers'
 gem 'lograge'

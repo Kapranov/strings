@@ -36,10 +36,12 @@ Rails.application.routes.draw do
   resources :upgrade,     only: [:index], defaults: {format: 'json'}
   resources :dashboards,  only: [:index], defaults: {format: 'json'}
   resources :profiles,    only: [:index], defaults: {format: 'json'}
-  resources :rooms,       only: [:index, :show, :create, :destroy], defaults: {format: 'json'}
-  resources :cards,       only: [:index, :show, :create, :destroy, :update], defaults: {format: 'json'}
+  resources :rooms,       only: [:index, :show, :create, :destroy], defaults: {format: 'json'} do
+    resources :cards,  only: [:index, :show, :create, :destroy, :update], defaults: {format: 'json'}
+  end
   resources :users,       only: [:index, :show, :create, :destroy, :update], defaults: {format: 'json'} do
-    resources :phones, defaults: {format: 'json'}
+    resources :phones, only: [:index, :show, :create, :destroy, :update], defaults: {format: 'json'}
+    resources :cards,  only: [:index, :show, :create, :destroy, :update], defaults: {format: 'json'}
   end
 
   post 'login',     to: 'authentication#login', defaults: {format: 'json'}

@@ -2,8 +2,8 @@ class Card
   include NoBrainer::Document
   include NoBrainer::Document::Timestamps
 
-  belongs_to :room
-  belongs_to :user
+  belongs_to :room, foreign_key: :room_id, class_name: :Room
+  belongs_to :user, foreign_key: :user_id, class_name: :User
 
   self.include_root_in_json = true
 
