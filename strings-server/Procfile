@@ -5,3 +5,4 @@
 # rel: bundle exec rake db:migrate
 sid: bundle exec sidekiq  2>&1
 web: bundle exec rackup config.ru -p 3000
+console: rails c

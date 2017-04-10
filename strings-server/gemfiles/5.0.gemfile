@@ -19,6 +19,7 @@ gem 'lograge'
 gem 'rollbar'
 gem 'rack-canonical-host'
 gem 'stackprof'
+gem 'msgpack',   require: false
 gem 'bootscale', require: false
 gem 'rbtrace'
 gem 'tunemygc'
@@ -88,7 +89,6 @@ group :test do
   gem 'cucumber-rails',           require: false
   gem 'cucumber-api',             require: false
   gem 'cucumber-api-steps',       require: false
-  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'selenium-webdriver'
 end

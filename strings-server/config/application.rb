@@ -70,8 +70,14 @@ module StringsServer
     end
 
     config.generators do |g|
+      # For Minitest
       # g.test_framework :minitest, spec: false, fixture: false
-      g.test_framework :minitest, spec: true
+      # g.test_framework :minitest, spec: true
+      # For RSpec
+      g.test_framework :rspec, fixtures: false
+      g.helper false
+      g.decorator false
+      g.controller assets: false
     end
 
     def generate_random_values
