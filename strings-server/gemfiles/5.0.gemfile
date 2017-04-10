@@ -62,43 +62,46 @@ gem 'pundit'
 gem 'carrierwave'
 gem 'carrierwave-nobrainer'
 gem 'pronto'
+gem 'capybara'
 
 group :development do
   gem 'subcontractor'
   gem 'brakeman',                 require: false
+  gem 'guard-rails'
+  gem 'guard-rack'
+  gem 'guard-shellexec'
+  gem 'guard-foreman'
+  gem 'guard-sidekiq'
+  gem 'guard-redis'
+  gem 'guard-livereload'
+  gem 'guard-minitest'
+  gem 'guard-rspec'
+  gem 'guard-brakeman'
+  gem 'rspec-its'
 end
 
 group :test do
   gem 'rails-controller-testing'
-  gem 'minitest-rails'
+  gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
+  gem 'shoulda-matchers',         require: false
+  gem 'cucumber-rails',           require: false
+  gem 'cucumber-api',             require: false
+  gem 'cucumber-api-steps',       require: false
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'selenium-webdriver'
 end
 
 group :development, :test do
   gem 'byebug',                   platform: :mri
   gem 'libnotify'
   gem 'rb-inotify',               require: RUBY_PLATFORM =~ /linux/i ? 'rb-inotify' : false
-  gem 'guard-rails'
-  gem 'guard-rack'
-  gem 'guard-shellexec'
-  gem 'guard-foreman'
-  gem 'guard-sidekiq'
-  gem 'guard-rspec'
-  gem 'guard-minitest'
-  gem 'guard-redis'
-  gem 'guard-brakeman'
-  gem 'guard-livereload'
   gem 'rspec-rails'
-  gem 'rspec-its'
-  gem 'shoulda-matchers',         require: false
-  gem 'cucumber-rails',           require: false
-  gem 'cucumber-api',             require: false
-  gem 'cucumber-api-steps',       require: false
   gem 'faker'
   gem 'ffaker'
   gem 'fake_person'
   gem 'random-word'
-  gem 'factory_girl_rails'
   gem 'license_finder'
   gem 'bundler-audit'
   gem 'benchmark-ips',            require: false

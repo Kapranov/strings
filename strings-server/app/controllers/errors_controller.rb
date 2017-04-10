@@ -1,6 +1,6 @@
 class ErrorsController < ApplicationController
   def not_found
-    render json: { errors: ["Not Found"]}.to_json, status: 401
+    render json: { errors: ["Not Found"]}.to_json, status: 404
   end
 
   def unacceptable
