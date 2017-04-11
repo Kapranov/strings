@@ -63,7 +63,6 @@ gem 'pundit'
 gem 'carrierwave'
 gem 'carrierwave-nobrainer'
 gem 'pronto'
-gem 'capybara'
 
 group :development do
   gem 'subcontractor'
@@ -89,7 +88,6 @@ group :test do
   gem 'cucumber-rails',           require: false
   gem 'cucumber-api',             require: false
   gem 'cucumber-api-steps',       require: false
-  gem 'factory_girl_rails'
   gem 'selenium-webdriver'
 end
 
@@ -98,10 +96,12 @@ group :development, :test do
   gem 'libnotify'
   gem 'rb-inotify',               require: RUBY_PLATFORM =~ /linux/i ? 'rb-inotify' : false
   gem 'rspec-rails'
+  gem 'capybara'
   gem 'faker'
   gem 'ffaker'
   gem 'fake_person'
   gem 'random-word'
+  gem 'factory_girl_rails'
   gem 'license_finder'
   gem 'bundler-audit'
   gem 'benchmark-ips',            require: false

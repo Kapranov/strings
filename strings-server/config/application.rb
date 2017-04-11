@@ -70,6 +70,7 @@ module StringsServer
     end
 
     config.generators do |g|
+      g.factory_girl true
       # For Minitest
       # g.test_framework :minitest, spec: false, fixture: false
       # g.test_framework :minitest, spec: true

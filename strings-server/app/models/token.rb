@@ -19,6 +19,7 @@ class Token
   validates :auth_token,      presence: true, length: { minimum: 25, allow_blank: false }
   validates :state,           presence: true
 
+  index :username
   index :auth_token
 
   private

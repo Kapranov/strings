@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="DashboardsController::GET :index" skipped="0" failures="0" errors="0" tests="2" assertions="2" time="0.008912798000892508">
-  <testcase name="test_0001_should be successful" classname="DashboardsController::GET :index" assertions="1" time="0.006781329000659753">
+<testsuite name="DashboardsController::GET :index" skipped="0" failures="0" errors="0" tests="2" assertions="2" time="0.007243255999128451">
+  <testcase name="test_0001_should be successful" classname="DashboardsController::GET :index" assertions="1" time="0.005671719000019948">
   </testcase>
-  <testcase name="test_0002_should return the correct message when is passed" classname="DashboardsController::GET :index" assertions="1" time="0.002131469000232755">
+  <testcase name="test_0002_should return the correct message when is passed" classname="DashboardsController::GET :index" assertions="1" time="0.0015715369991085026">
   </testcase>
 </testsuite>
